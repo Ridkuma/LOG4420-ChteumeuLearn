@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr-FR" charset="utf-8">
+<head>
+  <title>Tableau de bord - Chteumeulearn</title>
+  <link rel="icon" 
+      type="image/png" 
+      href="icon.png" />
+</head>
+
+<body>
+  <a href="index.html"><img src="logo.png" height="3%" width="3%" alt="Logo Chteumeulearn"/></a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="dashboard.html">Tableau de bord</a>
+    <a href="howto.html">Instructions</a>
+  </nav>
+  <section>
+    <h1>Tableau de bord</h1>
+    <article><a href="question1.html"><button name="quickTestButton">Test Rapide</button></a></article>
+    <article>
+      <form>
+        Domaine :
+       <select>
+          <option value="html">HTML5</option>
+          <option value="css">CSS3</option>
+          <option value="javascript">JavaScript</option>
+        </select>
+        Nombre de questions: <input type="range" step="1" name="questionNumber" min="0" max="10"> <br/>
+      </form>
+      <a href="question1exam.html"><button name="finalTestButton" type="submit">Examen</button></a> <!-- A ajouter dans le formulaire !-->
+    </article>
+    <aside>
+      <p>
+        Tests rapides reussis : 5/10 <br/>
+        Moyenne des examens : 16,5/20<br/>
+        <a href="details.html"><button name="getDetails">Details</button></a> <!-- Le lien sera remplace par un effet jQuery vraiment sympa !-->
+      </p>
+    </aside>
+  </section>
+
+</body>
+
+<footer>
+
+  <p>Asenjo Villamayor, Javier 1762503 <br/>
+  Hudin, Gwenegan 1756642</p>
+  
+</footer>
+
+</html>
