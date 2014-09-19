@@ -16,24 +16,42 @@
   </nav>
   <section>
     <h1>Tableau de bord</h1>
-    <article><a href="question1.html"><button name="quickTestButton">Test Rapide</button></a></article>
+    
+    <article>
+        <form>
+            <fieldset>
+                <legend>Test Rapide</legend>
+            </fieldset>
+        </form>
+        <a href="question1.html"><button name="quickTestButton">Commencer</button></a> <!-- A ajouter dans le formulaire en input -->
+    </article>
+    
     <article>
       <form>
-        Domaine :
-       <select>
-          <option value="html">HTML5</option>
-          <option value="css">CSS3</option>
-          <option value="javascript">JavaScript</option>
-        </select>
-        Nombre de questions: 0 <input type="range" step="1" name="questionNumber" min="0" max="10"> 10<br/>
+      <fieldset>
+            <legend>Examen</legend>
+            
+            <label for="testDomain">Domaine :</label>
+            <select name="testDomain">
+              <option value="html">HTML5</option>
+              <option value="css">CSS3</option>
+              <option value="javascript">JavaScript</option>
+            </select> 
+            
+            <br/>
+            
+            <label for="questionNumber">Nombre de questions:</label> 
+            0 <input type="range" step="1" name="questionNumber" min="0" max="10"> 10 <br/>
+            
+        </fieldset>
       </form>
-      <a href="question1exam.html"><button name="finalTestButton" type="submit">Examen</button></a> <!-- A ajouter dans le formulaire !-->
+      <a href="question1exam.html"><button name="finalTestButton" type="submit">Commencer</button></a> <!-- A ajouter dans le formulaire en input -->
     </article>
     <aside>
       <p>
         Tests rapides reussis : 5/10 <br/>
         Moyenne des examens : 16,5/20<br/>
-        <a href="details.html"><button name="getDetails">Details</button></a> <!-- Le lien sera remplace par un effet jQuery vraiment sympa !-->
+        <a href="details.html"><button name="getDetails">Details</button></a> <!-- Le lien sera remplace par un effet jQuery vraiment sympa -->
       </p>
     </aside>
   </section>
