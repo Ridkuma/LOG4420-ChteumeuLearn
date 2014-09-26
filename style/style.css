@@ -1,13 +1,63 @@
-body {
+html {
 	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	height: 100%;
 	background: url("squairy_light.png");
 	background-attachment: fixed;
 	background-repeat: repeat;
 }
 
 nav {
+	top: 0px;
+	left: 0px;
+	position: fixed;
 	width: 100%;
 	height: 65px;
-	background-color: white;
-	padding: 0px 200px;
+	background-color: rgba(240, 240, 240, 0.95);
+	padding: 0px 0px;
+	margin-top: 0px;
+	margin-bottom: 30px;
+	border-top: 4px solid #3399FF;
+	border-bottom: 1px solid #EAEAEA;
+}
+
+nav > ul {
+	margin: 0px;
+	height: 100%;
+}
+
+nav > ul > li {
+	display: inline-block;
+	height: 100%;
+	border-right: 1px solid rgba(180, 180, 180, 0.8);
+	padding: 0px 15px;
+}
+
+nav > ul > li > a {
+	color: rgba(150, 150, 150, 0.95);
+	text-decoration: none;
+	text-align: center;
+	vertical-align: -40px;
+}
+
+nav > ul > li > a:visited {
+	color: rgba(150, 150, 150, 0.95);
+}
+
+nav > ul > li > a:hover {
+	color: rgba(50, 50, 50, 1);;
+}
+
+.logo {
+	background-color: #3399FF;
+	background-image: url("../logo.png");
+	background-repeat: no-repeat;
+	background-position: 9px 6px;
+	width: 50px;
+	height: 50px;
+	float: left;
+	padding: 7.5px 10px;
 }
