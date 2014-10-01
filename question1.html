@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr-FR" charset="utf-8">
+<link href="style/style.css" media="all" rel="stylesheet" type="text/css" />
 <head>
   <title>Test Rapide - Chteumeulearn</title>
   <link rel="icon" 
@@ -7,13 +8,18 @@
       href="icon.png" />
 </head>
 
-<body>
-  <a href="index.html"><img src="logo.png" height="3%" width="3%" alt="Logo Chteumeulearn"/></a>
+<header>
   <nav>
-    <a href="index.html">Accueil</a>
-    <a href="dashboard.html">Tableau de bord</a>
-    <a href="howto.html">Instructions</a>
+    <a href="index.html"><div class="logo"></div></a>
+    <ul>
+      <li class="home"><a href="index.html">Accueil</a></li>
+      <li class="dashboard"><a href="dashboard.html">Tableau de bord</a></li>
+      <li class="info"><a href="howto.html">Instructions</a></li>
+    </ul>
   </nav>
+</header>
+
+<body>
   <section>
     <h1>Test Rapide</h1>
     <article>
@@ -23,8 +29,8 @@
         <input type="radio" name="answer" value="answer1">J'apprecie les fruits au sirop</input> <br/>
         <input type="radio" name="answer" value="answer2">Pas changer assiette pour fromage</input> <br/>
       </form>
-      <a href="question2.html"><button name="nextQuestion" type="submit">Suivant</button></a> <!-- A mettre dans le formulaire !-->
-      <a href="dashboard.html"><button name="backToMenu">Retour Menu</button></a> <!-- Demander confirmation !-->
+      <a href="question2.html"><button name="nextQuestion" type="submit">Suivant</button></a> <!-- A mettre dans le formulaire -->
+      <a href="dashboard.html"><button name="backToMenu">Retour Menu</button></a> <!-- Demander confirmation -->
     </article>
     <aside>
       <p>
