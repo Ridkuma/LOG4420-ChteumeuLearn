@@ -1,13 +1,15 @@
 html {
-	margin: 0px;
-	padding: 0px;
+	margin:0px;
+	min-height: 100%;
+	background-image:url("img/cork.png");
+	background-repeat:repeat;
+	border: 30px groove transparent;
+	border-image: url("img/wood.jpg") 200 200 200 200 repeat; 
 }
 
+
 body {
-	height: 100%;
-	background: url("squairy_light.png");
-	background-attachment: fixed;
-	background-repeat: repeat;
+	margin:0px;
 }
 
 header {
@@ -74,6 +76,98 @@ nav > ul > li > a {
 	padding-left: 15px;
 	padding-right: 15px;
 	font-size: 0.8em;
+}
+section{
+	font-size: 1.5vmax;
+	margin:13% 13% -3% 13%;
+	padding:0px 0px 5% 0px;
+	text-align: center;
+	background-image: url("img/paper.png");
+	background-repeat:repeat-y;
+    -webkit-background-size: contain;
+   	background-size:contain;
+   	background-position: center;
+}
+
+div > section > h1{
+	margin:0px 15% 5%;
+	padding: 5% 1% 1% 0px;
+	text-align: center;
+	font-family: "Brush Script MT", Times, serif;
+	font-size:4vmax;
+	border-bottom: 4px solid rgba(0,204,153,0.95);
+}
+div > section > p{
+	margin:0px;
+	padding: 0px 18%;
+	text-align: justify;
+}
+
+div > section > a {
+	text-align: center;
+}
+
+article > form > fieldset{
+	border: 2px ridge rgba(0,204,153,0.95);
+	border-radius: 4px;
+}
+
+section > div >aside{
+	-webkit-flex-basis:27.5%;
+ 	flex-basis:27.5%;
+ 	border: 2px ridge rgba(51, 153, 255, 0.95);
+ 	border-radius: 4px;
+ 	margin-top: 8px;
+}
+
+section > div > aside > p{
+	margin:0px;
+	padding: 10px;
+	height:100%;
+}
+
+section > div > aside > h1{
+	text-align: center;
+	margin:0px;
+	padding:4px;
+	background-color: rgba(168,168,168,0.95);
+	border-bottom: 2px ridge #3399FF;
+	color: #383838;
+
+}
+
+footer {
+	margin:0px 60% 1% 3%;
+	padding: 2% 0px 8% 0px;
+	background-image: url("img/tack.png");
+	background-repeat:repeat-y;
+    -webkit-background-size: contain;
+   	background-size:contain;
+   	text-align: center;
+   	font-size: 1.5vmax;
+}
+
+footer > div {
+}
+
+.exam{
+ 	-webkit-flex-basis:67.5%;
+ 	flex-basis:67.5%;
+	display:-webkit-flex;
+	display:flex;
+	-webkit-flex-flow:column;
+	flex-flow:column;
+}
+
+.dashboardContent{
+	margin:0px;
+	padding: 0px 18%;
+	text-align: justify;
+	display:-webkit-flex;
+	display:flex;
+	-webkit-flex-flow:row;
+	flex-flow: row;
+	justify-content:space-between;
 }
 
 nav > ul > li > a:visited {
