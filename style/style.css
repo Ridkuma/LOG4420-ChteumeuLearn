@@ -104,13 +104,30 @@ div > section > p{
 	padding: 0px 10% 0px 25%;
 	text-align: justify;
 }
+div > section > p > img{
+	float:right;
+	width:29%;
+	margin: 0px 0px 3% 3%;
+	background-color: rgb(250,250,250);
+	border:5px solid rgb(192,192,192);
+	border-bottom: 34px solid rgb(192,192,192);
+}
 
 div > section > a {
 	text-align: center;
 }
 
+.exam > article{
+	margin:11% 0px 4% 4%;
+}
+
+.exam > article > a >button{
+	margin:11% 0px 4% 4%;
+}
+
 article > form > fieldset{
-	border: none
+	border: none;
+	font-size: 2vmax;
 }
 
 section > div >aside{
