@@ -84,7 +84,7 @@ nav > ul > li > a {
 section{
 	font-size: 1.5vmax;
 	margin:13% 13% -3% 13%;
-	padding:0px 0px 5% 16%;
+	padding:0px 5% 5% 16%;
 	text-align: center;
 	background-image: url("img/paper4.png");
 	background-repeat:repeat-y;
@@ -97,7 +97,7 @@ div > section > h1{
 	margin:0px 0px 5% 0px;
 	padding: 5% 0px 1% 0px;
 	text-align: center;
-	font-size:4vmax;
+	font-size:5vw;
 	badorder-bottom: 4px solid rgba(0,204,153,0.95);
 }
 div > section > p{
@@ -120,7 +120,7 @@ div > section > a {
 }
 
 .exam > article{
-	margin:11% 0px 4% 4%;
+	margin:11% 0px 5% 4%;
 }
 
 button{
@@ -130,7 +130,7 @@ button{
 	background-repeat: repeat-y;
 	background-size: cover;
 	border:none;
-	padding: 2vmax 2vmax 3vmax 2vmax;
+	padding: 1vmax 0.5vmax 0.5vmax 0.5vmax;
 	font-size: 1.5vmax;
 	font-family: "Homer Simpson", cursive, serif;
 
@@ -139,7 +139,7 @@ button{
 button > img{
 	position:absolute;
 	top:0;
-	left:0;
+	left:34%;
 	height:2vmax;
 	width:2vmax;
 }
@@ -147,6 +147,18 @@ button > img{
 article > form > fieldset{
 	border: none;
 	font-size: 2vmax;
+	border:none;
+}
+
+article > form > fieldset > legend{
+	margin:0px;
+	border:none;
+	text-align: center;
+	border-bottom: 2px solid rgb(176,0,0);
+}
+
+fieldset > input{
+	width: 12vw;
 }
 
 section > div >aside{
@@ -157,22 +169,23 @@ section > div >aside{
     -webkit-background-size: cover;
    	background-size:cover;
    	background-position: center;
- 	margin: 7% -31% 0px 0px;
- 	padding:8% 7% 15% 7%; 
- 	text-align: center;
+ 	margin: 7% -31% 0px 4%;
+ 	padding:8% 5% 0px 7%; 
+ 	height:34vmax;
+ 	text-align: left;
 }
 
 section > div > aside > p{
 	margin:0px;
-	padding: 10px;
-	height:100%;
+	font-size: 2vmax;
 }
 
 section > div > aside > h1{
 	text-align: center;
 	margin:0px;
-	padding:4px;
+	padding:7% 0px 14% 0px;
 	color: #383838;
+	font-size: 2.5vw;
 
 }
 section > div > div > article > a{
@@ -205,7 +218,7 @@ footer > div {
 .dashboardContent{
 	margin:0px;
 	padding: 0px 10% 0px 5%;
-	text-align: justify;
+	text-align: left;
 	display:-webkit-flex;
 	display:flex;
 	-webkit-flex-flow:row;
