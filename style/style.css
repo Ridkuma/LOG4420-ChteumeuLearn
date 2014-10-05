@@ -1,7 +1,7 @@
 html {
 	margin:0px;
 	min-height: 100%;
-	font-family: "Homer Simpson", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	background-image:url("img/cork.png");
 	background-repeat:repeat;
 	border: 30px groove transparent;
@@ -90,6 +90,15 @@ section{
     -webkit-background-size: contain;
    	background-size:contain;
    	background-position: center;
+}
+
+@font-face {
+    font-family: "Title Font"; 
+    src: url('AlexBrush-Regular.ttf');
+} 
+
+h1{
+	font-family: "Title Font", "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 div > section > h1{
