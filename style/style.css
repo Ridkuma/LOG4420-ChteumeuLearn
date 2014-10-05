@@ -1,7 +1,12 @@
+@font-face {
+    font-family: "html Font"; 
+    src: url('DEVROYE_.ttf');
+} 
+
 html {
 	margin:0px;
 	min-height: 100%;
-	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-family: "html Font","Palatino Linotype", "Book Antiqua", Palatino, serif;
 	background-image:url("img/cork.png");
 	background-repeat:repeat;
 	border: 30px groove transparent;
@@ -72,7 +77,6 @@ nav > ul > li > a {
 	position: relative;
 	bottom: 3px;
 	display: block;
-	width: 100%;
 	color: rgba(150, 150, 150, 0.95);
 	text-decoration: none;
 	padding-top: 50px;
@@ -81,15 +85,24 @@ nav > ul > li > a {
 	font-size: 0.8em;
 }
 section{
+	position:relative;
 	font-size: 1.5vmax;
 	margin:13% 13% -3% 13%;
 	padding:0px 5% 5% 16%;
 	text-align: center;
-	background-image: url("img/paper4.png");
+	background-image: url("img/paper.png");
 	background-repeat:repeat-y;
     -webkit-background-size: contain;
    	background-size:contain;
    	background-position: center;
+}
+
+section > img {
+	position:absolute;
+	top:-8vw;
+	left:-8vw;
+	height: 24vw;
+	width:24vw;
 }
 
 @font-face {
@@ -98,29 +111,29 @@ section{
 } 
 
 h1{
-	font-family: "Title Font", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-family: "html Font", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-style: bold;
 }
 
-div > section > h1{
+section > h1{
 	margin:0px 0px 5% 0px;
 	padding: 5% 0px 1% 0px;
 	text-align: center;
 	font-size:5vw;
-	badorder-bottom: 4px solid rgba(0,204,153,0.95);
 }
-div > section > p{
+section > p{
 	margin:0px;
 	padding: 0px 10% 0px 5%;
 	text-align: justify;
 	font-size: 1.5vmax;
 }
-div > section > p > img{
+section > p > img{
 	float:right;
 	width:29%;
 	margin: 0px 0px 3% 3%;
 }
 
-div > section > a {
+section > a {
 	text-align: center;
 }
 
@@ -129,13 +142,14 @@ div > section > a {
 }
 
 button{
+	font-family: "html Font", "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	position:relative;
 	margin: 1.5vmax 0px 0px 0px;
-	background-image: url("img/tack.png");
+	background-image: url("img/postit.png");
 	background-repeat: repeat-y;
 	background-size: cover;
 	border:none;
-	padding: 1vmax 0.5vmax 0.5vmax 0.5vmax;
+	padding: 1vmax 0.7vmax 0.7vmax 0.7vmax;
 	font-size: 1.5vmax;
 }
 
@@ -154,7 +168,8 @@ article > form > fieldset{
 }
 
 article > form > fieldset > legend{
-	margin:0px;
+	font-size:2.5vw;
+	margin:0px 0px 1vmax 0px;
 	border:none;
 	text-align: center;
 	border-bottom: 2px solid rgb(176,0,0);
@@ -204,6 +219,7 @@ footer {
    	background-size:contain;
    	font-size: 1.5vmax;
    	text-align: center;
+   	position:relative;
 }
 
 footer > div {
