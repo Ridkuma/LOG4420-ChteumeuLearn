@@ -30,7 +30,7 @@ var question4 =
 	id: 3,
 	domain: "HTML5",
 	question: "Lequel de ces doctypes est correct en HTML5?",
-	answers: ["<!DOCTYPE html>", "<!DOCTYPE HTML5>", "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 5.0//EN" "http://www.w3.org/TR/html5/strict.dtd'>"],
+	answers: ["<!DOCTYPE html>", "<!DOCTYPE HTML5>", "<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 5.0//EN http://www.w3.org/TR/html5/strict.dtd>"],
 	correct: 0
 };
 
@@ -73,7 +73,7 @@ var question8 =
 var question9 = 
 {
 	id: 8,
-	domain: "JS",
+	domain: "JavaScript",
 	question: "Un script externe JavaScript doit contenir la balise script :",
 	answers: ["Faux", "Vrai"],
 	correct: 0
@@ -82,7 +82,7 @@ var question9 =
 var question10 = 
 {
 	id: 9,
-	domain: "JS",
+	domain: "JavaScript",
 	question: "Comment écrire le message 'Hello World' dans une fenêtre d'alerte ?",
 	answers: ["msgBox('Hello World');", "alert('Hello World');", "msg('Hello World');", "alertBox('Hello World');"],
 	correct: 1
