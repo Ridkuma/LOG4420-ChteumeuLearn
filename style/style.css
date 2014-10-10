@@ -127,7 +127,7 @@ section > p{
 	text-align: justify;
 	font-size: 1.5vmax;
 }
-section > p > img{
+section > p > img.float-right{
 	float:right;
 	width:29%;
 	margin: 0px 0px 3% 3%;
