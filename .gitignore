@@ -1,3 +1,8 @@
 *.DS_Store
 *~
 *.db
+.DS_Store
+
+style/.DS_Store
+
+style/img/.DS_Store
