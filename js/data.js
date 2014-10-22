@@ -46,7 +46,7 @@ var question5 =
 var question6 = 
 {
 	id: 5,
-	domain: "CSS",
+	domain: "CSS3",
 	question: "Que signifie CSS ?",
 	answers: ["Cascading Style Sheets", "Computer Style Sheets", "Colorful Style Sheets", "Creative Style Sheets"],
 	correct: 0
@@ -55,7 +55,7 @@ var question6 =
 var question7 = 
 {
 	id: 6,
-	domain: "CSS",
+	domain: "CSS3",
 	question: "Où doit on placer, dans un document HTML, la référence vers une feuille de style externe ?",
 	answers: ["Dans la section <body>", "En haut du document", "Dans la section <head>", "À la fin du document"],
 	correct: 2
@@ -64,7 +64,7 @@ var question7 =
 var question8 = 
 {
 	id: 7,
-	domain: "CSS",
+	domain: "CSS3",
 	question: "Laquelle de ces syntaxes est correcte en CSS ?",
 	answers: ["body:color=black;", "{body;color:black;}", "{body:color=black;}", "body {color: black;}"],
 	correct: 3

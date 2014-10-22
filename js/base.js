@@ -3,11 +3,12 @@
 		function loadSite() {
 			$('.header').load("header.html");
 			$('.footer').load("footer.html"); 
-			$( "#formSelect" ).change(getSelected);
+			$( "#formSelect" ).change(getQuestionExam);
 			$("#questionNumber").change(getQuestionNumber);
-			var preg = "";
-			var preg = getQuestion();
-			$('.questionExam').text(preg);
+			var url = window.location.pathname.split("/");
+			if(url[url.length-1] === 'questionExam.html'){
+				putQuestion();
+			}
 		};
 
 
@@ -16,23 +17,39 @@
 			$('#formSelect option:selected').each(function(){
 				str.push($(this).text());			
 		})
-			sessionStorage.setItem("options", str);
+			sessionStorage.setItem("options", JSON.stringify(str));
 		};
 
 		function getQuestionNumber(){
 			sessionStorage.setItem("questionNumber", $(this).val());
 		};
 
-		function getQuestion(){
-			var quest = "";
+		function getQuestionExam(){
+			getSelected();
 			var questions = [];
-			var domains = sessionStorage.getItem("options");
+			var domains = JSON.parse(sessionStorage.getItem("options"));
 			for(i=0;i<data.length;i++){
 				if(domains.indexOf(data[i].domain) != -1){
 					questions.push(data[i].question);
-					quest = data[i].question;
 				}
+			}	
+			sessionStorage.setItem("questions",JSON.stringify(questions));
+		};
+
+		function putQuestion(){
+			var question = "";
+			var questionList = [];
+			questionList = JSON.parse(sessionStorage.getItem("questions"));
+			
+			if(questionList.length != 0){
+				var random = Math.floor(Math.random()* questionList.length);
+				question = questionList[random];
+				questionList.splice(random,1);
+				sessionStorage.setItem("questions",JSON.stringify(questionList));
+			$('.questionExam').text(question);
 			}
-			sessionStorage.setItem("questions",questions);
-			return quest;
+			else{
+				location.href = "results.html";
+			}
+
 		};
