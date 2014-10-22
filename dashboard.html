@@ -9,6 +9,7 @@
   <meta charset="UTF-8">
   <script type="text/javascript" src='js/jquery.js'></script>
   <script type="text/javascript" src='js/base.js'></script>
+  <script type="text/javascript" src='js/data.js'></script>
 </head>
 
 <header class = "header"></header>
@@ -31,7 +32,7 @@
     
     <article>
 
-      <form name = "examForm">
+      <form name = "examForm" action = "question1Exam.html">
         <fieldset>
 
             <legend>Examen</legend>
@@ -46,11 +47,12 @@
             <br/>
             
             <label for="questionNumber">Nombre de questions:</label> 
-            </br> 0 <input type="range" step="1" name="questionNumber" min="0" max="10"> 10 <br/>
+            </br> 0 <input type="range" step="1" id="questionNumber" min="0" max="10"> 10 <br/>
             
         </fieldset>
+        <button id="finalTestButton" type="submit"><img src = "style/img/pin.png">Commencer</button>
       </form>
-      <a href="question1exam.html"><button name="finalTestButton" type="submit"><img src = "style/img/pin.png">Commencer</button></a> <!-- A ajouter dans le formulaire en input -->
+      <!-- A ajouter dans le formulaire en input -->
     </article>
   </div>
     <aside>
