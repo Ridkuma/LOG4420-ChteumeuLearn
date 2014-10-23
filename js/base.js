@@ -16,7 +16,7 @@
 			var str = [];
 			$('#formSelect option:selected').each(function(){
 				str.push($(this).text());			
-		})
+			})
 			sessionStorage.setItem("options", JSON.stringify(str));
 		};
 
@@ -39,17 +39,34 @@
 		function putQuestion(){
 			var question = "";
 			var questionList = [];
+			var answers=[];
 			questionList = JSON.parse(sessionStorage.getItem("questions"));
-			
-			if(questionList.length != 0){
-				var random = Math.floor(Math.random()* questionList.length);
-				question = questionList[random];
-				questionList.splice(random,1);
-				sessionStorage.setItem("questions",JSON.stringify(questionList));
+			var random = Math.floor(Math.random()* questionList.length);
+			question = questionList[random];
+			for(i = 0; i < data.length; i++){
+				if(question == data[i].question){
+					for(j=0; j< data[i].answers.length;j++){
+						answers[j]= data[i].answers[j];
+					}
+				}
+			}
+			for(m = 0; m<answers.length;m++){
+				alert(answers[m]);
+				alert(m);
+				$("#answer"+ m).text(answers[m]);
+				if(m != answers.length-1){
+					var next = m+1;
+					$("#answer"+m).after(" <br/><input type='radio' name='answer' value='answer1'><span id = 'answer"+ next +"'></></input>");
+				}
+			}
+			questionList.splice(random,1);
+			sessionStorage.setItem("questions",JSON.stringify(questionList));
 			$('.questionExam').text(question);
-			}
-			else{
-				location.href = "results.html";
-			}
-
+			$(".nextQuestionExam").submit(function(){
+					if(questionList.length == 0){
+						$('.nextQuestionExam').attr('action', "results.html");
+					}
+					
+			})
+				
 		};
