@@ -4,21 +4,42 @@
 		function loadSite() {
 			$('.header').load("header.html");
 			$('.footer').load("footer.html"); 
+
 			$( "#domainSelect" ).change(onDomainSelectChanged);
 			$("#questionCount").change(onQuestionCountChanged);
+
 			var url = window.location.pathname.split("/");
-			if(url[url.length-1] === 'questionExam.html' && sessionStorage.getItem("checked")==='no' ){
-				newQuestion();
-			}
-			else if(url[url.length-1] === 'questionExam.html' && sessionStorage.getItem("checked") ==='yes'){
-				reloadQuestion(sessionStorage.getItem("actualQuestion"));
-			}
+            var location = url[url.length-1];
+            if (location.indexOf('dashboard') != -1) {
+                defaultForm();
+            } 
+            else if(location.indexOf('questionExam') != -1) {
+                switch (sessionStorage.getItem("checked")) {
+                    case 'no' :
+                        newQuestion();
+                        break;
+                    case 'yes' :
+                        reloadQuestion(sessionStorage.getItem("actualQuestion"));
+                        break;
+                    default :
+                        break;
+                }
+            }
 		};
 
         // DASHBOARD
 
-        // Get all questions available for current domains choice
+        function defaultForm() {
+            changeDomain();
+        }
+
+        // On domain selection change
         function onDomainSelectChanged(){
+            changeDomain();
+        };
+
+        // Get all questions available for current domains choice
+        function changeDomain() {
             sessionStorage.setItem("checked", 'no');
             getSelected();
             var questions = [];
@@ -33,7 +54,7 @@
             $('#questionCount').attr('max', questions.length);
             $('#maxQuestionCount').text(questions.length);
             resetQuestionCount();
-        };
+        }
 
         // Get selected options for question domain
 		function getSelected(){
@@ -57,7 +78,7 @@
 
         // Sets question count back to 0
         function resetQuestionCount() {
-            $("#questionCount").val(0);
+            $("#questionCount").val($("#questionCount").attr('min'));
             getQuestionCount($("#questionCount"));
         }
 
