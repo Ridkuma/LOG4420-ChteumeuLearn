@@ -5,7 +5,7 @@
 			$('.header').load("header.html");
 			$('.footer').load("footer.html"); 
 
-			$( "#domainSelect" ).change(onDomainSelectChanged);
+			$("#domainSelect").change(onDomainSelectChanged);
 			$("#questionCount").change(onQuestionCountChanged);
 
 			var url = window.location.pathname.split("/");
@@ -13,7 +13,7 @@
             if (location.indexOf('dashboard') != -1) {
                 defaultForm();
             } 
-            else if(location.indexOf('questionExam') != -1) {
+            else if(location.indexOf('questionExam') != -1) { 
                 switch (sessionStorage.getItem("checked")) {
                     case 'no' :
                         newQuestion();
@@ -24,13 +24,17 @@
                     default :
                         break;
                 }
+                progress();
             }
 		};
 
         // DASHBOARD
 
+        // Set the form to have default values
         function defaultForm() {
             changeDomain();
+            sessionStorage.setItem('currentQuestion', 0);
+            sessionStorage.setItem('score', 0);
         }
 
         // On domain selection change
@@ -84,7 +88,7 @@
 
         // EXAM
 
-        // Display a random question and its answers
+        // Display a random question
 		function newQuestion(){
 			var question = "";
 			var questionList = [];
@@ -93,8 +97,11 @@
 			question = questionList[random];
 			sessionStorage.setItem("actualQuestion",question);
 			questionList.splice(random,1);
+            sessionStorage.setItem("questions",JSON.stringify(questionList));
+            sessionStorage.currentQuestion++;
+
 			writeAnswers(question);
-			sessionStorage.setItem("questions",JSON.stringify(questionList));
+
 			$(".nextQuestionExam").submit(function(){
 					sessionStorage.setItem("checkedRadio",$(".nextQuestionExam input[name=answer]:checked").attr("id"));
 					sessionStorage.setItem("checked", 'yes');
@@ -102,11 +109,10 @@
 					if(questionList.length == 0){
 						$('.nextQuestionExam').attr('action', "results.html");
 					}
-					
-			})
-				
+                })	
 		};
 
+        // Display a question's answers
 		function writeAnswers(question){
 			var answers="";
 			for(i = 0; i < data.length; i++){
@@ -124,13 +130,22 @@
 			$('.questionExam').text(question);
 		};
 
+        // Correct user answer
 		function reloadQuestion(question){
 			writeAnswers(question);
+
 			var radioNumber = sessionStorage.getItem("checkedRadio");
 			$("#"+radioNumber).attr("checked",'checked');
 			var idCorrect = $(".nextQuestionExam input[value = correct]").attr('id');
+            $('#answers'+idCorrect).css({'text-decoration':'underline', 'color':'green'});
+
+            if (radioNumber == idCorrect) {
+                sessionStorage.score++;
+            } else {
+                $('#answers'+radioNumber).css({'text-decoration':'underline', 'color':'red'});
+            }
+
 			$('#nextQuestion').text('Suivant');
-			$('#answers'+idCorrect).css({'text-decoration':'underline', 'color':'green'});
 			var questionList = JSON.parse(sessionStorage.getItem("questions"));
 			$(".nextQuestionExam").submit(function(){
 					sessionStorage.setItem("checked", 'no');
@@ -139,3 +154,11 @@
 					}	
 			})
 		};
+
+        // Update progress bar
+        function progress() {
+            $("#examProgress").attr('max', sessionStorage.getItem("questionCount"));
+            $("#examProgress").val(sessionStorage.currentQuestion - 1);
+            $("#currentScore").text(sessionStorage.score);
+            $("#maxScore").text(sessionStorage.currentQuestion);
+        }

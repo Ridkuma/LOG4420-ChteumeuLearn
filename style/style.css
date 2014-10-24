@@ -1,7 +1,7 @@
 @font-face {
     font-family: "Devroye"; 
     src: url('DEVROYE_.ttf');
-} 
+}
 
 html {
 	margin:0px;
@@ -104,11 +104,6 @@ section > img {
 	height: 24vw;
 	width:24vw;
 }
-
-@font-face {
-    font-family: "Title Font"; 
-    src: url('AlexBrush-Regular.ttf');
-} 
 
 h1{
 	font-family: "Devroye", "Palatino Linotype", "Book Antiqua", Palatino, serif;
