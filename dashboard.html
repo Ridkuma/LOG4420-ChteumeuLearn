@@ -38,7 +38,7 @@
             <legend>Examen</legend>
             
             <label for="testDomain">Domaine:</label>
-            <select id = "formSelect" name="testDomain" multiple>
+            <select id = "domainSelect" name="testDomain" multiple>
               <option value="html">HTML5</option>
               <option value="css">CSS3</option>
               <option value="javascript">JavaScript</option>
@@ -47,7 +47,7 @@
             <br/>
             
             <label for="questionNumber">Nombre de questions:</label> 
-            </br> 0 <input type="range" step="1" id="questionNumber" min="0" max="10"> 10 <br/>
+            </br><input type="range" step="1" id="questionCount" min="0" max="10"> <span id="selectedQuestionCount">0</span>/<span id="maxQuestionCount">10</span> <br/>
             
         </fieldset>
         <button id="finalTestButton" type="submit"><img src = "style/img/pin.png">Commencer</button>
