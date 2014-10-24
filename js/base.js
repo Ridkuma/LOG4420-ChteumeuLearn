@@ -44,6 +44,7 @@
 
         // Get all questions available for current domains choice
         function changeDomain() {
+            sessionStorage.setItem("numQuestions",0);
             sessionStorage.setItem("checked", 'no');
             getSelected();
             var questions = [];
@@ -87,9 +88,24 @@
         }
 
         // EXAM
+		function getQuestionExam(){
+			sessionStorage.setItem("checked", 'no');
+			getSelected();
+			var questions = [];
+			var domains = JSON.parse(sessionStorage.getItem("options"));
+			for(i=0;i<data.length;i++){
+				if(domains.indexOf(data[i].domain) != -1){
+					questions.push(data[i].question);
+				}
+			}	
+			sessionStorage.setItem("questions",JSON.stringify(questions));
+		};
 
         // Display a random question
 		function newQuestion(){
+			var numQuestions = parseInt(sessionStorage.getItem("numQuestions"));
+			numQuestions++;
+			sessionStorage.setItem("numQuestions", numQuestions);
 			var question = "";
 			var questionList = [];
 			questionList = JSON.parse(sessionStorage.getItem("questions"));
@@ -114,7 +130,6 @@
 
         // Display a question's answers
 		function writeAnswers(question){
-			var answers="";
 			for(i = 0; i < data.length; i++){
 				if(question == data[i].question){
 					for(j=0; j< data[i].answers.length;j++){
@@ -147,9 +162,11 @@
 
 			$('#nextQuestion').text('Suivant');
 			var questionList = JSON.parse(sessionStorage.getItem("questions"));
+			var limit = parseInt(sessionStorage.getItem("questionCount"));
+			var max = parseInt(sessionStorage.getItem("numQuestions"));
 			$(".nextQuestionExam").submit(function(){
 					sessionStorage.setItem("checked", 'no');
-					if(questionList.length == 0){
+					if(questionList.length === 0 || limit === max){
 						$('.nextQuestionExam').attr('action', "results.html");
 					}	
 			})
