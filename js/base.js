@@ -40,7 +40,9 @@
         // Set the form to have default values
         function defaultForm() {
             changeDomain();
-            localStorage.setItem("idChecked",null);
+            updateStats("rightTestAnswers","rightQuestionTest");
+            updateStats("numQuestionsTest","totalQuestionTest");
+            sessionStorage.setItem("idChecked",null);
             $("#finalTestButton").attr("disabled", true);
             sessionStorage.setItem("right","false");
             sessionStorage.setItem('numQuestionsTest',0);
@@ -49,6 +51,26 @@
             sessionStorage.setItem('score', 0);
         };
 
+       function updateStats(actual,fixed){
+            if(sessionStorage.getItem(actual) != null){
+                    if(sessionStorage.getItem(fixed) === null){
+                        sessionStorage.setItem(fixed,sessionStorage.getItem(actual));
+                    }
+                    else{
+                        var newData = parseInt(sessionStorage.getItem(actual));
+                        var pastData = parseInt(sessionStorage.getItem(fixed));
+                        var totalData = newData + pastData;
+                        sessionStorage.setItem(fixed,totalData);
+                    }
+                    if(typeof(sessionStorage.rightQuestionTest) != undefined){
+                        var result = sessionStorage.rightQuestionTest
+                    }
+                    else{
+                        var result = 0;
+                    }
+                    $("#testStats").text("Note acumulative tests : "+ result + "/" + sessionStorage.totalQuestionTest);  
+            }
+        };
         // On domain selection change
         function onDomainSelectChanged(){
             changeDomain();
@@ -222,6 +244,7 @@
         //Choose random question
 
         function loadQuestionTest(){
+            sessionStorage.setItem("right","false");
             var numQuestionsTest = parseInt(sessionStorage.getItem("numQuestionsTest"));
             numQuestionsTest++;
             sessionStorage.setItem("numQuestionsTest",numQuestionsTest);
@@ -234,18 +257,30 @@
             numQuestionsAnswered -= 1;
             $("#result").text("Note actuelle : "+ sessionStorage.getItem("rightTestAnswers")+"/" + numQuestionsAnswered);
             writeAnswers(index);
-            localStorage.setItem("index",index);
+            sessionStorage.setItem("index",index);
             $("#nextQuestionTest").change(getChecked);
-            $("#nextQuestionTest").submit(refreshResult());
+            $("#nextQuestionTest").submit(refreshResult);
+            $("#backToMenu").click(refreshStatistics);
             
             
         };
 
         function getChecked(){
             var idChecked = $("#nextQuestionTest input[name=answer]:checked").attr("id");
-            localStorage.setItem("idChecked",idChecked);
-            if(parseInt(idChecked) === data[parseInt(localStorage.getItem("index"))].correct){
+            sessionStorage.setItem("idChecked",idChecked);
+            if(parseInt(idChecked) === data[parseInt(sessionStorage.getItem("index"))].correct){
                 sessionStorage.setItem("right","true");
+            }
+            else{
+                sessionStorage.setItem("right","false");
+            }
+        };
+
+        function refreshStatistics(){
+            if(sessionStorage.getItem("right") === "true"){
+                var right = parseInt(sessionStorage.getItem("rightTestAnswers"));
+                right++;
+                sessionStorage.setItem("rightTestAnswers",right);
             }
         };
  
