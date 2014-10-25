@@ -24,10 +24,14 @@
                     default :
                         break;
                 }
-                progress();
+                $("#forfeitExam").click(onForfeitExamClicked);
+                progress("exam");
             }
             else if(location.indexOf('question') != -1){
                 testForm();
+            }
+            else if (location.indexOf('results' != -1) {
+                recordResults();    
             }
 		};
 
@@ -36,12 +40,13 @@
         // Set the form to have default values
         function defaultForm() {
             changeDomain();
+            $("#finalTestButton").attr("disabled", true);
             sessionStorage.setItem("right","false");
             sessionStorage.setItem('numQuestionsTest',0);
             sessionStorage.setItem('rightTestAnswers',0);
             sessionStorage.setItem('currentQuestion', 0);
             sessionStorage.setItem('score', 0);
-        }
+        };
 
         // On domain selection change
         function onDomainSelectChanged(){
@@ -65,13 +70,13 @@
             $('#questionCount').attr('max', questions.length);
             $('#maxQuestionCount').text(questions.length);
             resetQuestionCount();
-        }
+        };
 
         // Get selected options for question domain
 		function getSelected(){
 			var str = [];
 			$('#domainSelect option:selected').each(function(){
-				str.push($(this).text());			
+				str.push($(this).text());		
 			})
 			sessionStorage.setItem("options", JSON.stringify(str));
 		};
@@ -79,7 +84,8 @@
         // On question count slider change
         function onQuestionCountChanged() {
             getQuestionCount( $(this) );
-        }
+            $("#finalTestButton").attr("disabled", false);
+        };
 
         // Store question count choice, update text
         function getQuestionCount(qCount){
@@ -91,7 +97,7 @@
         function resetQuestionCount() {
             $("#questionCount").val($("#questionCount").attr('min'));
             getQuestionCount($("#questionCount"));
-        }
+        };
 
         // EXAM
 		function getQuestionExam(){
@@ -188,15 +194,26 @@
 
         function putPin(id){
             id.append("<img src = 'style/img/pin.png'>");
-        }
+        };
 
         // Update progress bar
-        function progress() {
-            $("#examProgress").attr('max', sessionStorage.getItem("questionCount"));
-            $("#examProgress").val(sessionStorage.currentQuestion - 1);
+        function progress(testType) {
+            if (testType == "exam") {
+                $("#examProgress").attr('max', sessionStorage.getItem("questionCount"));
+                $("#examProgress").val(sessionStorage.currentQuestion - 1);
+            }
             $("#currentScore").text(sessionStorage.score);
-            $("#maxScore").text(sessionStorage.currentQuestion);
-        }
+            $("#maxScore").text((testType == "exam") ? sessionStorage.getItem("questionCount") : sessionStorage.currentQuestion);
+        };
+
+        // On Abandonner button clicked
+        function onForfeitExamClicked() {
+            var forfeit = confirm("Etes-vous sur(e) de vouloir abandonner ?");
+            if (forfeit) {
+                sessionStorage.score = 0;
+                window.location.replace("results.html");
+            }
+        };
 
         //Test
 
@@ -255,4 +272,9 @@
                 numQuestionsAnswered -= 1;
                 $("#result").text("Note actuelle : "+ sessionStorage.getItem("rightTestAnswers")+"/" + numQuestionsAnswered);
             }
+        };
+
+        // Record user results in a cookie
+        function recordResults() {
+            // TODO
         };
