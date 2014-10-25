@@ -36,6 +36,9 @@
         // Set the form to have default values
         function defaultForm() {
             changeDomain();
+            sessionStorage.setItem("right","false");
+            sessionStorage.setItem('numQuestionsTest',0);
+            sessionStorage.setItem('rightTestAnswers',0);
             sessionStorage.setItem('currentQuestion', 0);
             sessionStorage.setItem('score', 0);
         }
@@ -204,11 +207,17 @@
         //Choose random question
 
         function loadQuestionTest(){
+            var numQuestionsTest = parseInt(sessionStorage.getItem("numQuestionsTest"));
+            numQuestionsTest++;
+            sessionStorage.setItem("numQuestionsTest",numQuestionsTest);
             var index = Math.floor(Math.random()*data.length);
             var question = data[index].question;
             var domain = data[index].domain;
             $("#questionTest").text(question);
             $("#testDomain").text(domain);
+            var numQuestionsAnswered = parseInt(sessionStorage.getItem("numQuestionsTest"));
+            numQuestionsAnswered -= 1;
+            $("#result").text("Note actuelle : "+ sessionStorage.getItem("rightTestAnswers")+"/" + numQuestionsAnswered);
             loadAnswersTest(data[index]);
         };
 
@@ -218,4 +227,32 @@
                 $(".nextQuestionTest").prepend(" <br/><input type='radio' name ='answer' id = '"+i+"'value='incorrect'><span id = 'answers"+i+"'></></input>");
                 $("#answers"+i).text(answer);
             }
-        }
+            var correct = question.correct;
+            $(".nextQuestionTest").change(function(){
+                var idChecked = $(".nextQuestionTest input[name=answer]:checked").attr("id");
+                checkAnswer(correct,idChecked);
+            });
+            $(".nextQuestionTest").submit(refreshResult());
+        };
+                
+        function checkAnswer(correct,idChecked){
+            if(parseInt(idChecked) === parseInt(correct)){
+                sessionStorage.setItem("right","true");
+            }
+            else{
+                sessionStorage.setItem("right","false");
+            }
+        };
+
+        function refreshResult(){
+            var checked = sessionStorage.getItem("right");
+            if(checked === "true"){
+                sessionStorage.getItem("right","false");
+                var right = parseInt(sessionStorage.getItem("rightTestAnswers"));
+                right++;
+                sessionStorage.setItem("rightTestAnswers",right);
+                var numQuestionsAnswered = parseInt(sessionStorage.getItem("numQuestionsTest"));
+                numQuestionsAnswered -= 1;
+                $("#result").text("Note actuelle : "+ sessionStorage.getItem("rightTestAnswers")+"/" + numQuestionsAnswered);
+            }
+        };
