@@ -26,6 +26,9 @@
                 }
                 progress();
             }
+            else if(location.indexOf('question') != -1){
+                testForm();
+            }
 		};
 
         // DASHBOARD
@@ -190,4 +193,29 @@
             $("#examProgress").val(sessionStorage.currentQuestion - 1);
             $("#currentScore").text(sessionStorage.score);
             $("#maxScore").text(sessionStorage.currentQuestion);
+        }
+
+        //Test
+
+        function testForm(){
+            loadQuestionTest();
+        };
+
+        //Choose random question
+
+        function loadQuestionTest(){
+            var index = Math.floor(Math.random()*data.length);
+            var question = data[index].question;
+            var domain = data[index].domain;
+            $("#questionTest").text(question);
+            $("#testDomain").text(domain);
+            loadAnswersTest(data[index]);
+        };
+
+        function loadAnswersTest(question){
+            for(i=0;i<question.answers.length;i++){
+                var answer = question.answers[i];
+                $(".nextQuestionTest").prepend(" <br/><input type='radio' name ='answer' id = '"+i+"'value='incorrect'><span id = 'answers"+i+"'></></input>");
+                $("#answers"+i).text(answer);
+            }
         }
