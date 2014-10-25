@@ -160,10 +160,16 @@
                 $('#answers'+radioNumber).css({'text-decoration':'underline', 'color':'red'});
             }
 
-			$('#nextQuestion').text('Suivant');
 			var questionList = JSON.parse(sessionStorage.getItem("questions"));
 			var limit = parseInt(sessionStorage.getItem("questionCount"));
 			var max = parseInt(sessionStorage.getItem("numQuestions"));
+            if(limit == max){
+                $('#nextQuestion').text('Terminé');
+            }
+            else{
+                $('#nextQuestion').text('Suivant');
+            }
+            putPin($('#nextQuestion'));
 			$(".nextQuestionExam").submit(function(){
 					sessionStorage.setItem("checked", 'no');
 					if(questionList.length === 0 || limit === max){
@@ -171,6 +177,12 @@
 					}	
 			})
 		};
+
+        //Pin in buttion
+
+        function putPin(id){
+            id.append("<img src = 'style/img/pin.png'>");
+        }
 
         // Update progress bar
         function progress() {
