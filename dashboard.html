@@ -47,7 +47,7 @@
             <br/>
             
             <label for="questionNumber">Nombre de questions:</label> 
-            </br><input type="range" step="1" id="questionCount" min="1" max="10"> <span id="selectedQuestionCount">0</span>/<span id="maxQuestionCount">10</span> <br/>
+            <br/><input type="range" step="1" id="questionCount" min="1" max="10"> <span id="selectedQuestionCount">0</span>/<span id="maxQuestionCount">10</span> <br/>
             
         </fieldset>
         <button id="finalTestButton" type="submit"><img src = "style/img/pin.png">Commencer</button>
@@ -59,9 +59,10 @@
 
       <h1>Statistiques</h1>
       <p>
-        <span id = "testStats">Note acumulative tests : 0/0</span><br/>
-        Moyenne des examens: 16,5/20<br/>
+        <span id = "testStats">Note cumulative tests : 0/0</span><br/>
+        Examens passés : <span id="examCount">0</span><br/>
         <a href="#details"><button name="getDetails">Details<img src = "style/img/pin.png"></button></a>
+        <button id="resetStats">RàZ<img src = "style/img/pin.png"></button>
       </p>
     </aside>
   </section>
@@ -73,38 +74,11 @@
       <a href="#" class="closemodal"></a>
       <figcaption>
         <h1>Details</h1>
-        <table>
+        <table id="detailsTable">
           <tr>
             <th>Examen</th>
             <th>Note</th>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>15/20</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>18/20</td>
-          </tr>
-        </table>
-        <table>
-          <tr>
-            <th></th>
-            <th>HTML5</th>
-            <th>CSS</th>
-            <th>JS</th>
-          </tr>
-          <tr>
-            <th>Nombre d'essais</th>
-            <td>1</td>
-            <td>1</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <th>% de reussite</th>
-            <td>100%</td>
-            <td>100%</td>
-            <td>0%</td>
+            <th>Domaines</th>
           </tr>
         </table>
       </figcaption>

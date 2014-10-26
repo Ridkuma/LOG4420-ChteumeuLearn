@@ -5,15 +5,23 @@
 			$('.header').load("header.html");
 			$('.footer').load("footer.html"); 
 
-			$("#domainSelect").change(onDomainSelectChanged);
-			$("#questionCount").change(onQuestionCountChanged);
-
 			var url = window.location.pathname.split("/");
             var location = url[url.length-1];
+
+            // On dashboard
             if (location.indexOf('dashboard') != -1) {
+                $("#domainSelect").change(onDomainSelectChanged);
+                $("#questionCount").change(onQuestionCountChanged);
+                $("#resetStats").click(onResetButtonClicked);
                 defaultForm();
+                updateExamCount();
+                updateDetails();
             } 
-            else if(location.indexOf('questionExam') != -1) { 
+            // On exam
+            else if(location.indexOf('questionExam') != -1) {
+                updateStats("rightTestAnswers","rightQuestionTest");
+                updateStats("numQuestionsTest","totalQuestionTest");
+                updateExamCount();
                 if (sessionStorage.checked === "false") {
                     newQuestion();
                 } else {
@@ -22,9 +30,14 @@
                 $("#forfeitExam").click(onForfeitExamClicked);
                 progress("exam");
             }
+            // On quick test
             else if(location.indexOf('question') != -1){
+                updateStats("rightTestAnswers","rightQuestionTest");
+                updateStats("numQuestionsTest","totalQuestionTest");
+                updateExamCount();
                 testForm();
             }
+            // On results
             else if (location.indexOf('results') != -1) {
                 updateFinalResult();
                 recordResults();    
@@ -49,22 +62,65 @@
 
        function updateStats(actual,fixed){
             if(sessionStorage.getItem(actual) != null){
-                    if(sessionStorage.getItem(fixed) === null){
-                        sessionStorage.setItem(fixed,sessionStorage.getItem(actual));
-                    }
-                    else{
-                        var totalData = parseInt(sessionStorage.getItem(actual)) + parseInt(sessionStorage.getItem(fixed));
-                        sessionStorage.setItem(fixed,totalData);
-                    }
-                    if(typeof(sessionStorage.rightQuestionTest) != undefined){
-                        var result = sessionStorage.rightQuestionTest
-                    }
-                    else{
-                        var result = 0;
-                    }
-                    $("#testStats").text("Note acumulative tests : "+ result + "/" + sessionStorage.totalQuestionTest);  
+                if(localStorage.getItem(fixed) === null){
+                    localStorage.setItem(fixed,sessionStorage.getItem(actual));
+                }
+                else{
+                    var totalData = parseInt(sessionStorage.getItem(actual)) + parseInt(localStorage.getItem(fixed));
+                    localStorage.setItem(fixed,totalData);
+                }
+                if(typeof(localStorage.rightQuestionTest) != undefined){
+                    var result = localStorage.rightQuestionTest;
+                }
+                else{
+                    var result = 0;
+                }
+                $("#testStats").text("Note cumulative tests : "+ result + "/" + localStorage.totalQuestionTest);  
             }
         };
+
+        // Updates exam count displayed
+        function updateExamCount(){
+            if (localStorage.examResults == "") {
+                $("#examCount").text("0");
+            } else {
+                $("#examCount").text(JSON.parse(localStorage.examResults).length);
+            }
+        }
+
+        // Updates Details modal content table
+        function updateDetails() {
+            if (localStorage.examResults == "") {
+                return;
+            }
+            var table = $("#details #detailsTable");
+            var results = JSON.parse(localStorage.examResults);
+            for (var i = results.length - 1; i >= 0; i--) {
+                var $row = $("<tr/>").appendTo(table);
+                $row.append("<td>" + (i + 1) + "</td>");
+                $row.append("<td>" + results[i].score + "/" + results[i].maxScore + "</td>");
+                var domains = "";
+                for (var j = results[i].domains.length - 1; j >= 0; j--) {
+                    domains += results[i].domains[j] + ", ";
+                };
+                domains = domains.slice(0, -2);
+                $row.append("<td>" + domains + "</td>");
+            };
+        }
+
+        // On Remise a Zero button clicked
+        function onResetButtonClicked() {
+            resetStats();
+            window.location.reload();
+        }
+
+        // Destroy all saved results
+        function resetStats() {
+            localStorage.examResults = [];
+            localStorage.rightQuestionTest = 0;
+            localStorage.totalQuestionTest = 0;
+        }
+
         // On domain selection change
         function onDomainSelectChanged(){
             changeDomain();
@@ -203,28 +259,7 @@
 			})
 		};
 
-        function updateFinalResult(){
-            var percent = (parseInt(sessionStorage.score)/parseInt(sessionStorage.numQuestions))*100;
-            var message = ""
-            if(percent < 25){
-                message = "Il faut étudier beaucoup plus!!";    
-            }
-            if(percent >= 25 && percent < 50){
-                message = "Presque à la moyenne, un peu plus d'èffort!!";    
-            }
-            if(percent >= 50 && percent < 75){
-                message = "Sur la moyenne, bon travail mais tu peux améliorer!!";    
-            }
-            if(percent >= 75){
-                message = "Super!! Continue comme ça!!";    
-            }
-            $("#finalResult").text("Note Finale: " + percent + "%." );
-            $("#finalResult").append("</br>" + message);
-
-        };
-
         //Pin in buttion
-
         function putPin(id){
             id.append("<img src = 'style/img/pin.png'>");
         };
@@ -256,13 +291,10 @@
         //Choose random question
         function loadQuestionTest(){
             sessionStorage.right = "false";
-            sessionStorage.numQuestionsTest++;
             var index = Math.floor(Math.random()*data.length);
             $("#questionTest").text(data[index].question);
             $("#testDomain").text(data[index].domain);
-            var numQuestionsAnswered = sessionStorage.numQuestionsTest;
-            numQuestionsAnswered--;
-            $("#result").text("Note actuelle : "+ sessionStorage.rightTestAnswers+"/" + numQuestionsAnswered);
+            $("#result").text("Note actuelle : "+ sessionStorage.rightTestAnswers+"/" + sessionStorage.numQuestionsTest);
             writeAnswers(index);
             sessionStorage.index = index;
             $("#nextQuestionTest").change(getChecked);
@@ -284,26 +316,45 @@
  
 
         function refreshResult(){
+            sessionStorage.numQuestionsTest++;
             if(sessionStorage.right == "true"){
                 sessionStorage.rightTestAnswers = (parseInt(sessionStorage.rightTestAnswers)) + 1;
-                var numQuestionsAnswered = sessionStorage.numQuestionsTest;
-                numQuestionsAnswered--;
-                $("#result").text("Note actuelle : "+ sessionStorage.rightTestAnswers +"/" + numQuestionsAnswered);
+                $("#result").text("Note actuelle : "+ sessionStorage.rightTestAnswers +"/" + (sessionStorage.numQuestionsTest - 1));
             }
+        };
+
+        // RESULTS
+
+        function updateFinalResult(){
+            var percent = (parseInt(sessionStorage.score)/parseInt(sessionStorage.numQuestions))*100;
+            var message = ""
+            if(percent < 25){
+                message = "Il faut étudier beaucoup plus !";    
+            }
+            if(percent >= 25 && percent < 50){
+                message = "Presque à la moyenne, un peu plus d'effort !";    
+            }
+            if(percent >= 50 && percent < 75){
+                message = "Sur la moyenne, bon travail mais tu peux améliorer !";    
+            }
+            if(percent >= 75){
+                message = "Super ! Continue comme ça !";    
+            }
+            $("#finalResult").text("Note Finale: " + percent + "%." );
+            $("#finalResult").append("<br/>" + message);
         };
 
         // Record user results in a cookie
         function recordResults() {
             var results;
-            if (localStorage.examResults == null) {
+            if (localStorage.examResults == "") {
                 results = [];
             } else {
                 results = JSON.parse(localStorage.examResults);    
             }
             results.push({"score" : sessionStorage.score, 
                         "maxScore" : sessionStorage.questionCount, 
-                        "domain" : JSON.parse(sessionStorage.options)
+                        "domains" : JSON.parse(sessionStorage.options)
             });
             localStorage.examResults = JSON.stringify(results);
-            // TODO
         };
