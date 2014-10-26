@@ -1,11 +1,11 @@
-		$(document).ready(loadSite);
-		
+        $(document).ready(loadSite);
+        
         // On page load
-		function loadSite() {
-			$('.header').load("header.html");
-			$('.footer').load("footer.html"); 
+        function loadSite() {
+            $('.header').load("header.html");
+            $('.footer').load("footer.html"); 
 
-			var url = window.location.pathname.split("/");
+            var url = window.location.pathname.split("/");
             var location = url[url.length-1];
 
             // On dashboard
@@ -42,7 +42,7 @@
                 updateFinalResult();
                 recordResults();    
             }
-		};
+        };
 
         // DASHBOARD
 
@@ -81,7 +81,7 @@
 
         // Updates exam count displayed
         function updateExamStats(){
-            if (localStorage.examResults == "") {
+            if (localStorage.examResults == "" || localStorage.examResults == undefined) {
                 $("#examCount").text("0");
             } else {
                 $("#examCount").text(JSON.parse(localStorage.examResults).length);
@@ -94,7 +94,7 @@
 
         // Updates Details modal content table
         function updateDetails() {
-            if (localStorage.examResults == "") {
+            if (localStorage.examResults == "" || localStorage.examResults == undefined) {
                 return;
             }
             var table = $("#details #detailsTable");
@@ -113,7 +113,7 @@
         }
 
         function examAverage() {
-            if (localStorage.examResults == "") {
+            if (localStorage.examResults == "" || localStorage.examResults == undefined) {
                 return -1;
             }
             var sum = 0;
@@ -166,13 +166,13 @@
         }
 
         // Get selected options for question domain
-		function getSelected(){
-			var str = [];
-			$('#domainSelect option:selected').each(function(){
-				str.push($(this).text());		
-			})
-			sessionStorage.options = JSON.stringify(str);
-		};
+        function getSelected(){
+            var str = [];
+            $('#domainSelect option:selected').each(function(){
+                str.push($(this).text());       
+            })
+            sessionStorage.options = JSON.stringify(str);
+        };
 
         // On question count slider change
         function onQuestionCountChanged() {
@@ -193,45 +193,45 @@
         };
 
         // EXAM
-		function getQuestionExam(){
-			sessionStorage.checked = "false";
-			getSelected();
-			var questions = [];
-			var domains = JSON.parse(sessionStorage.options);
-			for(i=0;i<data.length;i++){
-				if(domains.indexOf(data[i].domain) != -1){
-					questions.push(data[i].question);
-				}
-			}	
-			sessionStorage.questions = JSON.stringify(questions);
-		};
+        function getQuestionExam(){
+            sessionStorage.checked = "false";
+            getSelected();
+            var questions = [];
+            var domains = JSON.parse(sessionStorage.options);
+            for(i=0;i<data.length;i++){
+                if(domains.indexOf(data[i].domain) != -1){
+                    questions.push(data[i].question);
+                }
+            }   
+            sessionStorage.questions = JSON.stringify(questions);
+        };
 
         // Display a random question
-		function newQuestion(){
-			sessionStorage.numQuestions++;
-			var questionList = JSON.parse(sessionStorage.questions);
-			var randPick = Math.floor(Math.random()* questionList.length);
-			var questionId = questionList[randPick];
-			sessionStorage.actualQuestion = questionId;
+        function newQuestion(){
+            sessionStorage.numQuestions++;
+            var questionList = JSON.parse(sessionStorage.questions);
+            var randPick = Math.floor(Math.random()* questionList.length);
+            var questionId = questionList[randPick];
+            sessionStorage.actualQuestion = questionId;
 
-			questionList.splice(randPick,1);
+            questionList.splice(randPick,1);
             sessionStorage.questions = JSON.stringify(questionList);
             sessionStorage.currentQuestion++;
             $('.questionExam').text(data[questionId].question);
-			writeAnswers(questionId);
+            writeAnswers(questionId);
 
-			$("#nextQuestionExam").submit(function(){
-					sessionStorage.checkedRadio = $("#nextQuestionExam input[name=answer]:checked").attr("id");
-					sessionStorage.checked = "true";
-					// $('#nextQuestionExam').attr('action', underline());
-					if(questionList.length === 0 && $('#buttonNext').text() === "Terminé"){
-						$('#nextQuestionExam').attr('action', "results.html");
-					}
-            })	
-		};
+            $("#nextQuestionExam").submit(function(){
+                    sessionStorage.checkedRadio = $("#nextQuestionExam input[name=answer]:checked").attr("id");
+                    sessionStorage.checked = "true";
+                    // $('#nextQuestionExam').attr('action', underline());
+                    if(questionList.length === 0 && $('#buttonNext').text() === "Terminé"){
+                        $('#nextQuestionExam').attr('action', "results.html");
+                    }
+            })  
+        };
 
         // Display a question's answers
-		function writeAnswers(questionId){
+        function writeAnswers(questionId){
             for(j=0; j< data[questionId].answers.length;j++){
                 answer = data[questionId].answers[j];
                 $(".nextQuestion").prepend(" <br/><input type='radio' name ='answer' id = '"+j+"'value='incorrect'><span id = 'answers"+j+"'></></input>");
@@ -242,12 +242,12 @@
         };
 
         // Correct user answer
-		function reloadQuestion(questionId){
+        function reloadQuestion(questionId){
             $('.questionExam').text(data[questionId].question);
-			writeAnswers(questionId);
-			var radioNumber = sessionStorage.checkedRadio;
-			$("#"+radioNumber).attr("checked",'checked');
-			var idCorrect = $("#nextQuestionExam input[value = correct]").attr('id');
+            writeAnswers(questionId);
+            var radioNumber = sessionStorage.checkedRadio;
+            $("#"+radioNumber).attr("checked",'checked');
+            var idCorrect = $("#nextQuestionExam input[value = correct]").attr('id');
             $('#answers'+idCorrect).css({'text-decoration':'underline', 'color':'green'});
 
             // Increment score if correct, else show error
@@ -257,9 +257,9 @@
                 $('#answers'+radioNumber).css({'text-decoration':'underline', 'color':'red'});
             }
 
-			var questionList = JSON.parse(sessionStorage.questions);
-			var limit = sessionStorage.questionCount;
-			var max = sessionStorage.numQuestions;
+            var questionList = JSON.parse(sessionStorage.questions);
+            var limit = sessionStorage.questionCount;
+            var max = sessionStorage.numQuestions;
             if(limit === max){
                 $('#buttonNext').text('Terminé');
             }
@@ -267,14 +267,14 @@
                 $('#buttonNext').text('Suivant');
             }
             putPin($('#buttonNext'));
-			$("#nextQuestionExam").submit(function(){
-					sessionStorage.checked = "false";
-					if(questionList.length === 0 || limit === max){
+            $("#nextQuestionExam").submit(function(){
+                    sessionStorage.checked = "false";
+                    if(questionList.length === 0 || limit === max){
                         $('#nextQuestionExam').attr('action', "results.html");
                         
-					}	
-			})
-		};
+                    }   
+            })
+        };
 
         //Pin in buttion
         function putPin(id){
@@ -364,7 +364,7 @@
         // Record user results in a cookie
         function recordResults() {
             var results;
-            if (localStorage.examResults == "") {
+            if (localStorage.examResults == "" || localStorage.examResults == undefined) {
                 results = [];
             } else {
                 results = JSON.parse(localStorage.examResults);    
