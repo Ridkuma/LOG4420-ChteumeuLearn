@@ -39,7 +39,7 @@
             updateStats("numQuestionsTest","totalQuestionTest");
             sessionStorage.idChecked = null;
             $("#finalTestButton").attr("disabled", true);
-            sessionStorage.right = "false";
+            sessionStorage.right = false;
             sessionStorage.numQuestionsTest = 0;
             sessionStorage.rightTestAnswers = 0;
             sessionStorage.currentQuestion = 0;
@@ -52,7 +52,7 @@
                         sessionStorage.setItem(fixed,sessionStorage.getItem(actual));
                     }
                     else{
-                        var totalData = sessionStorage.getItem(actual) + sessionStorage.getItem(fixed);
+                        var totalData = parseInt(sessionStorage.getItem(actual)) + parseInt(sessionStorage.getItem(fixed));
                         sessionStorage.setItem(fixed,totalData);
                     }
                     if(typeof(sessionStorage.rightQuestionTest) != undefined){
@@ -251,19 +251,19 @@
         function getChecked(){
             var idChecked = $("#nextQuestionTest input[name=answer]:checked").attr("id");
             sessionStorage.idChecked = idChecked;
-            sessionStorage.right = (idChecked === data[sessionStorage.index].correct);
+            sessionStorage.right = (parseInt(idChecked) === data[sessionStorage.index].correct);
         };
 
         function refreshStatistics(){
-            if(sessionStorage.right == "true"){
-                sessionStorage.rightTestAnswers++;
+            if(sessionStorage.right === "true"){
+                sessionStorage.rightTestAnswers = (parseInt(sessionStorage.rightTestAnswers)) + 1;
             }
         };
  
 
         function refreshResult(){
             if(sessionStorage.right == "true"){
-                sessionStorage.rightTestAnswers++;
+                sessionStorage.rightTestAnswers = (parseInt(sessionStorage.rightTestAnswers)) + 1;
                 var numQuestionsAnswered = sessionStorage.numQuestionsTest;
                 numQuestionsAnswered--;
                 $("#result").text("Note actuelle : "+ sessionStorage.rightTestAnswers +"/" + numQuestionsAnswered);
