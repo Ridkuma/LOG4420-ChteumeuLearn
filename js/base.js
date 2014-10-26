@@ -14,14 +14,14 @@
                 $("#questionCount").change(onQuestionCountChanged);
                 $("#resetStats").click(onResetButtonClicked);
                 defaultForm();
-                updateExamCount();
+                updateExamStats();
                 updateDetails();
             } 
             // On exam
             else if(location.indexOf('questionExam') != -1) {
                 updateStats("rightTestAnswers","rightQuestionTest");
                 updateStats("numQuestionsTest","totalQuestionTest");
-                updateExamCount();
+                updateExamStats();
                 if (sessionStorage.checked === "false") {
                     newQuestion();
                 } else {
@@ -34,7 +34,7 @@
             else if(location.indexOf('question') != -1){
                 updateStats("rightTestAnswers","rightQuestionTest");
                 updateStats("numQuestionsTest","totalQuestionTest");
-                updateExamCount();
+                updateExamStats();
                 testForm();
             }
             // On results
@@ -80,11 +80,15 @@
         };
 
         // Updates exam count displayed
-        function updateExamCount(){
+        function updateExamStats(){
             if (localStorage.examResults == "") {
                 $("#examCount").text("0");
             } else {
                 $("#examCount").text(JSON.parse(localStorage.examResults).length);
+            }
+            var average = examAverage();
+            if (average != -1) {
+                $("#examCount").append("<br/> Moyenne des examens : " + average + "%");
             }
         }
 
@@ -106,6 +110,19 @@
                 domains = domains.slice(0, -2);
                 $row.append("<td>" + domains + "</td>");
             };
+        }
+
+        function examAverage() {
+            if (localStorage.examResults == "") {
+                return -1;
+            }
+            var sum = 0;
+            var results = JSON.parse(localStorage.examResults);
+            for (var i = results.length - 1; i >= 0; i--) {
+                sum += (parseInt(results[i].score)/parseInt(results[i].maxScore)) * 100;
+            }
+            sum /= results.length;
+            return Math.floor(sum);
         }
 
         // On Remise a Zero button clicked
