@@ -26,6 +26,7 @@
                 testForm();
             }
             else if (location.indexOf('results') != -1) {
+                updateFinalResult();
                 recordResults();    
             }
 		};
@@ -150,7 +151,7 @@
 					sessionStorage.checkedRadio = $("#nextQuestionExam input[name=answer]:checked").attr("id");
 					sessionStorage.checked = "true";
 					// $('#nextQuestionExam').attr('action', underline());
-					if(questionList.length == 0){
+					if(questionList.length === 0 && $('#buttonNext').text() === "Terminé"){
 						$('#nextQuestionExam').attr('action', "results.html");
 					}
             })	
@@ -177,7 +178,7 @@
             $('#answers'+idCorrect).css({'text-decoration':'underline', 'color':'green'});
 
             // Increment score if correct, else show error
-            if (radioNumber == idCorrect) {
+            if (radioNumber === idCorrect) {
                 sessionStorage.score++;
             } else {
                 $('#answers'+radioNumber).css({'text-decoration':'underline', 'color':'red'});
@@ -186,20 +187,41 @@
 			var questionList = JSON.parse(sessionStorage.questions);
 			var limit = sessionStorage.questionCount;
 			var max = sessionStorage.numQuestions;
-            if(limit == max){
+            if(limit === max){
                 $('#buttonNext').text('Terminé');
             }
             else{
                 $('#buttonNext').text('Suivant');
             }
-            putPin($('#nextQuestion'));
+            putPin($('#buttonNext'));
 			$("#nextQuestionExam").submit(function(){
 					sessionStorage.checked = "false";
 					if(questionList.length === 0 || limit === max){
-						$('#nextQuestionExam').attr('action', "results.html");
+                        $('#nextQuestionExam').attr('action', "results.html");
+                        
 					}	
 			})
 		};
+
+        function updateFinalResult(){
+            var percent = (parseInt(sessionStorage.score)/parseInt(sessionStorage.numQuestions))*100;
+            var message = ""
+            if(percent < 25){
+                message = "Il faut étudier beaucoup plus!!";    
+            }
+            if(percent >= 25 && percent < 50){
+                message = "Presque à la moyenne, un peu plus d'èffort!!";    
+            }
+            if(percent >= 50 && percent < 75){
+                message = "Sur la moyenne, bon travail mais tu peux améliorer!!";    
+            }
+            if(percent >= 75){
+                message = "Super!! Continue comme ça!!";    
+            }
+            $("#finalResult").text("Note Finale: " + percent + "%." );
+            $("#finalResult").append("</br>" + message);
+
+        };
 
         //Pin in buttion
 
