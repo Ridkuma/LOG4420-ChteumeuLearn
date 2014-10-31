@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  section
+    img(src='images/scotch.png')
+    h1 Tableau de bord
+    div.dashboardContent
+    div.exam
+    article
+      form(action=('/question'))
+        fieldset
+          legend Test Rapide
+        button(name='quickTestButton' type='submit') Commencer
+          img(src='images/pin.png')
+    article
+      form(action='/questionExam')
+        fieldset
+          legend Exam
+          label(for='testDomain') Domaine:
+          select#domainSelect(name=testDomain multiple)
+            each val, name in {html: 'HTML5' ,css: 'CSS3' ,javascript: 'Javascript'}
+              option(name = name)=val
+
+
+
