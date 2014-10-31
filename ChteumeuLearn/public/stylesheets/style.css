@@ -7,10 +7,10 @@ html {
 	margin:0px;
 	min-height: 100%;
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-	background-image:url("img/cork.png");
+	background-image:url("../images/cork.png");
 	background-repeat:repeat;
 	border: 30px groove transparent;
-	border-image: url("img/wood.jpg") 200 200 200 200 repeat; 
+	border-image: url("../images/wood.jpg") 200 200 200 200 repeat; 
 }
 
 
@@ -53,21 +53,21 @@ nav > ul > li {
 }
 
 nav > ul > li.home {
-	background-image: url("img/home.png");
+	background-image: url("../images/home.png");
 	background-repeat: no-repeat;
 	background-size: 50%;
 	background-position: 19px 5px;
 }
 
 nav > ul > li.dashboard{
-	background-image: url("img/dashboard.png");
+	background-image: url("../images/dashboard.png");
 	background-repeat: no-repeat;
 	background-size: 28%;
 	background-position: 48px 6px;
 }
 
 nav > ul > li.info{
-	background-image: url("img/info.png");
+	background-image: url("../images/info.png");
 	background-repeat: no-repeat;
 	background-size: 35%;
 	background-position: 32px 6px
@@ -90,7 +90,7 @@ section{
 	margin:13% 13% -3% 13%;
 	padding:0px 5% 5% 16%;
 	text-align: center;
-	background-image: url("img/paper.png");
+	background-image: url("../images/paper.png");
 	background-repeat:repeat-y;
     -webkit-background-size: contain;
    	background-size:contain;
@@ -178,7 +178,7 @@ fieldset > input{
 section > div >aside{
 	-webkit-flex-basis:34.5%;
  	flex-basis:34.5%;
-	background-image: url("img/paper2.png");
+	background-image: url("../images/paper2.png");
 	background-repeat:repeat-y;
     -webkit-background-size: cover;
    	background-size:cover;
@@ -273,7 +273,7 @@ nav > ul > li:hover > a{
 
 .logo {
 	background-color: #3399FF;
-	background-image: url("../logo.png");
+	background-image: url("../images/logo.png");
 	background-repeat: no-repeat;
 	background-position: 9px 6px;
 	width: 50px;

@@ -3,18 +3,29 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(href='images/icon.png', type='image/png', rel='icon')
+    meta(charset='UTF-8')
+    script(src='javascripts/jquery.js', type='text/javascript')
+    script(src='javascripts/base.js', type='text/javascript')
+
   body
+
     header
       nav
-        a(href="/index")
+        a(href='/index')
           div.logo
         ul
           li.home
-            a(href="/index") Accueil
+            a(href='/index') Accueil
           li.dashboard
-            a.dashboard(href=dashboard) Tableau de bord
+            a.dashboard(href='/dashboard') Tableau de bord
           li.info
-            a.info(href=howto) Instructions
+            a.info(href='/howto') Instructions
 
     block content
+
     footer
+      p
+        | Asenjo Villamayor, Javier 1762503
+        br
+        | Hudin, Gwenegan 1756642
