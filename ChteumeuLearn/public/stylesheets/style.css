@@ -1,0 +1,375 @@
+@font-face {
+    font-family: "Devroye"; 
+    src: url('DEVROYE_.ttf');
+}
+
+html {
+	margin:0px;
+	min-height: 100%;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	background-image:url("img/cork.png");
+	background-repeat:repeat;
+	border: 30px groove transparent;
+	border-image: url("img/wood.jpg") 200 200 200 200 repeat; 
+}
+
+
+body {
+	margin:0px;
+}
+
+header {
+	margin-bottom: 100px;
+}
+
+nav {
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	width: 100%;
+	height: 65px;
+	background-color: rgba(240, 240, 240, 0.95);
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 30px;
+	border-top: 4px solid #3399FF;
+	z-index:5000000;
+}
+
+nav > ul {
+	margin: 0px;
+	padding-left: 0px;
+	height: 100%;
+	display: flex;
+	display:-webkit-flex;
+	display:-webkit-box;
+	list-style: none;
+}
+
+nav > ul > li {
+	margin-right: 0px;
+	height: 100%;
+	border-right: 1px solid rgba(180, 180, 180, 0.8);
+}
+
+nav > ul > li.home {
+	background-image: url("img/home.png");
+	background-repeat: no-repeat;
+	background-size: 50%;
+	background-position: 19px 5px;
+}
+
+nav > ul > li.dashboard{
+	background-image: url("img/dashboard.png");
+	background-repeat: no-repeat;
+	background-size: 28%;
+	background-position: 48px 6px;
+}
+
+nav > ul > li.info{
+	background-image: url("img/info.png");
+	background-repeat: no-repeat;
+	background-size: 35%;
+	background-position: 32px 6px
+}
+
+nav > ul > li > a {
+	position: relative;
+	bottom: 3px;
+	display: block;
+	color: rgba(150, 150, 150, 0.95);
+	text-decoration: none;
+	padding-top: 50px;
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 0.8em;
+}
+section{
+	position:relative;
+	font-size: 1.5vmax;
+	margin:13% 13% -3% 13%;
+	padding:0px 5% 5% 16%;
+	text-align: center;
+	background-image: url("img/paper.png");
+	background-repeat:repeat-y;
+    -webkit-background-size: contain;
+   	background-size:contain;
+   	background-position: center;
+}
+
+section > img {
+	position:absolute;
+	top:-8vw;
+	left:-8vw;
+	height: 24vw;
+	width:24vw;
+}
+
+h1{
+	font-family: "Devroye", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-style: bold;
+}
+
+section > h1{
+	margin:0px 0px 5% 0px;
+	padding: 5% 0px 1% 0px;
+	text-align: center;
+	font-size:5vw;
+}
+section > p{
+	margin:0px;
+	padding: 0px 10% 0px 5%;
+	text-align: justify;
+	font-size: 1.5vmax;
+}
+section > p > img.float-right{
+	float:right;
+	width:29%;
+	margin: 0px 0px 3% 3%;
+}
+
+section > a {
+	text-align: center;
+}
+
+.exam > article{
+	margin:11% 0px 5% 4%;
+}
+
+button{
+	font-family: "Devroye", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	position:relative;
+	margin: 1.5vmax 0px 0px 0px;
+	background-color: #FAFF1C;
+	background-repeat: repeat-y;
+	background-size: cover;
+	border:none;
+	padding: 1vmax 0.7vmax 0.7vmax 0.7vmax;
+	font-size: 1.5vmax;
+	cursor: pointer;
+}
+
+button > img{
+	position:absolute;
+	top:0;
+	left:34%;
+	height:2vmax;
+	width:2vmax;
+}
+
+article > form > fieldset{
+	border: none;
+	font-size: 2vmax;
+	border:none;
+}
+
+article > form > fieldset > legend{
+	font-size:2.5vw;
+	margin:0px 0px 1vmax 0px;
+	border:none;
+	text-align: center;
+	border-bottom: 2px solid rgb(176,0,0);
+}
+
+fieldset > input{
+	width: 12vw;
+}
+
+section > div >aside{
+	-webkit-flex-basis:34.5%;
+ 	flex-basis:34.5%;
+	background-image: url("img/paper2.png");
+	background-repeat:repeat-y;
+    -webkit-background-size: cover;
+   	background-size:cover;
+   	background-position: center;
+ 	margin: 7% -31% 0px 4%;
+ 	padding:8% 5% 0px 7%; 
+ 	height:34vmax;
+ 	text-align: left;
+}
+
+section > div > aside > p{
+	margin:0px;
+	font-size: 2vmax;
+}
+
+section > div > aside > h1{
+	text-align: center;
+	margin:0px;
+	padding:7% 0px 14% 0px;
+	color: #383838;
+	font-size: 2.5vw;
+
+}
+section > div > div > article > a{
+	display:inline;
+}
+
+footer {
+	margin:0px 65% 1% 3%;
+	padding: 2% 0px 8% 0px;
+	background-color: #58C2E7;
+  -webkit-background-size: contain;
+ 	background-size:contain;
+ 	font-size: 1.5vmax;
+ 	text-align: center;
+}
+
+footer > div {
+}
+
+.exam{
+ 	-webkit-flex-basis:67.5%;
+ 	flex-basis:67.5%;
+	display:-webkit-flex;
+	display:flex;
+	-webkit-flex-flow:column;
+	flex-flow:column;
+}
+
+.dashboardContent{
+	margin:0px;
+	padding: 0px 10% 0px 5%;
+	text-align: left;
+	display:-webkit-flex;
+	display:flex;
+	-webkit-flex-flow:row;
+	flex-flow: row;
+	justify-content:space-between;
+}
+
+nav > ul > li > a:visited {
+	color: rgba(150, 150, 150, 0.95);
+}
+
+nav > ul > li > a:focus, 
+nav > ul > li > a:active {
+	outline: none;
+}
+
+
+nav > ul > li:hover {
+	background-color: rgba(180, 180, 180, 0.7);
+	transition-duration: 0.5s;
+}
+
+nav > ul > li:hover > a{
+	color: rgba(250, 250, 250, 1);
+	transition-duration: 0.5s;
+}
+
+#info .info,
+#dashboard .dashboard,
+#home .home {
+	background-color: #3399FF;
+}
+
+#info .info > a,
+#dashboard .dashboard > a,
+#home .home > a {
+	text-shadow: #000 0.1em 0.1em 0em;
+}
+
+.logo {
+	background-color: #3399FF;
+	background-image: url("../logo.png");
+	background-repeat: no-repeat;
+	background-position: 9px 6px;
+	width: 50px;
+	height: 50px;
+	float: left;
+	padding: 7.5px 10px;
+	transition-duration: 0.5s;
+}
+
+.logo:hover {
+	width: 60px;
+	transition-duration: 0.5s;
+}
+
+.modal {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal:target {
+  display: table;
+  opacity: 1;
+  pointer-events: auto;
+	transition: opacity 300ms ease-in;
+}
+
+.modal > figure {
+  display: table-cell;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.modal > figure > figcaption {
+  display: block;
+  margin: auto;
+  padding: 8px;
+  background-color: #FFF;
+  height: 250px;
+  position: relative;
+  overflow: auto;
+  border: 1px #000000 solid;
+  border-radius: 2px;
+  text-align: justify;
+  font-size: 14px;
+}
+
+.modal > figure > .closemodal, .modal > figure > figcaption {
+  width: 300px;
+}
+
+.closemodal {
+  display: block;
+  margin: auto;
+  height: 0;
+  overflow: visible;
+  text-align: right;
+  z-index: 2;
+  cursor: default;
+}
+
+.closemodal::after {
+  content: "\00D7";
+  display: inline-block;
+  position: relative;
+  right: -20px;
+  top: -10px;
+  z-index: 3;
+  color: #ffffff;
+  width: 20px;
+  height: 20px;
+  line-height: 18px;
+  text-align: center;
+  margin: 0;
+  background-color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.closemodal::before {
+  content: "";
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.85;
+}

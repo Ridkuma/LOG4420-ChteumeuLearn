@@ -6,3 +6,7 @@
 style/.DS_Store
 
 style/img/.DS_Store
+
+node_modules
+*.log
+*.gz

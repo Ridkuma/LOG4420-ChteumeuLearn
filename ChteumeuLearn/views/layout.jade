@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    header
+      nav
+        a(href="/index")
+          div.logo
+        ul
+          li.home
+            a(href="/index") Accueil
+          li.dashboard
+            a.dashboard(href=dashboard) Tableau de bord
+          li.info
+            a.info(href=howto) Instructions
+
+    block content
+    footer
