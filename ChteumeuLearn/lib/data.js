@@ -88,13 +88,71 @@ var question10 =
 	correct: 1
 };
 
-var data = [question1, 
-			question2,
-			question3, 
-			question4, 
-			question5, 
-			question6, 
-			question7, 
-			question8, 
-			question9, 
-			question10];
+// Untouched data
+var originalData = [question1, 
+question2,
+question3, 
+question4, 
+question5, 
+question6, 
+question7, 
+question8, 
+question9, 
+question10];
+
+// Data restricted to given domains
+var data = originalData;
+
+// Trouve l'index d'une question dans un tableau selon son id
+function findIndex(questions, id) {
+    for (var i = questions.length - 1; i >= 0; i--) {
+        if (questions[i].id == id) {
+            return i;
+        }
+    };
+
+    return -1;
+}
+
+// Rend les questions propres a un seul domaine
+function pickDomain(domain) {
+    var domainQuestions = [];
+    for (var i = originalData.length - 1; i >= 0; i--) {
+        if (originalData[i].domain == domain) {
+            domainQuestions.push(originalData[i]);
+        }
+    };
+    return domainQuestions;
+}
+
+// Restreint les questions aux domaines specifies
+export function restrictDomains(domains) {
+    data = [];
+    for (var i = domains.length - 1; i >= 0; i--) {
+        data.concat(pickDomain(domains[i]));
+    };
+}
+
+// Obtenir une seule question via son id
+export function getQuestionByID(id) {
+    var index = findIndex(data, id);
+    if (index == -1) {
+        return null;
+    } else {
+        return index;
+    }
+}
+
+// Obtenir une question aleatoire SAUF celles dont les id sont dans except
+export function getRandomQuestion(except) {
+    var curatedList = data;
+    for (var i = except.length - 1; i >= 0; i--) {
+        var qIndex = findIndex(curatedList, except[i]);
+        if (qIndex == -1) {
+            continue;
+        }
+        curatedList.splice(qIndex, 1);
+    };
+    var randPick = Math.floor(Math.random()* curatedList.length);
+    return curatedList[randPick];
+}
