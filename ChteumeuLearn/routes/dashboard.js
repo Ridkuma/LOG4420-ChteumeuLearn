@@ -13,3 +13,7 @@ exports.questionTest = function(req,res) {
 exports.questionExam = function(req,res) {
 	res.render('questionExam', { title: 'Examen - Chteumeulearn'});
 }
+
+exports.results = function(req,res) {
+	res.render('results', { title: 'Resultats - Chteumeulearn'});
+}

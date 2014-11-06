@@ -35,6 +35,7 @@ app.get('/howto', howto.howto);
 app.get('/dashboard',dashboard.dashboard);
 app.get('/questionTest',dashboard.questionTest);
 app.get('/questionExam',dashboard.questionExam);
+app.get('/results',dashboard.results);
 //app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

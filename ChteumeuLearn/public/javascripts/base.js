@@ -22,12 +22,12 @@ function loadSite() {
         updateStats("rightTestAnswers","rightQuestionTest");
         updateStats("numQuestionsTest","totalQuestionTest");
         updateExamStats();
+        $("#forfeitExam").click(onForfeitExamClicked);
         if (sessionStorage.checked === "false") {
             newQuestion();
         } else {
             reloadQuestion(sessionStorage.actualQuestion);
         } 
-        $("#forfeitExam").click(onForfeitExamClicked);
         progress("exam");
     }
     // On quick test
@@ -296,7 +296,7 @@ function onForfeitExamClicked() {
     var forfeit = confirm("Etes-vous sur(e) de vouloir abandonner ?");
     if (forfeit) {
         sessionStorage.score = 0;
-        window.location.replace("results.html");
+        window.location.replace("results");
     }
 };
 
