@@ -1,0 +1,18 @@
+extends questionLayout
+
+block question
+    img(src="images/scotch.png")
+    h1 Examen
+    article
+      span.questionExam
+      br
+      span R&#233;ponses:
+      br
+      form#nextQuestionExam.nextQuestion(action="questionExam.html")
+        br
+        button#buttonNext(type="submit")
+          img(src="images/pin.png")
+          | Corriger
+      button#forfeitExam
+        img(src="images/pin.png")
+        | Abandonner

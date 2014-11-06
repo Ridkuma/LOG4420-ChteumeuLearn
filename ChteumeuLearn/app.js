@@ -8,6 +8,7 @@ var routes = require('./routes');
 var howto = require('./routes/howto');
 var dashboard = require('./routes/dashboard');
 var user = require('./routes/user');
+var database = require('./lib/data');
 var http = require('http');
 var path = require('path');
 
@@ -32,7 +33,9 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/howto', howto.howto);
 app.get('/dashboard',dashboard.dashboard);
-app.get('/users', user.list);
+app.get('/questionTest',dashboard.questionTest);
+app.get('/questionExam',dashboard.questionExam);
+//app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

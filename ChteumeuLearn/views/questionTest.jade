@@ -1,0 +1,20 @@
+extends questionLayout
+
+block question
+    img(src="images/scotch.png")
+    h1 Test Rapide
+    h2#testDomain
+    article
+      #questionTest
+      br
+      span R&#233;ponses:
+      br
+      form#nextQuestionTest.nextQuestion
+        br
+        button(name="buttonNextTest", type="submit")
+          img(src="images/pin.png")
+          | Suivant
+      a(href="dashboard")
+        button#backToMenu
+          img(src="images/pin.png")
+          | Retour Menu

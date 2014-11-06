@@ -126,7 +126,7 @@ function pickDomain(domain) {
 }
 
 // Restreint les questions aux domaines specifies
-export function restrictDomains(domains) {
+exports.restrictDomains = function(domains) {
     data = [];
     for (var i = domains.length - 1; i >= 0; i--) {
         data.concat(pickDomain(domains[i]));
@@ -134,7 +134,7 @@ export function restrictDomains(domains) {
 }
 
 // Obtenir une seule question via son id
-export function getQuestionByID(id) {
+exports.getQuestionByID = function(id) {
     var index = findIndex(data, id);
     if (index == -1) {
         return null;
@@ -144,7 +144,7 @@ export function getQuestionByID(id) {
 }
 
 // Obtenir une question aleatoire SAUF celles dont les id sont dans except
-export function getRandomQuestion(except) {
+exports.getRandomQuestion = function(except) {
     var curatedList = data;
     for (var i = except.length - 1; i >= 0; i--) {
         var qIndex = findIndex(curatedList, except[i]);
