@@ -5,21 +5,57 @@ block content
     img(src='images/scotch.png')
     h1 Tableau de bord
     div.dashboardContent
-    div.exam
-    article
-      form(action=('/question'))
-        fieldset
-          legend Test Rapide
-        button(name='quickTestButton' type='submit') Commencer
-          img(src='images/pin.png')
-    article
-      form(action='/questionExam')
-        fieldset
-          legend Exam
-          label(for='testDomain') Domaine:
-          select#domainSelect(name=testDomain multiple)
-            each val, name in {html: 'HTML5' ,css: 'CSS3' ,javascript: 'Javascript'}
-              option(name = name)=val
+      div.exam
+        article
+          form(action=('/question'))
+            fieldset
+              legend Test Rapide
+            button(name='quickTestButton' type='submit') Commencer
+              img(src='images/pin.png')
+        article
+          form(action='/questionExam')
+            fieldset
+              legend Exam
+              label(for='testDomain') Domaine:
+              select#domainSelect(name=testDomain multiple)
+                each val, name in {html: 'HTML5' ,css: 'CSS3' ,javascript: 'Javascript'}
+                  option(name = name)=val
+              br
+              label(for="questionNumber") Nombre de questions:
+              br
+              input#questionCount(type="range", step="1", min="1", max="10")
+              span#selectedQuestionCount 0
+              | /
+              span#maxQuestionCount 10
+              br
+              button#finalTestButton(type="submit")
+                img(src="images/pin.png")
+                | Commencer
 
 
+      aside
+        h1 Statistiques
+        p
+          span#testStats Note cumulative tests : 0/0
+          br
+          | Examens pass&#233;s :
+          span#examCount 0
+          br
+          a(href="#details")
+            button(name="getDetails")
+              | Details
+              img(src="images/pin.png")
+          button#resetStats
+            | R&#224;Z
+            img(src="images/pin.png")
 
+  #details.modal
+    figure
+      a.closemodal(href="#")
+      figcaption
+        h1 Details
+        table#detailsTable
+          tr
+            th Examen
+            th Note
+            th Domaines
