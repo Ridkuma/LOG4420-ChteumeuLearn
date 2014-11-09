@@ -134,14 +134,23 @@ exports.restrictDomains = function(domains) {
 }
 
 
-exports.getIds = function(selectedDomains){
+exports.getIds = function(selectedDomains,maxQuestions){
 	var iDs = [];
     for (var i = 0; i < originalData.length; i++) {
         	if (selectedDomains.indexOf(originalData[i].domain) != -1) {
             	iDs.push(originalData[i].id);
     	}
     };
+    restrictQuestions(iDs,maxQuestions);
     return iDs;
+}
+
+function restrictQuestions(array,maxQuestions){
+	var remove = (array.length-maxQuestions);
+	for(var i = 0;i<remove;i++){
+		var randPick = Math.floor(Math.random()* array.length);
+		array.splice(randPick,1);
+	}
 }
 
 // Obtenir une seule question via son id

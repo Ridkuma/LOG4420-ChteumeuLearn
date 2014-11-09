@@ -2,16 +2,13 @@ $(document).ready(loadSite);
 
 // On page load
 function loadSite() {
-    
-    $('.header').load("header.html");
-    $('.footer').load("footer.html"); 
 
     var url = window.location.pathname.split("/");
     var location = url[url.length-1];
 
     // On dashboard
     if (location.indexOf('dashboard') != -1) {
-        $("#domainSelect").change(onDomainSelectChanged);
+        //$("#domainSelect").change(onDomainSelectChanged);
         $("#questionCount").change(onQuestionCountChanged);
         $("#resetStats").click(onResetButtonClicked);
         defaultForm();

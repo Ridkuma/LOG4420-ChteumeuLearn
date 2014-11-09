@@ -11,20 +11,20 @@ block content
           button(name='quickTestButton', type='submit') Commencer
             img(src='images/pin.png')
       article
-        form(action='/dashboard' method="POST")
+        form.getExam(action='/dashboard' method="POST")
           fieldset
             legend Exam
             label(for='testDomain') Domaine:
             select#domainSelect(name="testDomain", multiple)
               each val, name in {html: 'HTML5' ,css: 'CSS3' ,javascript: 'JavaScript'}
-                option(name = name)=val
+                option.selectOptions(name = name)=val
             br
             label(for="questionNumber") Nombre de questions:
             br
-            input#questionCount(type="range", step="1", min="1", max="10")
+            input#questionCount(type="range", step="1", min="1", max=maxQuestions, name='numQuestionSelected')
             span#selectedQuestionCount 0
             | /
-            span#maxQuestionCount 10
+            span#maxQuestionCount #{maxQuestions}
             br
             button#finalTestButton(type="submit")
               img(src="images/pin.png")

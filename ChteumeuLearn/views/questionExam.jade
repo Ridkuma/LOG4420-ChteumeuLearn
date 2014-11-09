@@ -11,7 +11,7 @@ block question
         each answer,i in randomQuestionExam.answers 
           -if(i==checkedAnswer && i==correct)
             input(id=i, type='radio', name ='answer', value=i, checked='checked')
-            span(id=i, class="underlineGreen") #{answer}
+            span(id=i, class="underlineGreen",data="rightAnswer") #{answer}
             br
           - else if(i==checkedAnswer && i != correct)
             input(id=i, type='radio', name ='answer', value=i, checked='checked')

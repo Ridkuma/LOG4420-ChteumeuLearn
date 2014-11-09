@@ -44,6 +44,7 @@ app.get('/howto', howto.howto);
 app.get('/dashboard',dashboard.dashboard);
 app.get('/questionTest',dashboard.questionTest);
 app.post('/dashboard',dashboard.selectExam);
+app.post('/getNumQuestions',dashboard.getNumQuestions);
 app.get('/questionExam',dashboard.questionExam);
 app.post('/questionExam',dashboard.checkAnswer);
 app.get('/results',dashboard.results);
