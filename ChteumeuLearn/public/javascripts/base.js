@@ -2,6 +2,7 @@ $(document).ready(loadSite);
 
 // On page load
 function loadSite() {
+    
     $('.header').load("header.html");
     $('.footer').load("footer.html"); 
 

@@ -3,11 +3,15 @@ extends questionLayout
 block question
     h1 Examen
     article
-      span.questionExam
+      span.questionExam #{randomQuestionExam.question}
       br
       span R&#233;ponses:
       br
-      form#nextQuestionExam.nextQuestion(action="questionExam.html")
+      each answer,i in randomQuestionExam.answers
+        input(id=i, type='radio', name ='answer', value='incorrect')
+        span(id=i) #{answer}
+        br
+      form#nextQuestionExam.nextQuestion(action='/questionExam')
         br
         button#buttonNext(type="submit")
           img(src="images/pin.png")

@@ -133,6 +133,17 @@ exports.restrictDomains = function(domains) {
     };
 }
 
+
+exports.getIds = function(selectedDomains){
+	var iDs = [];
+    for (var i = 0; i < originalData.length; i++) {
+        	if (selectedDomains.indexOf(originalData[i].domain) != -1) {
+            	iDs.push(originalData[i].id);
+    	}
+    };
+    return iDs;
+}
+
 // Obtenir une seule question via son id
 exports.getQuestionByID = function(id) {
     var index = findIndex(data, id);
@@ -141,6 +152,16 @@ exports.getQuestionByID = function(id) {
     } else {
         return index;
     }
+}
+
+exports.getRandomQuestionById = function(iDs){
+	var randPick = Math.floor(Math.random()* iDs.length);
+	return originalData[iDs[randPick]];
+}
+
+exports.getRandomQuestionInData = function(){
+	var randPick = Math.floor(Math.random()* originalData.length);
+	return originalData[randPick];	
 }
 
 // Obtenir une question aleatoire SAUF celles dont les id sont dans except

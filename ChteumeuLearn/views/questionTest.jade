@@ -4,10 +4,14 @@ block question
     h1 Test Rapide
     h2#testDomain
     article
-      #questionTest
+      #questionTest #{randomQuestionTest.question}
       br
       span R&#233;ponses:
       br
+      each answer,i in randomQuestionTest.answers
+        input(id=i, type='radio', name ='answer', value='incorrect')
+        span(id=i) #{answer}
+        br
       form#nextQuestionTest.nextQuestion
         br
         button(name="buttonNextTest", type="submit")

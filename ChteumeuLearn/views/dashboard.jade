@@ -8,15 +8,15 @@ block content
         form(action=('/questionTest'))
           fieldset
             legend Test Rapide
-          button(name='quickTestButton' type='submit') Commencer
+          button(name='quickTestButton', type='submit') Commencer
             img(src='images/pin.png')
       article
-        form(action='/questionExam')
+        form(action='/questionExam' method="POST")
           fieldset
             legend Exam
             label(for='testDomain') Domaine:
-            select#domainSelect(name=testDomain multiple)
-              each val, name in {html: 'HTML5' ,css: 'CSS3' ,javascript: 'Javascript'}
+            select#domainSelect(name="testDomain", multiple)
+              each val, name in {html: 'HTML5' ,css: 'CSS3' ,javascript: 'JavaScript'}
                 option(name = name)=val
             br
             label(for="questionNumber") Nombre de questions:
