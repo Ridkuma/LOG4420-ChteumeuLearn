@@ -6,8 +6,11 @@ function loadSite() {
 
     // On dashboard
     if (location.indexOf('dashboard') != -1 || location.indexOf('getNumQuestions') != -1) {
+        sessionStorage.domainChanged = 'no';
+        sessionStorage.countChanged = 'no';
         updateDetails();
         updateAside();
+        $("#finalTestButton").attr("disabled", true);
         sessionStorage.rightAnswersExam = 0;
         sessionStorage.totalQuestionExam=0;
     	if(location.indexOf('getNumQuestions') != -1){
@@ -110,6 +113,10 @@ function putSelectedOptions(){
 				}
 			})
 		}
+        sessionStorage.domainChanged = 'yes';
+        if(sessionStorage.domainChanged =='yes'&&sessionStorage.countChanged=='yes'){
+            $("#finalTestButton").attr("disabled", false);
+        }
 };
 
 // On domain selection change
@@ -134,9 +141,12 @@ function getSelected(){
 };
 
 // On question count slider change
-function onQuestionCountChanged() {
+function onQuestionCountChanged() {    
+    sessionStorage.countChanged = 'yes';
     getQuestionCount( $(this) );
-    $("#finalTestButton").attr("disabled", false);
+    if(sessionStorage.domainChanged =='yes'&&sessionStorage.countChanged=='yes'){
+        $("#finalTestButton").attr("disabled", false);
+    }
 };
 
 // Store question count choice, update text
