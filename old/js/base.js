@@ -32,9 +32,10 @@
             }
             // On quick test
             else if(location.indexOf('question') != -1){
-                updateStats("rightTestAnswers","rightQuestionTest");
-                updateStats("numQuestionsTest","totalQuestionTest");
+                //updateStats("rightTestAnswers","rightQuestionTest");
+                //updateStats("numQuestionsTest","totalQuestionTest");
                 updateExamStats();
+                updateTestStats();
                 testForm();
             }
             // On results
@@ -49,8 +50,9 @@
         // Set the form to have default values
         function defaultForm() {
             changeDomain();
-            updateStats("rightTestAnswers","rightQuestionTest");
-            updateStats("numQuestionsTest","totalQuestionTest");
+            //updateStats("rightTestAnswers","rightQuestionTest");
+            //updateStats("numQuestionsTest","totalQuestionTest");
+            updateTestStats();
             sessionStorage.idChecked = null;
             $("#finalTestButton").attr("disabled", true);
             sessionStorage.right = false;
@@ -90,6 +92,19 @@
             if (average != -1) {
                 $("#examCount").append("<br/> Moyenne des examens : " + average + "%");
             }
+        }
+
+        // Updates test data displayed
+        function updateTestStats(){
+            if (localStorage.rightQuestionTest == "" || localStorage.rightQuestionTest == undefined) {
+                localStorage.rightQuestionTest = 0;
+            }
+
+            if (localStorage.totalQuestionTest == "" || localStorage.totalQuestionTest == undefined) {
+                localStorage.totalQuestionTest = 0;
+            }
+
+            $("#testStats").text("Note cumulative tests : "+ localStorage.rightQuestionTest + "/" + localStorage.totalQuestionTest);
         }
 
         // Updates Details modal content table
@@ -334,8 +349,10 @@
 
         function refreshResult(){
             sessionStorage.numQuestionsTest++;
+            localStorage.totalQuestionTest++;
             if(sessionStorage.right == "true"){
                 sessionStorage.rightTestAnswers = (parseInt(sessionStorage.rightTestAnswers)) + 1;
+                localStorage.rightQuestionTest++;
                 $("#result").text("Note actuelle : "+ sessionStorage.rightTestAnswers +"/" + (sessionStorage.numQuestionsTest - 1));
             }
         };
