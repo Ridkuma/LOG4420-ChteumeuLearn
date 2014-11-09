@@ -12,8 +12,9 @@ exports.questionTest = function(req,res) {
 	var questionTest = data.getRandomQuestionInData();
 	req.session.actualQuestion = questionTest;
 	res.render('questionTest', { title: 'Test Rapide - Chteumeulearn', 
-								randomQuestionTest : questionTest,
+								randomQuestion : questionTest,
 								method:"POST",
+								action:'/questionTest',
 								checkedAnswer:-1,
 								correct:-1,
 								button:"Corriger" });
@@ -22,10 +23,11 @@ exports.questionTest = function(req,res) {
 exports.checkTestAnswer = function(req,res) {
 	var question = req.session.actualQuestion;
 	res.render("questionTest", { title: 'Test Rapide - Chteumeulearn', 
-								randomQuestionTest: question , 
+								randomQuestion: question , 
 								correct: question.correct, 
 								checkedAnswer: req.body.answer, 
 								method:"GET",
+								action:'/questionTest',
 								button:"Suivant"});
 }
 
@@ -45,7 +47,13 @@ exports.questionExam = function(req,res) {
 		req.session.actualQuestion = randomQuestion;
 		var index = req.session.questsIds.indexOf(randomQuestion.id);
 		newIds.splice(index,1);
-		res.render('questionExam', { title: 'Examen - Chteumeulearn', randomQuestionExam : randomQuestion,method:"POST", checkedAnswer:-1, correct:-1,button:"Corriger"});
+		res.render('questionExam', { title: 'Examen - Chteumeulearn',
+									 randomQuestion : randomQuestion,
+									 method:"POST", 
+									 action:'/questionExam',
+									 checkedAnswer:-1,
+									 correct:-1,
+									 button:"Corriger"});
 	}
 	else{
 		res.redirect('/results');
@@ -61,7 +69,13 @@ exports.checkAnswer = function(req,res) {
 		buttonText="Terminé";
 	}
 	else{buttonText="Suivant";}
-	res.render("questionExam", { title: 'Examen - Chteumeulearn',randomQuestionExam:question , correct: correct, checkedAnswer: checked, method:"GET",button:buttonText});
+	res.render("questionExam", { title: 'Examen - Chteumeulearn',
+								 randomQuestion:question ,
+								 correct: correct, 
+								 checkedAnswer: checked, 
+								 method:"GET",
+								 action:'/questionExam',
+								 button:buttonText});
 	
 }
 

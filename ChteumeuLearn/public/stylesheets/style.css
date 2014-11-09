@@ -386,3 +386,10 @@ nav > ul > li:hover > a{
 #correct, #checkedAnswer {
 	display: none;
 }
+
+#progress {
+	width: 60%;
+	margin-top: 10px;
+	margin-right: auto;
+	margin-left: auto;
+}

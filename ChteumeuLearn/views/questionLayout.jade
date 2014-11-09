@@ -3,7 +3,32 @@ extends layout
 block content
   #correct #{correct}
   #checkedAnswer #{checkedAnswer}
-  block question
+  block questionHeader
+  form#nextQuestionExam.nextQuestion(action=action, method=method)
+      each answer,i in randomQuestion.answers 
+        -if(i==checkedAnswer && i==correct)
+          input(id=i, class='answer', type='radio', name ='answer', value=i, checked='checked', data-correct='correct')
+          span(id=i, class="underlineGreen",data="rightAnswer") #{answer}
+          br
+        - else if(i==checkedAnswer && i != correct)
+          input(id=i, class='answer', type='radio', name ='answer', value=i, checked='checked', data-correct='incorrect')
+          span(id=i,class="underlineRed") #{answer}
+          br
+        -else if(i==correct && i!=checkedAnswer)
+          input(id=i, class='answer', type='radio', name ='answer', value=i, data-correct='incorrect')
+          span(id=i,class="underlineGreen") #{answer}
+          br
+        -else
+          input(id=i, type='radio', name ='answer', value=i)
+          span(id=i) #{answer}
+          br
+      br
+      button#buttonNext(type="submit")
+        img(src="images/pin.png")
+        | #{button}
+
+    block questionFooter
+
   aside
     p#result
     hr
