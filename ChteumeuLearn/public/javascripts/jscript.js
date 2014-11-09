@@ -32,6 +32,7 @@ function loadSite() {
         checkNewQuestion();
         checkAnswer();
         updateStats();
+        $("#forfeitExam").click(onForfeitExamClicked);
     }
     // On quick test
     else if(location.indexOf('questionTest') != -1){
@@ -40,6 +41,15 @@ function loadSite() {
     // On results
     else if (location.indexOf('results') != -1) {
         updateFinalResult();
+    }
+};
+
+// On Abandonner button clicked
+function onForfeitExamClicked() {
+    var forfeit = confirm("Etes-vous sur(e) de vouloir abandonner ?");
+    if (forfeit) {
+        sessionStorage.rightAnswersExam = 0;
+        window.location.replace("results");
     }
 };
 
@@ -170,7 +180,7 @@ function updateFinalResult(){
         var array2 = JSON.parse(localStorage.domains);
         array2.push(domain);
         localStorage.domains=JSON.stringify(array2);
-        var result = sessionStorage.rightAnswersExam +"/"+sessionStorage.totalQuestionExam;
+        var result = sessionStorage.rightAnswersExam +"/"+sessionStorage.questionCount;
         var array = JSON.parse(localStorage.results);
         array.push(result);
         localStorage.results=JSON.stringify(array);
