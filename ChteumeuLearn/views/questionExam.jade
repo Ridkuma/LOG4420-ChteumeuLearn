@@ -3,6 +3,8 @@ extends questionLayout
 block question
     h1 Examen
     article
+      span.questionNumber
+      br
       span.questionExam #{randomQuestionExam.question}
       br
       span R&#233;ponses:
@@ -10,15 +12,15 @@ block question
       form#nextQuestionExam.nextQuestion(action='/questionExam', method=method)
         each answer,i in randomQuestionExam.answers 
           -if(i==checkedAnswer && i==correct)
-            input(id=i, type='radio', name ='answer', value=i, checked='checked')
+            input(id=i, class='answer', type='radio', name ='answer', value=i, checked='checked', data-correct='correct')
             span(id=i, class="underlineGreen",data="rightAnswer") #{answer}
             br
           - else if(i==checkedAnswer && i != correct)
-            input(id=i, type='radio', name ='answer', value=i, checked='checked')
+            input(id=i, class='answer', type='radio', name ='answer', value=i, checked='checked', data-correct='incorrect')
             span(id=i,class="underlineRed") #{answer}
             br
           -else if(i==correct && i!=checkedAnswer)
-            input(id=i, type='radio', name ='answer', value=i)
+            input(id=i, class='answer', type='radio', name ='answer', value=i, data-correct='incorrect')
             span(id=i,class="underlineGreen") #{answer}
             br
           -else
