@@ -33,6 +33,7 @@ function loadSite() {
         checkAnswer();
         updateStats();
         $("#forfeitExam").click(onForfeitExamClicked);
+        progress("exam");
     }
     // On quick test
     else if(location.indexOf('questionTest') != -1){
@@ -42,6 +43,17 @@ function loadSite() {
     else if (location.indexOf('results') != -1) {
         updateFinalResult();
     }
+};
+
+// Update progress bar
+function progress(testType) {
+    if (testType == "exam") {
+        $("#examProgress").attr('max', sessionStorage.questionCount);
+        $("#examProgress").val(sessionStorage.totalQuestionExam);
+    }
+    $("#currentScore").text(sessionStorage.rightAnswersExam);
+    $("#maxScore").text((testType == "exam"));
+    $('#progressDisplay').text(sessionStorage.totalQuestionExam+'/'+sessionStorage.questionCount);
 };
 
 // On Abandonner button clicked
@@ -140,7 +152,7 @@ function resetQuestionCount() {
 };
 
 function checkNewQuestion(){
-    if(sessionStorage.newQuestion == undefined || sessionStorage.newQuestion=='yes'){
+    if(sessionStorage.newQuestion == undefined || sessionStorage.totalQuestionExam ==0 || sessionStorage.newQuestion=='yes'){
         sessionStorage.newQuestion = 'yes';
         var total = parseInt(sessionStorage.totalQuestionExam);
         total = total+1;
