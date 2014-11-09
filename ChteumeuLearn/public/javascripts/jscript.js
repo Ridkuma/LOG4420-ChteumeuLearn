@@ -124,6 +124,8 @@ function resetStats(){
     localStorage.results="";
     localStorage.cumulativeTestQuestions = 0;
     localStorage.cumulativeTestScore = 0;
+    localStorage.totalRightAnswers=0;
+    localStorage.totalAnswers=0;
     window.location.reload();
 }
 
@@ -131,8 +133,13 @@ function updateAside(){
     if(localStorage.examsDone != undefined){
         $('#examCount').text(localStorage.examsDone);
     }
-    else{
+    if(parseInt(localStorage.totalAnswers) != 0 && localStorage.totalAnswers != undefined){
+    var rightAnswers = parseInt(localStorage.totalRightAnswers);
+    var totalAnswers = parseInt(localStorage.totalAnswers);
+    var average = (rightAnswers/totalAnswers)*100;
+    $('#examAverage').text("Moyenne des examens: " + average.toFixed(1) +"% (" +localStorage.totalRightAnswers+"/"+localStorage.totalAnswers+")")
     }
+
 }
 
 //On maintient les options selectionnées
@@ -229,6 +236,8 @@ function updateFinalResult(){
         actualDomain = JSON.parse(sessionStorage.options);
         domains.push(actualDomain);
         localStorage.domains= JSON.stringify(domains);
+        localStorage.totalRightAnswers=sessionStorage.rightAnswersExam;
+        localStorage.totalAnswers=sessionStorage.questionCount;
     }
     else{
         var domains =[];
@@ -240,6 +249,12 @@ function updateFinalResult(){
         var array = JSON.parse(localStorage.results);
         array.push(result);
         localStorage.results=JSON.stringify(array);
+        var totalRightAnswers=parseInt(localStorage.totalRightAnswers);
+        totalRightAnswers += parseInt(sessionStorage.rightAnswersExam);
+        localStorage.totalRightAnswers=totalRightAnswers;
+        var totalAnswers=parseInt(localStorage.totalAnswers);
+        totalAnswers+=parseInt(sessionStorage.questionCount);
+        localStorage.totalAnswers=totalAnswers;
     }
     var percent = (parseInt(sessionStorage.rightAnswersExam)/parseInt(sessionStorage.totalQuestionExam))*100;
     var message = ""
