@@ -2,21 +2,34 @@ extends questionLayout
 
 block question
     h1 Test Rapide
-    h2#testDomain
+    h2 #{randomQuestionTest.domain}
     article
       #questionTest #{randomQuestionTest.question}
       br
       span R&#233;ponses:
       br
-      each answer,i in randomQuestionTest.answers
-        input(id=i, type='radio', name ='answer', value='incorrect')
-        span(id=i) #{answer}
+      form#nextQuestionTest.nextQuestion(action='/questionTest', method=method)
+        each answer,i in randomQuestionTest.answers 
+          -if(i==checkedAnswer && i==correct)
+            input(id=i, type='radio', name ='answer', value=i, checked='checked')
+            span(id=i, class="underlineGreen",data="rightAnswer") #{answer}
+            br
+          - else if(i==checkedAnswer && i != correct)
+            input(id=i, type='radio', name ='answer', value=i, checked='checked')
+            span(id=i,class="underlineRed") #{answer}
+            br
+          -else if(i==correct && i!=checkedAnswer)
+            input(id=i, type='radio', name ='answer', value=i)
+            span(id=i,class="underlineGreen") #{answer}
+            br
+          -else
+            input(id=i, type='radio', name ='answer', value=i)
+            span(id=i) #{answer}
+            br
         br
-      form#nextQuestionTest.nextQuestion
-        br
-        button(name="buttonNextTest", type="submit")
+        button#buttonNextTest(type="submit")
           img(src="images/pin.png")
-          | Suivant
+          | #{button}
       a(href="dashboard")
         button#backToMenu
           img(src="images/pin.png")

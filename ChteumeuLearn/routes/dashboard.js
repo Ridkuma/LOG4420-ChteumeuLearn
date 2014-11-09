@@ -9,8 +9,24 @@ exports.dashboard = function(req,res){
 };
 
 exports.questionTest = function(req,res) {
-	var questionExam = data.getRandomQuestionInData();
-	res.render('questionTest', { title: 'Test Rapide - Chteumeulearn', randomQuestionTest : questionExam});
+	var questionTest = data.getRandomQuestionInData();
+	req.session.actualQuestion = questionTest;
+	res.render('questionTest', { title: 'Test Rapide - Chteumeulearn', 
+								randomQuestionTest : questionTest,
+								method:"POST",
+								checkedAnswer:-1,
+								correct:-1,
+								button:"Corriger" });
+}
+
+exports.checkTestAnswer = function(req,res) {
+	var question = req.session.actualQuestion;
+	res.render("questionTest", { title: 'Test Rapide - Chteumeulearn', 
+								randomQuestionTest: question , 
+								correct: question.correct, 
+								checkedAnswer: req.body.answer, 
+								method:"GET",
+								button:"Suivant"});
 }
 
 exports.selectExam = function(req,res) {

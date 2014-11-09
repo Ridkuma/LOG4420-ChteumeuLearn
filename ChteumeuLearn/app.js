@@ -42,10 +42,11 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/howto', howto.howto);
 app.get('/dashboard',dashboard.dashboard);
-app.get('/questionTest',dashboard.questionTest);
 app.post('/dashboard',dashboard.selectExam);
 app.post('/getNumQuestions',dashboard.getNumQuestions);
+app.get('/questionTest',dashboard.questionTest);
 app.get('/questionExam',dashboard.questionExam);
+app.post('/questionTest',dashboard.checkTestAnswer);
 app.post('/questionExam',dashboard.checkAnswer);
 app.get('/results',dashboard.results);
 //app.get('/users', user.list);

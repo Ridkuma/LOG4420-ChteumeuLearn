@@ -18,7 +18,7 @@ function loadSite() {
     else if(location.indexOf('questionExam') != -1) {
     }
     // On quick test
-    else if(location.indexOf('question') != -1){
+    else if(location.indexOf('questionTest') != -1){
     
     }
     // On results
