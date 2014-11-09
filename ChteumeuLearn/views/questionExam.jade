@@ -7,15 +7,28 @@ block question
       br
       span R&#233;ponses:
       br
-      each answer,i in randomQuestionExam.answers
-        input(id=i, type='radio', name ='answer', value='incorrect')
-        span(id=i) #{answer}
-        br
-      form#nextQuestionExam.nextQuestion(action='/questionExam')
+      form#nextQuestionExam.nextQuestion(action='/questionExam', method=method)
+        each answer,i in randomQuestionExam.answers 
+          -if(i==checkedAnswer && i==correct)
+            input(id=i, type='radio', name ='answer', value=i, checked='checked')
+            span(id=i, class="underlineGreen") #{answer}
+            br
+          - else if(i==checkedAnswer && i != correct)
+            input(id=i, type='radio', name ='answer', value=i, checked='checked')
+            span(id=i,class="underlineRed") #{answer}
+            br
+          -else if(i==correct && i!=checkedAnswer)
+            input(id=i, type='radio', name ='answer', value=i)
+            span(id=i,class="underlineGreen") #{answer}
+            br
+          -else
+            input(id=i, type='radio', name ='answer', value=i)
+            span(id=i) #{answer}
+            br
         br
         button#buttonNext(type="submit")
           img(src="images/pin.png")
-          | Corriger
+          | #{button}
       button#forfeitExam
         img(src="images/pin.png")
         | Abandonner

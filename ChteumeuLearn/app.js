@@ -43,8 +43,9 @@ app.get('/', routes.index);
 app.get('/howto', howto.howto);
 app.get('/dashboard',dashboard.dashboard);
 app.get('/questionTest',dashboard.questionTest);
-app.post('/questionExam',dashboard.selectExam);
+app.post('/dashboard',dashboard.selectExam);
 app.get('/questionExam',dashboard.questionExam);
+app.post('/questionExam',dashboard.checkAnswer);
 app.get('/results',dashboard.results);
 //app.get('/users', user.list);
 

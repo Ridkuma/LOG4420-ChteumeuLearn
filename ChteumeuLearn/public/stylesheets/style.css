@@ -373,3 +373,12 @@ nav > ul > li:hover > a{
   background-color: #000000;
   opacity: 0.85;
 }
+
+.underlineGreen{
+	text-decoration: underline;
+	color: green;
+}
+.underlineRed{
+	text-decoration: underline;
+	color: red;
+}
