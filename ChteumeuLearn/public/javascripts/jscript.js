@@ -13,9 +13,10 @@ function loadSite() {
         $("#finalTestButton").attr("disabled", true);
         sessionStorage.rightAnswersExam = 0;
         sessionStorage.totalQuestionExam=0;
+        sessionStorage.currentTestScore = 0;
+        sessionStorage.currentTestQuestions = 0;
     	if(location.indexOf('getNumQuestions') != -1){
     		putSelectedOptions();
-
     	}
     	sessionStorage.questionCount = 0;
         $("#domainSelect").focusout(onDomainSelectChanged);
@@ -29,6 +30,7 @@ function loadSite() {
             localStorage.examsDone=sum;
             });
         $('#resetStats').click(resetStats);
+        updateTestStats();
     } 
     // On exam
     else if(location.indexOf('questionExam') != -1) {
@@ -40,7 +42,16 @@ function loadSite() {
     }
     // On quick test
     else if(location.indexOf('questionTest') != -1){
-    
+        var correct = parseInt($('#correct').text());
+        var checkedAnswer = parseInt($('#checkedAnswer').text());
+        if (correct != -1) {
+            if (correct === checkedAnswer) {
+                refreshTestScore();    
+            }
+            refreshTestStats();
+        }
+        $("#result").text("Note actuelle : "+ sessionStorage.currentTestScore + "/" + (sessionStorage.currentTestQuestions));
+        updateTestStats();
     }
     // On results
     else if (location.indexOf('results') != -1) {
@@ -81,15 +92,38 @@ function updateDetails() {
         $row.append("<td>" + results[i] + "</td>");
         var domains = JSON.parse(localStorage.domains);
         $row.append("<td>" + domains[i] + "</td>");
-        
-        
     };
 }
+
+// Updates test data displayed
+function updateTestStats(){
+    if (localStorage.cumulativeTestScore == "" || localStorage.cumulativeTestScore == undefined) {
+        localStorage.cumulativeTestScore = 0;
+    }
+
+    if (localStorage.cumulativeTestQuestions == "" || localStorage.cumulativeTestQuestions == undefined) {
+        localStorage.cumulativeTestQuestions = 0;
+    }
+
+    $("#testStats").text("Note cumulative tests : "+ localStorage.cumulativeTestScore + "/" + localStorage.cumulativeTestQuestions);
+}
+
+function refreshTestScore(){
+    sessionStorage.currentTestScore = parseInt(sessionStorage.currentTestScore) + 1;
+    localStorage.cumulativeTestScore = parseInt(localStorage.cumulativeTestScore) + 1;
+};
+
+function refreshTestStats(){
+    sessionStorage.currentTestQuestions = parseInt(sessionStorage.currentTestQuestions) + 1;
+    localStorage.cumulativeTestQuestions = parseInt(localStorage.cumulativeTestQuestions) + 1;
+};
 
 function resetStats(){
     localStorage.examsDone =0;
     localStorage.domains="";
     localStorage.results="";
+    localStorage.cumulativeTestQuestions = 0;
+    localStorage.cumulativeTestScore = 0;
     window.location.reload();
 }
 

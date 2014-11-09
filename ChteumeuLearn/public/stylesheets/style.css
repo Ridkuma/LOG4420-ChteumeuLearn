@@ -382,3 +382,7 @@ nav > ul > li:hover > a{
 	text-decoration: underline;
 	color: red;
 }
+
+#correct, #checkedAnswer {
+	display: none;
+}
