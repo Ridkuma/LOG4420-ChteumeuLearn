@@ -5,7 +5,7 @@ var questionSchema = new data.Schema({
   answers: [String],
   correct: Number
 })
-var Question = db.mongoose.model('Question', questionSchema);
+var Question = data.mongoose.model('Question', questionSchema);
 // Add user to database
 exports.addQuestion = function addQuestion(question, answers,correct,domain, callback) {
   var instance = new Question();
