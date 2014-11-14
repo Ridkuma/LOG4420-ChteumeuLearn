@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  form(action="/addQuestion" method="post")
+    div
+      label Question:
+      input(type="text" name="question")
+      br
+    div
+      label Domain:
+      select(name="domain")
+        option HTML5
+        option CSS
+        option JavaScript
+      br
+    div
+      label Answers:
+      input(type="text" name="answers")
+      input(type="radio" name="correct")
+      br
