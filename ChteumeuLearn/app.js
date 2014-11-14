@@ -15,6 +15,7 @@ var database = require('./lib/data');
 var http = require('http');
 var path = require('path');
 var MemStore = express.session.MemoryStore;
+var Question = require('./models/question.js');
 
 var app = express();
 
