@@ -7,7 +7,7 @@ var questionSchema = new data.Schema({
 })
 var Question = data.mongoose.model('Question', questionSchema);
 // Add user to database
-exports.addQuestion = function addQuestion(question, answers,correct,domain, callback) {
+function addQuestion(question, answers,correct,domain, callback) {
   var instance = new Question();
   instance.question = question;
   instance.answers = answers;
@@ -23,6 +23,7 @@ exports.addQuestion = function addQuestion(question, answers,correct,domain, cal
   }
   }); 
 }
+exports.addQuestion;
 
 var question1 = 
 {
@@ -127,8 +128,22 @@ question9,
 question10];
 
 // Data restricted to given domains
-var data = originalData;
+//var data = originalData;
 
+exports.addAllQuestions = function(){
+  for (var i = originalData.length - 1; i >= 0; i--) {
+    if(Question.find({question:originalData[i].question})){
+
+    }
+    else{
+      addQuestion(originalData[i].question,
+        originalData[i].answers,
+        originalData[i].correct,
+        originalData[i].domain,
+        function(){});
+    }
+  };
+}
 // Trouve l'index d'une question dans un tableau selon son id
 function findIndex(questions, id) {
     for (var i = questions.length - 1; i >= 0; i--) {

@@ -15,7 +15,7 @@ var database = require('./lib/data');
 var http = require('http');
 var path = require('path');
 var MemStore = express.session.MemoryStore;
-var Question = require('./models/question.js');
+var addQuestion = require('./routes/addQuestion');
 
 var app = express();
 
@@ -50,6 +50,8 @@ app.get('/questionExam',dashboard.questionExam);
 app.post('/questionTest',dashboard.checkTestAnswer);
 app.post('/questionExam',dashboard.checkAnswer);
 app.get('/results',dashboard.results);
+app.get('/addQuestion',addQuestion.addQuestion);
+app.get('/addAllQuestions',addQuestion.addAllQuestions);
 //app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
