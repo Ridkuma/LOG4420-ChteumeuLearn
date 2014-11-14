@@ -57,6 +57,11 @@ function loadSite() {
     else if (location.indexOf('results') != -1) {
         updateFinalResult();
     }
+    // On question add
+    else if (location.indexOf('addQuestion') != -1) {
+        $('.lastAnswer').keypress(onAnswerFieldKeyPress);
+        $('.lastAnswer').focusout(onAnswerFieldFocusOut);
+    }
 };
 
 // Update progress bar
@@ -144,20 +149,20 @@ function updateAside(){
 
 //On maintient les options selectionnées
 function putSelectedOptions(){
-		var str=[];
-		str = JSON.parse(sessionStorage.options);
-		console.log(str);
-		for(var i = 0; i<str.length; i++){
-			$('.selectOptions').each(function(){
-				if(str[i] == $(this).text()){
-					$(this).attr('selected','selected');
-				}
-			})
-		}
-        sessionStorage.domainChanged = 'yes';
-        if(sessionStorage.domainChanged =='yes'&&sessionStorage.countChanged=='yes'){
-            $("#finalTestButton").attr("disabled", false);
-        }
+	var str=[];
+	str = JSON.parse(sessionStorage.options);
+	console.log(str);
+	for(var i = 0; i<str.length; i++){
+		$('.selectOptions').each(function(){
+			if(str[i] == $(this).text()){
+				$(this).attr('selected','selected');
+			}
+		})
+	}
+    sessionStorage.domainChanged = 'yes';
+    if(sessionStorage.domainChanged =='yes'&&sessionStorage.countChanged=='yes'){
+        $("#finalTestButton").attr("disabled", false);
+    }
 };
 
 // On domain selection change
@@ -278,4 +283,27 @@ function updateStats(){
     $('#examCount').text(localStorage.examsDone);
     $("#testStats").text("Note courante Examen : "+ sessionStorage.rightAnswersExam + "/" + sessionStorage.totalQuestionExam);  
     $('.questionNumber').text("Question: " + sessionStorage.totalQuestionExam + "/" + sessionStorage.questionCount);
+}
+
+// Add Question
+
+function onAnswerFieldKeyPress() {
+    addAnswerField(this);
+}
+
+function onAnswerFieldFocusOut() {
+    removeAnswerField(this);
+}
+
+function addAnswerField(origin) {
+    $(origin).removeClass('lastAnswer');
+    $(origin).after('<input type="text" class="lastAnswer" name="answer"></input>')
+            .keypress(onAnswerFieldKeyPress)
+            .focusout(onAnswerFieldFocusOut);
+    $(origin).off('keypress');
+    $(origin).off('focusout');
+}
+
+function removeAnswerField(origin) {
+
 }

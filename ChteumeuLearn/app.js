@@ -14,6 +14,7 @@ var user = require('./routes/user');
 var database = require('./lib/data');
 var http = require('http');
 var path = require('path');
+var addQuestion = require('./routes/addQuestion');
 var MemStore = express.session.MemoryStore;
 var addQuestion = require('./routes/addQuestion');
 
@@ -43,6 +44,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/howto', howto.howto);
 app.get('/dashboard',dashboard.dashboard);
+app.get('/addQuestion',addQuestion.addQuestion);
 app.post('/dashboard',dashboard.selectExam);
 app.post('/getNumQuestions',dashboard.getNumQuestions);
 app.get('/questionTest',dashboard.questionTest);
