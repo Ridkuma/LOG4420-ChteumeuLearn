@@ -59,8 +59,9 @@ function loadSite() {
     }
     // On question add
     else if (location.indexOf('addQuestion') != -1) {
+        window.firstKeyPress = true;
         $('.lastAnswer').keypress(onAnswerFieldKeyPress);
-        $('.lastAnswer').focusout(onAnswerFieldFocusOut);
+        $('.lastAnswer').blur(onAnswerFieldFocusOut);
     }
 };
 
@@ -288,22 +289,33 @@ function updateStats(){
 // Add Question
 
 function onAnswerFieldKeyPress() {
-    addAnswerField(this);
+    if (window.firstKeyPress) {
+        window.firstKeyPress = false;
+        addAnswerField(this);
+    }
 }
 
 function onAnswerFieldFocusOut() {
-    removeAnswerField(this);
+    window.firstKeyPress = true;
+    if (!$(this).val()) {
+        removeAnswerField(this);    
+    }
 }
 
 function addAnswerField(origin) {
     $(origin).removeClass('lastAnswer');
-    $(origin).after('<input type="text" class="lastAnswer" name="answer"></input>')
-            .keypress(onAnswerFieldKeyPress)
-            .focusout(onAnswerFieldFocusOut);
+    var nextField = $('<input type="text" class="lastAnswer" name="answer"></input>');
+    nextField.keypress(onAnswerFieldKeyPress);
+    nextField.blur(onAnswerFieldFocusOut);
+    $(origin).after(nextField);
+    $(origin).after('<input type="radio" name="correct"></input>');
+    $(origin).after('<br/>');
     $(origin).off('keypress');
-    $(origin).off('focusout');
 }
 
 function removeAnswerField(origin) {
-
+    origin = $(origin);
+    origin.prev().remove();
+    origin.prev().remove();
+    origin.remove();
 }

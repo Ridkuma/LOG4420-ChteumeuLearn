@@ -14,9 +14,10 @@ block content
         option JavaScript
       br
     div
-      label Answers:
-      input(type="text" class="lastAnswer" name="answer")
+      label Answers: Tick the correct one
+      br
       input(type="radio" name="correct")
+      input(type="text" class="lastAnswer" name="answer")
       br
   form(action='/addAllQuestions')
     button(type='submit') Ajouter toutes les questions
