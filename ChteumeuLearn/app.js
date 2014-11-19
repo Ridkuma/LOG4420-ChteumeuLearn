@@ -54,6 +54,8 @@ app.post('/questionExam',dashboard.checkAnswer);
 app.get('/results',dashboard.results);
 app.get('/addQuestion',addQuestion.addQuestion);
 app.get('/addAllQuestions',addQuestion.addAllQuestions);
+app.post('/addQuestion',addQuestion.sendNewQuestion);
+
 //app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

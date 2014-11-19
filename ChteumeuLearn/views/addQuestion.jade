@@ -4,21 +4,23 @@ block content
   form(action="/addQuestion" method="post")
     div
       label Question:
-      input(type="text" name="question")
+      input(type="text" name="question" required)
       br
     div
       label Domain:
-      select(name="domain")
+      select(name="domain" required)
         option HTML5
         option CSS
         option JavaScript
       br
-    div
+    #answers
       label Answers: Tick the correct one
       br
-      input(type="radio" name="correct")
-      input(type="text" class="lastAnswer" name="answer")
+      input(type="radio" name="correct" required)
+      input(type="text" class="lastAnswer" name="answer" required)
       br
+    button(type='submit') Ajouter
+      img(src="images/pin.png")
   form(action='/addAllQuestions')
     button(type='submit') Ajouter toutes les questions
       img(src="images/pin.png")

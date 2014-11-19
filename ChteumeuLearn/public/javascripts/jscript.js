@@ -305,10 +305,13 @@ function onAnswerFieldFocusOut() {
 function addAnswerField(origin) {
     $(origin).removeClass('lastAnswer');
     var nextField = $('<input type="text" class="lastAnswer" name="answer"></input>');
+    if ($('input[name=answer]').length < 2) {
+        nextField.attr('required', true);
+    }
     nextField.keypress(onAnswerFieldKeyPress);
     nextField.blur(onAnswerFieldFocusOut);
     $(origin).after(nextField);
-    $(origin).after('<input type="radio" name="correct"></input>');
+    $(origin).after('<input type="radio" name="correct" required></input>');
     $(origin).after('<br/>');
     $(origin).off('keypress');
 }
