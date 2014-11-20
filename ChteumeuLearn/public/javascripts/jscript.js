@@ -62,6 +62,7 @@ function loadSite() {
         window.firstKeyPress = true;
         $('.lastAnswer').keypress(onAnswerFieldKeyPress);
         $('.lastAnswer').blur(onAnswerFieldFocusOut);
+        $('#addQuestionButton').click(onAddQuestionButtonClicked);
     }
 };
 
@@ -300,6 +301,18 @@ function onAnswerFieldFocusOut() {
     if (!$(this).val()) {
         removeAnswerField(this);    
     }
+}
+
+function onAddQuestionButtonClicked() {
+    $('#correctId').val($('#answers').children('input[name=correct]:checked').index('input[name=correct]'));
+    var answers = $('#answers').children('input[name=answer]:not(.lastAnswer)');
+    var string = "";
+    for (var i = 0; i < answers.length; i++) {
+        string += $(answers[i]).val() + ", ";
+    };
+
+    string = string.slice(0, string.length - 2);
+    $('#answersList').val(string);
 }
 
 function addAnswerField(origin) {

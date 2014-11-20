@@ -383,7 +383,7 @@ nav > ul > li:hover > a{
 	color: red;
 }
 
-#correct, #checkedAnswer {
+.invisible {
 	display: none;
 }
 

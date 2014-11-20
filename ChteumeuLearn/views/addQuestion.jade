@@ -19,8 +19,12 @@ block content
       input(type="radio" name="correct" required)
       input(type="text" class="lastAnswer" name="answer" required)
       br
-    button(type='submit') Ajouter
+
+    input.invisible(type="text" name="correctId" id="correctId")
+    input.invisible(type="text" name="answersList" id="answersList")
+    button(type='submit' id="addQuestionButton") Ajouter
       img(src="images/pin.png")
+
   form(action='/addAllQuestions')
     button(type='submit') Ajouter toutes les questions
       img(src="images/pin.png")

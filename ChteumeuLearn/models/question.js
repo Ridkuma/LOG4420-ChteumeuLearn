@@ -6,24 +6,6 @@ var questionSchema = new data.Schema({
   correct: Number
 })
 var Question = data.mongoose.model('Question', questionSchema);
-// Add user to database
-function addQuestion(question, answers,correct,domain, callback) {
-  var instance = new Question();
-  instance.question = question;
-  instance.answers = answers;
-  instance.correct = correct;
-  instance.domain = domain;
-
-  instance.save(function (err) {
-  if (err) {
-      callback(err);
-  }
-  else {
-      callback(null, instance);
-  }
-  }); 
-}
-exports.addQuestion;
 
 var question1 = 
 {
@@ -129,6 +111,23 @@ question10];
 
 // Data restricted to given domains
 //var data = originalData;
+
+exports.addQuestion = function (question, answers,correct,domain, callback) {
+  var instance = new Question();
+  instance.question = question;
+  instance.answers = answers;
+  instance.correct = correct;
+  instance.domain = domain;
+
+  instance.save(function (err) {
+  if (err) {
+      callback(err);
+  }
+  else {
+      callback(null, instance);
+  }
+  }); 
+}
 
 exports.addAllQuestions = function(){
   for (var i = originalData.length - 1; i >= 0; i--) {

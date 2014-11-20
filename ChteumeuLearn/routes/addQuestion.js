@@ -12,15 +12,9 @@ exports.addQuestion = function(req, res){
 exports.sendNewQuestion = function(req, res) {
 	var question = req.body.question;
 	var domain = req.body.domain;
-	//var answers = $(req.body.answers).children('input[name=answer]:not(.lastAnswer)');
-	var answers = req.body.answer;
-	//var correct = $(req.body.answers).children('input[name=correct]:checked').index('input[name=correct]');
-	var correct = req.body.correct;
-	console.log(question);
-	console.log(domain);
-	console.log(answers.length);
-	console.log(correct);
-	//Question.addQuestion(question, answers, correct, domain, function(){});
+	var answers = req.body.answersList;
+	var correct = req.body.correctId;
+	Question.addQuestion(question, answers.split(", "), correct, domain, function(){});
 	res.render('addQuestion', { title: 'Ajouter Question - Chteumeulearn'});
 }
 

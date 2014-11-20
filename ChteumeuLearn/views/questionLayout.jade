@@ -1,8 +1,8 @@
 extends layout
 
 block content
-  #correct #{correct}
-  #checkedAnswer #{checkedAnswer}
+  #correct.invisible #{correct}
+  #checkedAnswer.invisible #{checkedAnswer}
   block questionHeader
   form#nextQuestionExam.nextQuestion(action=action, method=method)
       each answer,i in randomQuestion.answers 
