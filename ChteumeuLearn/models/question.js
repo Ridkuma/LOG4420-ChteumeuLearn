@@ -112,7 +112,7 @@ question10];
 // Data restricted to given domains
 //var data = originalData;
 
-exports.addQuestion = function (question, answers,correct,domain, callback) {
+exports.addQuestion =function (question, answers,correct,domain, callback) {
   var instance = new Question();
   instance.question = question;
   instance.answers = answers;
@@ -129,19 +129,43 @@ exports.addQuestion = function (question, answers,correct,domain, callback) {
   }); 
 }
 
-exports.addAllQuestions = function(){
-  for (var i = originalData.length - 1; i >= 0; i--) {
-    if(Question.find({question:originalData[i].question})){
+function addNewQuestion(array,i,callback){
+  if(array.length != 0){
+  }
+  else{
+    var instance = new Question();
+    instance.question = originalData[i].question;
+    instance.answers = originalData[i].answers;
+    instance.correct = originalData[i].correct;
+    instance.domain = originalData[i].domain;
 
-    }
-    else{
-      addQuestion(originalData[i].question,
-        originalData[i].answers,
-        originalData[i].correct,
-        originalData[i].domain,
-        function(){});
-    }
-  };
+    instance.save(function (err) {
+      if (err) {
+        callback(err);
+      }
+      else {
+        callback(null, instance);
+      }
+    }); 
+  }
+}
+
+function searchQuestion(questionSearch,callback){
+  Question.find({question:questionSearch.question},function(err,docs){
+      callback(docs);
+  });
+}
+
+exports.addAllQuestions = function addAllQuestions(i){
+  if(i < originalData.length) {
+    searchQuestion(originalData[i],function(docs){
+      addNewQuestion(docs,i,function(){});
+      addAllQuestions(i+1);
+    });
+  }
+  else{
+    return;
+  }
 }
 // Trouve l'index d'une question dans un tableau selon son id
 function findIndex(questions, id) {
@@ -208,9 +232,13 @@ exports.getRandomQuestionById = function(iDs){
   return originalData[iDs[randPick]];
 }
 
-exports.getRandomQuestionInData = function(){
-  var randPick = Math.floor(Math.random()* originalData.length);
-  return originalData[randPick];  
+exports.getRandomQuestionInData = function(callback){
+  Question.find(function(err,docs){
+    var randPick = Math.floor(Math.random()* docs.length);
+    console.log(docs[randPick]);
+    callback(docs[randPick]); 
+
+  }); 
 }
 
 // Obtenir une question aleatoire SAUF celles dont les id sont dans except

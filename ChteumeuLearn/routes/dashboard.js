@@ -1,4 +1,5 @@
 var data = require('../lib/data');
+var Question = require('../models/question.js');
 
 /*
  * GET dashboard page.
@@ -9,7 +10,8 @@ exports.dashboard = function(req,res){
 };
 
 exports.questionTest = function(req,res) {
-	var questionTest = data.getRandomQuestionInData();
+	Question.getRandomQuestionInData(function(questionTest){
+	console.log(questionTest.question);
 	req.session.actualQuestion = questionTest;
 	res.render('questionTest', { title: 'Test Rapide - Chteumeulearn', 
 								randomQuestion : questionTest,
@@ -18,6 +20,8 @@ exports.questionTest = function(req,res) {
 								checkedAnswer:-1,
 								correct:-1,
 								button:"Corriger" });
+	});
+	
 }
 
 exports.checkTestAnswer = function(req,res) {
@@ -43,7 +47,7 @@ exports.selectExam = function(req,res) {
 exports.questionExam = function(req,res) {
 	if(req.session.questsIds != 0){
 		var newIds = req.session.questsIds;
-		var randomQuestion = data.getRandomQuestionById(newIds);
+		var randomQuestion = Question.getRandomQuestionById(newIds);
 		req.session.actualQuestion = randomQuestion;
 		var index = req.session.questsIds.indexOf(randomQuestion.id);
 		newIds.splice(index,1);

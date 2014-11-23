@@ -19,6 +19,6 @@ exports.sendNewQuestion = function(req, res) {
 }
 
 exports.addAllQuestions = function(req, res){
-  Question.addAllQuestions();
+  Question.addAllQuestions(0);
   res.render('addQuestion', { title: 'Ajouter Question - Chteumeulearn'});
 };
