@@ -197,16 +197,36 @@ exports.restrictDomains = function(domains) {
     };
 }
 
+function findDomains(selectedDomains,maxQuestions,callback){
+  var questions = [];
+  if(typeof(selectedDomains) != 'string'){
+    Question.find({domain:{$in: selectedDomains}},function(err,docs){
+    var remove = (docs.length-maxQuestions);
+    for(var i = 0;i<remove;i++){
+      var randPick = Math.floor(Math.random()* docs.length);
+      questions[i] = docs[randPick];
+      docs.splice(randPick,1);      
+    }
+    callback(questions);
+    });
+  }
+  else{
+    Question.find({domain:selectedDomains},function(err,docs){
+    var remove = (docs.length-maxQuestions);
+    for(var i = 0;i<remove;i++){
+      var randPick = Math.floor(Math.random()* docs.length);
+      questions[i] = docs[randPick];
+      docs.splice(randPick,1);      
+    }
+    callback(questions);
+    });
+  }
+}
 
-exports.getIds = function(selectedDomains,maxQuestions){
-  var iDs = [];
-    for (var i = 0; i < originalData.length; i++) {
-          if (selectedDomains.indexOf(originalData[i].domain) != -1) {
-              iDs.push(originalData[i].id);
-      }
-    };
-    restrictQuestions(iDs,maxQuestions);
-    return iDs;
+exports.getIds = function (selectedDomains,maxQuestions,callback){
+  findDomains(selectedDomains,maxQuestions,function(questions){
+    callback(questions);
+  })
 }
 
 function restrictQuestions(array,maxQuestions){
@@ -235,7 +255,6 @@ exports.getRandomQuestionById = function(iDs){
 exports.getRandomQuestionInData = function(callback){
   Question.find(function(err,docs){
     var randPick = Math.floor(Math.random()* docs.length);
-    console.log(docs[randPick]);
     callback(docs[randPick]); 
 
   }); 

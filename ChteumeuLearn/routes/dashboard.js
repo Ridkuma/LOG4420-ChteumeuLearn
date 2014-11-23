@@ -39,18 +39,34 @@ exports.selectExam = function(req,res) {
 	var selected = req.body.testDomain;
 	var numQuestionsSelected = req.body.numQuestionSelected;
 	var selected = req.session.domainsSelected;
-	req.session.questsIds=data.getIds(selected,numQuestionsSelected);
-	req.session.numQuestions=req.session.questsIds.length;
+	/*Question.getIds(selected,numQuestionsSelected,function(questions){
+		req.session.questsIds=questions;
+		console.log(req.session.questsIds);
+		req.session.numQuestions=req.session.questsIds.length;
+		res.redirect('/questionExam');	
+	});*/
+	var questionsExam =[];
+	var allQuestions = req.session.questsIds;
+	for(var i = 0;i< numQuestionsSelected;i++){
+		var randPick = Math.floor(Math.random()* allQuestions.length);
+      	questionsExam[i] = allQuestions[randPick];
+      	allQuestions.splice(randPick,1);      
+	}
+	req.session.questsIds=questionsExam;
 	res.redirect('/questionExam');
 }
 
 exports.questionExam = function(req,res) {
+	var numQuestionsSelected = req.body.numQuestionSelected;
+	var questions = req.session.questsIds;
+	var randomQuestion;
 	if(req.session.questsIds != 0){
-		var newIds = req.session.questsIds;
-		var randomQuestion = Question.getRandomQuestionById(newIds);
-		req.session.actualQuestion = randomQuestion;
-		var index = req.session.questsIds.indexOf(randomQuestion.id);
-		newIds.splice(index,1);
+		var randPick = Math.floor(Math.random()* questions.length);
+    randomQuestion = questions[randPick];
+    req.session.actualQuestion = randomQuestion;
+    questions.splice(randPick,1);      
+		req.session.questsIds=questions;
+		console.log(randomQuestion);
 		res.render('questionExam', { title: 'Examen - Chteumeulearn',
 									 randomQuestion : randomQuestion,
 									 method:"POST", 
@@ -86,10 +102,13 @@ exports.checkAnswer = function(req,res) {
 exports.getNumQuestions = function(req,res) {
 	var selected = req.body.testDomain;
 	req.session.domainsSelected=selected;
-	req.session.questsIds=data.getIds(selected);
-	req.session.numQuestions=req.session.questsIds.length;
-	var max=req.session.numQuestions;
-	res.render('dashboard',{title: 'Tableau de Bord - Chteumeulearn', maxQuestions :max});
+	Question.getIds(selected,0,function(questions){
+		req.session.questsIds=questions;
+		req.session.numQuestions=req.session.questsIds.length;
+		var max=req.session.numQuestions;
+		res.render('dashboard',{title: 'Tableau de Bord - Chteumeulearn', maxQuestions :max});
+	});
+	
 	
 }
 
