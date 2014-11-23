@@ -318,13 +318,14 @@ function onAddQuestionButtonClicked() {
 function addAnswerField(origin) {
     $(origin).removeClass('lastAnswer');
     var nextField = $('<input type="text" class="lastAnswer" name="answer"></input>');
+    nextField.val(' ');
     if ($('input[name=answer]').length < 2) {
         nextField.attr('required', true);
     }
     nextField.keypress(onAnswerFieldKeyPress);
     nextField.blur(onAnswerFieldFocusOut);
     $(origin).after(nextField);
-    $(origin).after('<input type="radio" name="correct" required></input>');
+    $(origin).before('<input type="radio" name="correct" required></input>');
     $(origin).after('<br/>');
     $(origin).off('keypress');
 }
