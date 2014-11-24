@@ -39,12 +39,6 @@ exports.selectExam = function(req,res) {
 	var selected = req.body.testDomain;
 	var numQuestionsSelected = req.body.numQuestionSelected;
 	var selected = req.session.domainsSelected;
-	/*Question.getIds(selected,numQuestionsSelected,function(questions){
-		req.session.questsIds=questions;
-		console.log(req.session.questsIds);
-		req.session.numQuestions=req.session.questsIds.length;
-		res.redirect('/questionExam');	
-	});*/
 	var questionsExam =[];
 	var allQuestions = req.session.questsIds;
 	for(var i = 0;i< numQuestionsSelected;i++){

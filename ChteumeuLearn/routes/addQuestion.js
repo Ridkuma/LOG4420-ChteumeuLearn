@@ -1,5 +1,4 @@
 var Question = require('../models/question.js');
-var $ = require('jquery')(require("jsdom").jsdom().parentWindow);
 
 /*
  * GET addQuestion page.
