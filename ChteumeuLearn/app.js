@@ -56,6 +56,11 @@ app.get('/addQuestion',addQuestion.addQuestion);
 app.get('/addAllQuestions',addQuestion.addAllQuestions);
 app.post('/addQuestion',addQuestion.sendNewQuestion);
 
+// app.get('/api/getRandomQuestion', dashboard.getRandomQuestion);
+// app.get('/api/getQuestionAnswer/:questionId', dashboard.getQuestionAnswer);
+// app.get('/api/getQuestionExam', dashboard.getQuestionExam);
+
+app.post('/api/postDomains/:domains', dashboard.postDomains);
 //app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

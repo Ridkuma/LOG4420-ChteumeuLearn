@@ -72,7 +72,6 @@ exports.questionExam = function(req,res) {
 	else{
 		res.redirect('/results');
 	}
-	
 }
 
 exports.checkAnswer = function(req,res) {
@@ -90,7 +89,6 @@ exports.checkAnswer = function(req,res) {
 								 method:"GET",
 								 action:'/questionExam',
 								 button:buttonText});
-	
 }
 
 exports.getNumQuestions = function(req,res) {
@@ -102,11 +100,13 @@ exports.getNumQuestions = function(req,res) {
 		var max=req.session.numQuestions;
 		res.render('dashboard',{title: 'Tableau de Bord - Chteumeulearn', maxQuestions :max});
 	});
-	
-	
 }
 
 
 exports.results = function(req,res) {
 	res.render('results', { title: 'Resultats - Chteumeulearn'});
+}
+
+exports.postDomains = function (req,res) {
+	req.session.domains = req.params.domains;
 }

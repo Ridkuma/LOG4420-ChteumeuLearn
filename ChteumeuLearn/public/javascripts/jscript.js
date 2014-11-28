@@ -19,7 +19,7 @@ function loadSite() {
     		putSelectedOptions();
     	}
     	sessionStorage.questionCount = 0;
-        $("#domainSelect").focusout(onDomainSelectChanged);
+        $("#domainSelect").change(onDomainSelectChanged);
         $("#questionCount").change(onQuestionCountChanged);
         $('#finalTestButton').click(function(){
             if(localStorage.examsDone==undefined){
@@ -174,9 +174,7 @@ function onDomainSelectChanged(){
 
 // Get all questions available for current domains choice
 function changeDomain() {
-	getSelected();
-    $('.getExam').attr('action','/getNumQuestions');
-    $('.getExam').submit();
+    //$http.post('/api/postDomains/:' + JSON.stringify(getSelected()));
 };
 
 // Get selected options for question domain
@@ -185,7 +183,7 @@ function getSelected(){
     $('#domainSelect option:selected').each(function(){
         str.push($(this).text());       
     })
-    sessionStorage.options = JSON.stringify(str);
+    return str;
 };
 
 // On question count slider change

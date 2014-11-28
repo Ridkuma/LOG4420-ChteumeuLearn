@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 Tableau de bord
-  div.dashboardContent
+  div.dashboardContent(ng-controller="DashboardController as ctrl")
     div.exam
       article
         form(action=('/questionTest'))
@@ -14,8 +14,8 @@ block content
         form.getExam(action='/dashboard' method="POST")
           fieldset
             legend Exam
-            label(for='testDomain') Domaine:
-            select#domainSelect(name="testDomain", multiple)
+            label(for='testDomain') Domaines
+            select#domainSelect(name="testDomain", multiple, ng-model="selected", ng-change="onDomainChanged()")
               each val, name in {html: 'HTML5' ,css: 'CSS3' ,javascript: 'JavaScript'}
                 option.selectOptions(name = name)=val
             br
