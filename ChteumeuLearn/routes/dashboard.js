@@ -118,3 +118,10 @@ exports.postDomains = function (req,res) {
 		
 	});
 }
+
+exports.getRandomQuestion = function (req, res) {
+	Question.getRandomQuestionInData(function(questionTest){
+		console.log(questionTest.question);
+		res.json(questionTest);
+	});
+}

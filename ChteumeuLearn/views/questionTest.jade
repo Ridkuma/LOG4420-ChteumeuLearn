@@ -1,13 +1,37 @@
 extends questionLayout
 
 block questionHeader
-  h1 Test Rapide
-  h2 #{randomQuestion.domain}
-  article
-    #questionTest #{randomQuestion.question}
-    br
-    span R&#233;ponses:
-    br
+  div(ng-controller="QuickTestController as ctrl")
+    h1 Test Rapide
+    h2 {{randomQuestion.domain}}
+    article
+      #questionTest {{randomQuestion.question}}
+      br
+      span R&#233;ponses:
+      br
+
+    form#nextQuestionExam.nextQuestion(action=action, method=method)
+      div(ng-repeat="answer in randomQuestion.answers")
+        div(ng-if="$index === checkedAnswer && $index === correct")
+          input(id="{{$index}}", class='answer', type='radio', name ='answer', value="{{$index}}", checked='checked', data-correct='correct')
+          span(id="{{$index}}", class="underlineGreen",data="rightAnswer") {{answer}}
+          br
+        div(ng-if="$index === checkedAnswer && $index !== correct")
+          input(id="{{$index}}", class='answer', type='radio', name ='answer', value="{{$index}}", checked='checked', data-correct='incorrect')
+          span(id="{{$index}}",class="underlineRed") {{answer}}
+          br
+        div(ng-if="$index !== checkedAnswer && $index === correct")
+          input(id="{{$index}}", class='answer', type='radio', name ='answer', value="{{$index}}", data-correct='incorrect')
+          span(id="{{$index}}",class="underlineGreen") {{answer}}
+          br
+        div(ng-if="$index !== checkedAnswer && $index !== correct")
+          input(id="{{$index}}", type='radio', name ='answer', value="{{$index}}")
+          span(id="{{$index}}") {{answer}}
+          br
+      br
+      button#buttonNext(type="submit")
+        img(src="images/pin.png")
+        | #{button}
 
 block questionFooter
   a(href="dashboard")
