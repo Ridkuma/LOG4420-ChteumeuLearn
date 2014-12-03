@@ -108,5 +108,13 @@ exports.results = function(req,res) {
 }
 
 exports.postDomains = function (req,res) {
-	req.session.domains = req.params.domains;
+	req.session.domains = JSON.parse(req.params.domains);
+	var selected = req.session.domains;
+	Question.getIds(selected,0,function(questions){
+		req.session.questsIds=questions;
+		req.session.numQuestions=req.session.questsIds.length;
+		var max=req.session.numQuestions;
+		res.json(max);
+		
+	});
 }

@@ -24,7 +24,7 @@ block content
             input#questionCount(type="range", step="1", min="1", max=maxQuestions, name='numQuestionSelected')
             span#selectedQuestionCount 0
             | /
-            span#maxQuestionCount #{maxQuestions}
+            span#maxQuestionCount {{maxQuestionNumber}}
             br
             button#finalTestButton(type="submit")
               img(src="images/pin.png")
