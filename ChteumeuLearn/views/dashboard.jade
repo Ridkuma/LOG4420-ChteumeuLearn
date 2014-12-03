@@ -21,7 +21,7 @@ block content
             br
             label(for="questionNumber") Nombre de questions:
             br
-            input#questionCount(type="range", step="1", min="1", max=maxQuestions, name='numQuestionSelected')
+            input#questionCount(type="range", step="1", min="1", max='{{maxQuestionNumber}}', name='numQuestionSelected')
             span#selectedQuestionCount 0
             | /
             span#maxQuestionCount {{maxQuestionNumber}}
