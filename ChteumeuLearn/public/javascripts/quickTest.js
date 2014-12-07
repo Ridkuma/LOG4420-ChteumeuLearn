@@ -8,13 +8,8 @@ chteumeulearn.controller('QuickTestController',
         $scope.correct = -1;
         $scope.checkedAnswer = -1;
 
-        QuickTestModel.getCorrectAnswersFromServer(function(data){
-          
-          $scope.countCorrectAnswer = data;
-        });
-        QuickTestModel.getAnsweredQuestionTestFromServer(function(data){
-          $scope.answeredQuestionsTest = data;
-        });
+        QuickTestModel.getCorrectAnswersFromServer();
+        QuickTestModel.getAnsweredQuestionTestFromServer();
 
         $scope.selectedAnswer = "";
         $scope.submit = function(){
@@ -22,11 +17,7 @@ chteumeulearn.controller('QuickTestController',
             QuickTestModel.getCorrectAnswer($scope.randomQuestion.id,function(data){
               $scope.correct = parseInt(data); 
               $scope.checkedAnswer = parseInt($scope.selectedAnswer);
-              if($scope.correct === $scope.checkedAnswer){
-                $scope.countCorrectAnswer = parseInt($scope.countCorrectAnswer)+1;
-              }
-              $scope.answeredQuestionsTest = parseInt($scope.answeredQuestionsTest)+1;
-              QuickTestModel.getStatsTest($scope.answeredQuestionsTest,$scope.countCorrectAnswer);
+              QuickTestModel.getStatsTest($scope.correct,$scope.checkedAnswer);
               $scope.button = 'Suivant';
              });
             
@@ -76,14 +67,14 @@ chteumeulearn.service('QuickTestModel',
 
             getCorrectAnswersFromServer : function(callback){
               $http.get('/api/getCorrectAnswersTest').success(function(data, status, headers, config){
-                $rootScope.countCorrectAnswer=data;
+                $rootScope.countCorrectAnswer=parseInt(data);
                 callback(data);       
               });
             },
 
             getAnsweredQuestionTestFromServer : function(callback){
               $http.get('/api/getAnsweredQuestionTest').success(function(data, status, headers, config){
-                $rootScope.answeredQuestionsTest=data;
+                $rootScope.answeredQuestionsTest=parseInt(data);
                 callback(data);       
               });
 
@@ -101,11 +92,11 @@ chteumeulearn.service('QuickTestModel',
                 });
             },
 
-            getStatsTest : function(answeredQuestionsTest,countCorrectAnswer){
-              $rootScope.answeredQuestionsTest = answeredQuestionsTest;
-              $rootScope.countCorrectAnswer=countCorrectAnswer; 
-
-
+            getStatsTest : function(correct,checked){
+              if(correct === checked){
+                $rootScope.countCorrectAnswer = parseInt($rootScope.countCorrectAnswer)+1;
+              }
+              $rootScope.answeredQuestionsTest = parseInt($rootScope.answeredQuestionsTest)+1;
             }
         }
     }
