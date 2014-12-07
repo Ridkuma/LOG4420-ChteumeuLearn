@@ -11,7 +11,6 @@ exports.dashboard = function(req,res){
 
 exports.questionTest = function(req,res) {
 	Question.getRandomQuestionInData(function(questionTest){
-	console.log(questionTest.question);
 	req.session.actualQuestion = questionTest;
 	res.render('questionTest', { title: 'Test Rapide - Chteumeulearn', 
 								randomQuestion : questionTest,

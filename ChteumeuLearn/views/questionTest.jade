@@ -1,7 +1,7 @@
 extends questionLayout
 
 block questionHeader
-  div(ng-controller="QuickTestController as ctrl")
+  div(ng-controller="QuickTestController")
     h1 Test Rapide
     h2 {{randomQuestion.domain}}
     article
@@ -10,28 +10,27 @@ block questionHeader
       span R&#233;ponses:
       br
 
-    form#nextQuestionExam.nextQuestion(action=action, method=method)
+    form#nextQuestionExam.nextQuestion(ng-submit="submit()")
       div(ng-repeat="answer in randomQuestion.answers")
         div(ng-if="$index === checkedAnswer && $index === correct")
-          input(id="{{$index}}", class='answer', type='radio', name ='answer', value="{{$index}}", checked='checked', data-correct='correct')
+          input(id="{{$index}}", class='answer', type='radio',ng-model='$parent.$parent.selectedAnswer', name ='answer', value="{{$index}}", checked='checked', data-correct='correct')
           span(id="{{$index}}", class="underlineGreen",data="rightAnswer") {{answer}}
           br
         div(ng-if="$index === checkedAnswer && $index !== correct")
-          input(id="{{$index}}", class='answer', type='radio', name ='answer', value="{{$index}}", checked='checked', data-correct='incorrect')
+          input(id="{{$index}}", class='answer', type='radio',ng-model='$parent.$parent.selectedAnswer', name ='answer', value="{{$index}}", checked='checked', data-correct='incorrect')
           span(id="{{$index}}",class="underlineRed") {{answer}}
           br
         div(ng-if="$index !== checkedAnswer && $index === correct")
-          input(id="{{$index}}", class='answer', type='radio', name ='answer', value="{{$index}}", data-correct='incorrect')
+          input(id="{{$index}}", class='answer', type='radio',ng-model='$parent.$parent.selectedAnswer', name ='answer', value="{{$index}}", data-correct='incorrect')
           span(id="{{$index}}",class="underlineGreen") {{answer}}
           br
         div(ng-if="$index !== checkedAnswer && $index !== correct")
-          input(id="{{$index}}", type='radio', name ='answer', value="{{$index}}")
+          input(id="{{$index}}", type='radio',class='answer',ng-model='$parent.$parent.selectedAnswer', name ='answer', value="{{$index}}")
           span(id="{{$index}}") {{answer}}
-          br
       br
       button#buttonNext(type="submit")
         img(src="images/pin.png")
-        | #{button}
+        | {{button}}
 
 block questionFooter
   a(href="dashboard")

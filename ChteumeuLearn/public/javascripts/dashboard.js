@@ -2,7 +2,6 @@ var chteumeulearn = angular.module('chteumeulearn', []);
 
 chteumeulearn.controller('DashboardController',
     function($rootScope, $scope, $http, DashboardModel) {
-
         $scope.selected = [];
 
         $scope.onDomainChanged = function() {
