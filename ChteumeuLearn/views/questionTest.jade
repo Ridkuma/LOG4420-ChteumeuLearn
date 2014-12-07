@@ -32,8 +32,8 @@ block questionHeader
         img(src="images/pin.png")
         | {{button}}
 
-block questionFooter
-  a(href="dashboard")
-    button#backToMenu
-      img(src="images/pin.png")
-      | Retour Menu
+    block questionFooter
+      a(ng-click='saveTestStats()')
+        button#backToMenu
+          img(src="images/pin.png")
+          | Retour Menu

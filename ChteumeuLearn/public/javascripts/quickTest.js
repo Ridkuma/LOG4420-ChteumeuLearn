@@ -7,8 +7,15 @@ chteumeulearn.controller('QuickTestController',
         }
         $scope.correct = -1;
         $scope.checkedAnswer = -1;
-        $scope.answeredQuestionsTest = 0;
-        $scope.countCorrectAnswer = 0;
+
+        QuickTestModel.getCorrectAnswersFromServer(function(data){
+          
+          $scope.countCorrectAnswer = data;
+        });
+        QuickTestModel.getAnsweredQuestionTestFromServer(function(data){
+          $scope.answeredQuestionsTest = data;
+        });
+
         $scope.selectedAnswer = "";
         $scope.submit = function(){
           if($scope.button === 'Corriger'){
@@ -43,6 +50,9 @@ chteumeulearn.controller('QuickTestController',
         $scope.getAnsweredQuestions = function(){
           return $rootScope.answeredQuestionsTest;
         }
+        $scope.saveTestStats = function(){
+          QuickTestModel.saveStats();
+        }
 
         if (typeof($scope.randomQuestion)==='undefined') {
             QuickTestModel.getRandomQuestion(function(data){
@@ -53,20 +63,44 @@ chteumeulearn.controller('QuickTestController',
     });
 
 chteumeulearn.service('QuickTestModel',
-    function($rootScope, $http, $window){
-    $rootScope.answeredQuestionsTest=0;
-    $rootScope.countCorrectAnswer=0; 
+    function($rootScope, $http, $window){ 
         return {
+            saveStats : function(){
+             var testStats=[];
+             testStats.push( $rootScope.countCorrectAnswer);
+             testStats.push( $rootScope.answeredQuestionsTest);
+             $http.post('/api/postStats/'+ JSON.stringify(testStats));
+             $window.location.href = '/dashboard';
+             
+            },
+
+            getCorrectAnswersFromServer : function(callback){
+              $http.get('/api/getCorrectAnswersTest').success(function(data, status, headers, config){
+                $rootScope.countCorrectAnswer=data;
+                callback(data);       
+              });
+            },
+
+            getAnsweredQuestionTestFromServer : function(callback){
+              $http.get('/api/getAnsweredQuestionTest').success(function(data, status, headers, config){
+                $rootScope.answeredQuestionsTest=data;
+                callback(data);       
+              });
+
+            },
+
             getRandomQuestion : function(callback) {
                 $http.get('/api/getRandomQuestion/').success(function(data, status, headers, config){
                     callback(data);
                 });
             },
+
             getCorrectAnswer : function(id,callback) {
                 $http.get('/api/getAnswer/'+id).success(function(data, status, headers, config){
                     callback(data);
                 });
             },
+
             getStatsTest : function(answeredQuestionsTest,countCorrectAnswer){
               $rootScope.answeredQuestionsTest = answeredQuestionsTest;
               $rootScope.countCorrectAnswer=countCorrectAnswer; 

@@ -6,7 +6,8 @@ var Question = require('../models/question.js');
  */
 
 exports.dashboard = function(req,res){
-	res.render('dashboard', { title: 'Tableau de Bord - Chteumeulearn',maxQuestions:10});
+	console.log('here')
+	res.render('dashboard', { title: 'Tableau de Bord - Chteumeulearn'});
 };
 
 exports.questionTest = function(req,res) {
@@ -165,3 +166,26 @@ exports.getQuestionExam = function(req,res) {
         res.json(data);
     }
 }
+
+exports.getAnsweredQuestionTest = function(req,res){
+	if(typeof(req.session.answeredQuestionTest) === 'undefined'){
+		req.session.answeredQuestionTest=0;
+	}
+	res.json(req.session.answeredQuestionTest);
+};
+
+exports.getCorrectAnswersTest = function(req,res){
+	if(typeof(req.session.correctAnswersTest) === 'undefined'){
+		req.session.correctAnswersTest=0;
+	}
+	
+	res.json(req.session.correctAnswersTest);
+};
+
+exports.saveStats = function(req,res){
+	var stats = [];
+	stats = JSON.parse(req.params.stats);
+	req.session.correctAnswersTest=parseInt(stats[0]);
+	req.session.answeredQuestionTest=parseInt(stats[1]);
+	res.json({redirect: '/dashboard'});
+};
