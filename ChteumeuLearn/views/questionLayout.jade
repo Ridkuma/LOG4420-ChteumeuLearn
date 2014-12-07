@@ -4,11 +4,11 @@ block content
   block questionHeader
     block questionFooter
 
-  aside
+  aside(ng-controller="QuickTestController")
     p#result
     hr
     p
-      span#testStats Note cumulative tests : 0/0
+      span#testStats Note cumulative tests : {{getCorrectAnswers()}}/{{getAnsweredQuestions()}}
       br
       | Examens pass&#233;s :
       span#examCount 0
