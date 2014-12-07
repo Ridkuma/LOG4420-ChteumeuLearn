@@ -36,10 +36,10 @@ block content
             img(src="images/pin.png")
             | Ajouter des questions
 
-    aside
+    aside(ng-controller="QuickTestController")
       h1 Statistiques
       p
-        span#testStats Note cumulative tests : 0/0
+        span#testStats Note cumulative tests : {{getCorrectAnswers()}}/{{getAnsweredQuestions()}}
         br
         | Examens pass&#233;s :
         span#examCount 0
