@@ -7,6 +7,7 @@ var questionSchema = new data.Schema({
 })
 var Question = data.mongoose.model('Question', questionSchema);
 
+
 var question1 = 
 {
   id: 0,
@@ -272,4 +273,13 @@ exports.getRandomQuestion = function(except) {
     };
     var randPick = Math.floor(Math.random()* curatedList.length);
     return curatedList[randPick];
+}
+
+exports.getAnswer = function(id,callback) {
+    console.log(id);
+    Question.findOne({'_id':id},function(err,docs){
+      var rightAnswer = docs.correct;
+      callback(rightAnswer);
+    })
+    
 }

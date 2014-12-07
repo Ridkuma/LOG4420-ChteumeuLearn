@@ -120,7 +120,20 @@ exports.postDomains = function (req,res) {
 
 exports.getRandomQuestion = function (req, res) {
 	Question.getRandomQuestionInData(function(questionTest){
-		console.log(questionTest.question);
-		res.json(questionTest);
+		var response = 
+		{
+  		id: questionTest._id,
+  		domain: questionTest.domain,
+  		question: questionTest.question,
+  		answers: questionTest.answers,
+		};
+		res.json(response);
+	});
+}
+
+exports.getAnswer = function (req, res) {
+	var id = req.params.id;
+	Question.getAnswer(id,function(answer){
+		res.json(answer);
 	});
 }
