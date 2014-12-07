@@ -66,6 +66,7 @@ app.get('/api/getAnsweredQuestionTest', dashboard.getAnsweredQuestionTest);
 app.get('/api/getCorrectAnswersTest', dashboard.getCorrectAnswersTest);
 app.post('/api/postExamChoices/:selection', dashboard.postExamChoices);
 app.post('/api/postStats/:stats', dashboard.saveStats);
+app.post('/api/postExamResults/:results', dashboard.postExamResults);
 //app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -151,8 +151,9 @@ exports.postExamChoices = function (req, res) {
       	questionsExam[i] = req.session.questsIds[randPick];
       	req.session.questsIds.splice(randPick,1);      
 	}
-	req.session.questsIds=questionsExam;
+	req.session.questsIds = questionsExam;
     req.session.remainingExamQuestion = selection.count;
+    req.session.examDomains = selection.domains;
     res.json();
 }
 
@@ -160,12 +161,18 @@ exports.getQuestionExam = function(req,res) {
     if(req.session.remainingExamQuestion != 0){
         var randPick = Math.floor(Math.random()* req.session.questsIds.length);
         var randomQuestion = req.session.questsIds[randPick];
-        var data = {id: randomQuestion.id, question: randomQuestion.question, answers: randomQuestion.answers}
+        var data = {
+            id: randomQuestion._id,
+            question: randomQuestion.question, 
+            answers: randomQuestion.answers, 
+            remaining: req.session.remainingExamQuestion
+        };
         req.session.questsIds.splice(randPick,1);
         req.session.remainingExamQuestion--;
         res.json(data);
     }
 }
+
 
 exports.getAnsweredQuestionTest = function(req,res){
 	if(typeof(req.session.answeredQuestionTest) === 'undefined'){
@@ -189,3 +196,18 @@ exports.saveStats = function(req,res){
 	req.session.answeredQuestionTest=parseInt(stats[1]);
 	res.json({redirect: '/dashboard'});
 };
+
+exports.postExamResults = function(req,res) {
+    if (typeof(req.session.examCount) === 'undefined') {
+        req.session.examCount = 0;
+        req.session.examResults = [];
+    }
+    var results = JSON.parse(req.params.results);
+    var data = {
+        score: results.score,
+        maxScore: results.maxScore,
+        domains: req.session.examDomains
+    };
+    req.session.examResults[req.session.examCount] = data;
+    req.session.examCount++;
+}
