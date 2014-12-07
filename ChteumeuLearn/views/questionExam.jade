@@ -1,14 +1,36 @@
 extends questionLayout
 
 block questionHeader
-  h1 Examen
-  article
-    span.questionNumber
-    br
-    span.questionExam #{randomQuestion.question}
-    br
-    span R&#233;ponses:
-    br
+  div(ng-controller="ExamenController")
+    h1 Examen
+    article
+      span.questionNumber
+      br
+      span.questionExam {{randomQuestion.question}}
+      br
+      span R&#233;ponses:
+      br
+      form#nextQuestionExam.nextQuestion(ng-submit="submit()")
+        div(ng-repeat="answer in randomQuestion.answers")
+          div(ng-if="$index === checkedAnswer && $index === correct")
+            input(id="{{$index}}", class='answer', type='radio',ng-model='$parent.$parent.selectedAnswer', name ='answer', value="{{$index}}", checked='checked', data-correct='correct')
+            span(id="{{$index}}", class="underlineGreen",data="rightAnswer") {{answer}}
+            br
+          div(ng-if="$index === checkedAnswer && $index !== correct")
+            input(id="{{$index}}", class='answer', type='radio',ng-model='$parent.$parent.selectedAnswer', name ='answer', value="{{$index}}", checked='checked', data-correct='incorrect')
+            span(id="{{$index}}",class="underlineRed") {{answer}}
+            br
+          div(ng-if="$index !== checkedAnswer && $index === correct")
+            input(id="{{$index}}", class='answer', type='radio',ng-model='$parent.$parent.selectedAnswer', name ='answer', value="{{$index}}", data-correct='incorrect')
+            span(id="{{$index}}",class="underlineGreen") {{answer}}
+            br
+          div(ng-if="$index !== checkedAnswer && $index !== correct")
+            input(id="{{$index}}", type='radio',class='answer',ng-model='$parent.$parent.selectedAnswer', name ='answer', value="{{$index}}")
+            span(id="{{$index}}") {{answer}}
+        br
+        button#buttonNext(type="submit")
+          img(src="images/pin.png")
+          | {{button}}
      
 block questionFooter
   button#forfeitExam
@@ -16,6 +38,6 @@ block questionFooter
     | Abandonner
   br
   p#progress Progression : 
-    progress(id="examProgress", value="0")
+    progress(id="examProgress", value="{{progressValue}}", max="{{maxQuestionNumber}}")
     span(id="progressDisplay")
     br

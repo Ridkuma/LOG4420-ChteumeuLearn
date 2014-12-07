@@ -11,7 +11,7 @@ block content
           button(name='quickTestButton', type='submit') Commencer
             img(src='images/pin.png')
       article
-        form.getExam(action='/dashboard' method="POST")
+        form.getExam(ng-submit="submitExam()")
           fieldset
             legend Exam
             label(for='testDomain') Domaines
@@ -21,12 +21,12 @@ block content
             br
             label(for="questionNumber") Nombre de questions:
             br
-            input#questionCount(type="range", step="1", min="1", max='{{maxQuestionNumber}}', name='numQuestionSelected')
-            span#selectedQuestionCount 0
+            input#questionCount(type="range", step="1", min="1", max='{{maxQuestionCount}}', name='numQuestionSelected', ng-model="selectedQuestionCount", ng-change="onQuestionCountChanged()", disabled)
+            span#selectedQuestionCount {{selectedQuestionCount}}
             | /
-            span#maxQuestionCount {{maxQuestionNumber}}
+            span#maxQuestionCount {{maxQuestionCount}}
             br
-            button#finalTestButton(type="submit")
+            button#finalTestButton(type="submit" disabled)
               img(src="images/pin.png")
               | Commencer
       article.shifted

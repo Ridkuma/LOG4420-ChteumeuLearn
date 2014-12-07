@@ -55,9 +55,9 @@ exports.questionExam = function(req,res) {
 	var randomQuestion;
 	if(req.session.questsIds != 0){
 		var randPick = Math.floor(Math.random()* questions.length);
-    randomQuestion = questions[randPick];
-    req.session.actualQuestion = randomQuestion;
-    questions.splice(randPick,1);      
+        randomQuestion = questions[randPick];
+        req.session.actualQuestion = randomQuestion;
+        questions.splice(randPick,1);      
 		req.session.questsIds=questions;
 		console.log(randomQuestion);
 		res.render('questionExam', { title: 'Examen - Chteumeulearn',
@@ -114,7 +114,6 @@ exports.postDomains = function (req,res) {
 		req.session.numQuestions=req.session.questsIds.length;
 		var max=req.session.numQuestions;
 		res.json(max);
-		
 	});
 }
 
@@ -136,4 +135,33 @@ exports.getAnswer = function (req, res) {
 	Question.getAnswer(id,function(answer){
 		res.json(answer);
 	});
+}
+
+exports.postExamChoices = function (req, res) {
+	var selection = JSON.parse(req.params.selection);
+
+    Question.getIds(selection.domains,0,function(questions){
+        req.session.questsIds = questions;
+    });
+
+	var questionsExam =[];
+	for(var i = 0;i< selection.count;i++){
+		var randPick = Math.floor(Math.random()* req.session.questsIds.length);
+      	questionsExam[i] = req.session.questsIds[randPick];
+      	req.session.questsIds.splice(randPick,1);      
+	}
+	req.session.questsIds=questionsExam;
+    req.session.remainingExamQuestion = selection.count;
+    res.json();
+}
+
+exports.getQuestionExam = function(req,res) {
+    if(req.session.remainingExamQuestion != 0){
+        var randPick = Math.floor(Math.random()* req.session.questsIds.length);
+        var randomQuestion = req.session.questsIds[randPick];
+        var data = {id: randomQuestion.id, question: randomQuestion.question, answers: randomQuestion.answers}
+        req.session.questsIds.splice(randPick,1);
+        req.session.remainingExamQuestion--;
+        res.json(data);
+    }
 }
