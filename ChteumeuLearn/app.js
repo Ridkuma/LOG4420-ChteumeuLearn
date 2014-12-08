@@ -60,6 +60,9 @@ app.get('/api/getAnsweredQuestionTest', dashboard.getAnsweredQuestionTest);
 app.get('/api/getCorrectAnswersTest', dashboard.getCorrectAnswersTest);
 app.get('/api/getLastExamResults', dashboard.getLastExamResults);
 app.get('/api/getAllExamsInfo', dashboard.getAllExamsInfo);
+app.get('/api/getTotalCountExams', dashboard.getTotalCountExams);
+app.get('/api/getAverageExams', dashboard.getAverageExams);
+
 app.post('/api/postExamChoices/:selection', dashboard.postExamChoices);
 app.post('/api/postStats/:stats', dashboard.saveStats);
 app.post('/api/postExamResults/:results', dashboard.postExamResults);

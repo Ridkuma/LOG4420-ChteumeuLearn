@@ -144,3 +144,29 @@ exports.getAllExamsInfo = function(req,res) {
     var data = req.session.examResults;
     res.json(data);
 }
+
+exports.getTotalCountExams = function(req,res){
+	if(typeof(req.session.examResults) === 'undefined'){
+		req.session.examResults=[];
+	}
+	
+	res.json(req.session.examResults.length);
+}
+
+exports.getAverageExams = function(req,res){
+	if(typeof(req.session.examResults) === 'undefined'){
+		res.json(0);
+	}
+	else{
+   var array = req.session.examResults;
+   var maxScore = 0;
+   var score  =0;
+   for(var i = 0; i < array.length;i++){
+    score += parseInt(array[i].score);
+    maxScore += parseInt(array[i].maxScore);
+   }
+   var average = (score/maxScore)*100;
+	 res.json(average);	
+	}
+	
+}

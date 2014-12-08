@@ -36,15 +36,15 @@ block content
             img(src="images/pin.png")
             | Ajouter des questions
 
-    aside(ng-controller="QuickTestController")
+    aside(ng-controller="AsideController")
       h1 Statistiques
       p
-        span#testStats Note cumulative tests : {{getCorrectAnswers()}}/{{getAnsweredQuestions()}}
+        span#testStats Note cumulative tests : {{countCorrectAnswer}}/{{answeredQuestionsTest}}
         br
         | Examens pass&#233;s :
-        span#examCount 0
+        span#examCount {{totalCountExams}}
         br
-        span#examAverage Moyenne des examens: 0% (0/0)
+        span#examAverage Moyenne des examens: {{averageExams}}% (0/0)
         br
         a(href="#details")
           button(name="getDetails" ng-click="updateDetails()")

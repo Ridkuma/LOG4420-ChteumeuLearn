@@ -7,15 +7,15 @@ chteumeulearn.controller('AsideController',
         $scope.countCorrectAnswer = $rootScope.countCorrectAnswer;    
       });
 
-      function getCorrectAnswers(){
-        console.log($rootScope.countCorrectAnswer);
-          
-      }
+      AsideModel.getTotalCountExams(function(){
+        $scope.totalCountExams = $rootScope.totalCountExams;    
+      });
 
-      function getAnsweredQuestions(){
-        console.log($rootScope.answeredQuestionsTest);
-          
-      }
+      AsideModel.getAverageExams(function(){
+        $scope.averageExams = $rootScope.averageExams;    
+      });
+
+      
       
         
     });
@@ -38,7 +38,24 @@ chteumeulearn.service('AsideModel',
                 
               });
 
-            },
+          },
+          
+          getTotalCountExams : function(callback){
+            $http.get('/api/getTotalCountExams').success(function(data, status, headers, config){
+                $rootScope.totalCountExams=parseInt(data);
+                callback;
+                
+            });
+
+          },
+
+          getAverageExams : function(callback){
+            $http.get('/api/getAverageExams').success(function(data, status, headers, config){
+                $rootScope.averageExams=parseInt(data);
+                callback;
+                
+            });
+          }
             
         }
     }
