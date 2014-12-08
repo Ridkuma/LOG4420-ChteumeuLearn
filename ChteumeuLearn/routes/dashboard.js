@@ -183,9 +183,21 @@ exports.postExamResults = function(req,res) {
     var results = JSON.parse(req.params.results);
     var data = {
         score: results.score,
-        maxScore: results.maxScore,
+        maxScore: results.maxScore + req.session.remainingExamQuestion,
         domains: req.session.examDomains
     };
     req.session.examResults[req.session.examCount] = data;
     req.session.examCount++;
+}
+
+exports.getLastExamResults = function(req,res) {
+    res.json(req.session.examResults[req.session.examCount-1]);
+}
+
+exports.getAllExamsInfo = function(req,res) {
+    var data = {
+        exams: req.session.examResults,
+        count: req.session.examCount
+    };
+    res.json(data);
 }

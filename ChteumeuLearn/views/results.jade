@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 Examen termine !
-  p#finalResult
+  p#finalResult {{getResultText()}}
   a(href="dashboard")
     button(name="startButton")
       img(src="images/pin.png")

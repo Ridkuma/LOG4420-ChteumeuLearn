@@ -23,7 +23,19 @@ chteumeulearn.controller('DashboardController',
             DashboardModel.postExamChoices($scope.selected, $scope.selectedQuestionCount, function(){
             });
             $window.location.href = '/questionExam';
-        }
+        };
+
+        $scope.updateDetails = function() {
+            var table = $("#details #detailsTable");
+            var results = JSON.parse(localStorage.results);
+            for (var i =0; i<results.length; i++) {
+                var $row = $("<tr/>").appendTo(table);
+                $row.append("<td>" + (i + 1) + "</td>");
+                $row.append("<td>" + results[i] + "</td>");
+                var domains = JSON.parse(localStorage.domains);
+                $row.append("<td>" + domains[i] + "</td>");
+            };
+        };
     });
 
 chteumeulearn.service('DashboardModel',
@@ -32,6 +44,13 @@ chteumeulearn.service('DashboardModel',
 
             getMaxQuestionCount : function(selected,callback) {
                 $http.get('/api/postDomains/' + JSON.stringify(selected)).success(function(data, status, headers, config){
+                    $rootScope.maxQuestionCount = data;
+                    callback;
+                });
+            },
+
+            getAllExamsInfo : function(callback) {
+                http.get('/api/getAllExamsInfo/' + JSON.stringify(selected)).success(function(data, status, headers, config){
                     $rootScope.maxQuestionCount = data;
                     callback;
                 });

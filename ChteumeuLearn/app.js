@@ -64,6 +64,8 @@ app.get('/api/postDomains/:domains', dashboard.postDomains);
 app.get('/api/getAnswer/:id', dashboard.getAnswer);
 app.get('/api/getAnsweredQuestionTest', dashboard.getAnsweredQuestionTest);
 app.get('/api/getCorrectAnswersTest', dashboard.getCorrectAnswersTest);
+app.get('/api/getLastExamResults', dashboard.getLastExamResults);
+app.get('/api/getAllExamsInfo', dashboard.getAllExamsInfo);
 app.post('/api/postExamChoices/:selection', dashboard.postExamChoices);
 app.post('/api/postStats/:stats', dashboard.saveStats);
 app.post('/api/postExamResults/:results', dashboard.postExamResults);
