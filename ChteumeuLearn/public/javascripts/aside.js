@@ -12,8 +12,13 @@ chteumeulearn.controller('AsideController',
       });
 
       AsideModel.getAverageExams(function(){
-        console.log(typeof($rootScope.averageExams));
-        $scope.averageExams = $rootScope.averageExams;    
+        if(isNaN($rootScope.averageExams)){
+          $scope.averageExams = '0';
+        }
+        else{
+          $scope.averageExams = $rootScope.averageExams;      
+        }
+        
       });
 
       
