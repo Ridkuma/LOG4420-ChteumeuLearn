@@ -161,13 +161,13 @@ exports.getAverageExams = function(req,res){
 	}
 	else{
 		var array = req.session.examResults;
-	   var maxScore = 0;
-	   var score  =0;
-	   for(var i = 0; i < array.length;i++){
-	    score += parseInt(array[i].score);
-	    maxScore += parseInt(array[i].maxScore);
-	   }
-	   var average = (score/maxScore)*100;
+ 		var maxScore = 0;
+ 		var score  =0;
+ 		for(var i = 0; i < array.length;i++){
+  		score += parseInt(array[i].score);
+  		maxScore += parseInt(array[i].maxScore);
+ 		}	
+ 		var average = (score/maxScore)*100;
 	   
 
 	}

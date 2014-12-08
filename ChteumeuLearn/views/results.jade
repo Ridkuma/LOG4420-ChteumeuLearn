@@ -3,7 +3,9 @@ extends layout
 block content
   div(ng-controller='ResultsController')
     h1 Examen termine !
-    p#finalResult {{resultText}}
+    p Domaines: {{domains}}
+    p#finalResult Résultat de l'examen : {{score}}/{{maxScore}}  
+    p{{resultText}}
     a(href="dashboard")
       button(name="startButton")
         img(src="images/pin.png")
