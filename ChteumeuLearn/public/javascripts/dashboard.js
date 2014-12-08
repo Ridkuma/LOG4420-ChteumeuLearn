@@ -35,8 +35,15 @@ chteumeulearn.controller('DashboardController',
                     $row.append("<td>" + info[i].domains + "</td>");
                 };
             });
-            
         };
+
+        $scope.resetStats = function(){
+            DashboardModel.postReset();
+            $rootScope.answeredQuestionsTest = 0;
+            $rootScope.countCorrectAnswer = 0;
+            $rootScope.totalCountExams = 0;
+            $rootScope.averageExams = null;
+        }
     });
 
 chteumeulearn.service('DashboardModel',
@@ -60,6 +67,11 @@ chteumeulearn.service('DashboardModel',
                 var object = {domains : selected, count : questionCount};
                 $http.post('/api/postExamChoices/' + JSON.stringify(object)).success(function(data, status, headers, config){
                     callback;
+                });
+            },
+
+            postReset : function () {
+                $http.post('/api/postReset/').success(function(data, status, headers, config){
                 });
             }
         }

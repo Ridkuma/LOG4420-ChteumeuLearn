@@ -2,3 +2,5 @@ TP1 : 2h30
 TP2 : 15h
 TP3 : 15h
 TP4 : 14h
+TP5 : 5h
+TP6 : 22h

@@ -172,7 +172,12 @@ exports.getAverageExams = function(req,res){
 
 	}
 	res.json(average);
-	   	
-	
-	
+}
+
+exports.postReset = function(req,res) {
+    req.session.examResults = [];
+    req.session.examCount = 0;
+    req.session.correctAnswersTest = 0;
+    req.session.answeredQuestionTest = 0;
+    res.json();
 }

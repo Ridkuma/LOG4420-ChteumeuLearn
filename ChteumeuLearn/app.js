@@ -66,6 +66,8 @@ app.get('/api/getAverageExams', dashboard.getAverageExams);
 app.post('/api/postExamChoices/:selection', dashboard.postExamChoices);
 app.post('/api/postStats/:stats', dashboard.saveStats);
 app.post('/api/postExamResults/:results', dashboard.postExamResults);
+app.post('/api/postReset/', dashboard.postReset);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
