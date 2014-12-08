@@ -18,7 +18,8 @@ chteumeulearn.controller('QuickTestController',
               $scope.correct = parseInt(data); 
               $scope.checkedAnswer = parseInt($scope.selectedAnswer);
               QuickTestModel.getStatsTest($scope.correct,$scope.checkedAnswer);
-              $scope.button = 'Suivant';
+              $scope.button = 'Suivant'; 
+              
              });
             
           }
@@ -95,6 +96,11 @@ chteumeulearn.service('QuickTestModel',
                 $rootScope.countCorrectAnswer = parseInt($rootScope.countCorrectAnswer)+1;
               }
               $rootScope.answeredQuestionsTest = parseInt($rootScope.answeredQuestionsTest)+1;
+              var testStats=[];
+              testStats.push( $rootScope.countCorrectAnswer);
+              testStats.push( $rootScope.answeredQuestionsTest);
+              $http.post('/api/postStats/'+ JSON.stringify(testStats));
+
             }
         }
     }
