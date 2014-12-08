@@ -6,7 +6,6 @@ var Question = require('../models/question.js');
  */
 
 exports.dashboard = function(req,res){
-	console.log('here')
 	res.render('dashboard', { title: 'Tableau de Bord - Chteumeulearn'});
 };
 
@@ -51,27 +50,7 @@ exports.selectExam = function(req,res) {
 }
 
 exports.questionExam = function(req,res) {
-	var numQuestionsSelected = req.body.numQuestionSelected;
-	var questions = req.session.questsIds;
-	var randomQuestion;
-	if(req.session.questsIds != 0){
-		var randPick = Math.floor(Math.random()* questions.length);
-        randomQuestion = questions[randPick];
-        req.session.actualQuestion = randomQuestion;
-        questions.splice(randPick,1);      
-		req.session.questsIds=questions;
-		console.log(randomQuestion);
-		res.render('questionExam', { title: 'Examen - Chteumeulearn',
-									 randomQuestion : randomQuestion,
-									 method:"POST", 
-									 action:'/questionExam',
-									 checkedAnswer:-1,
-									 correct:-1,
-									 button:"Corriger"});
-	}
-	else{
-		res.redirect('/results');
-	}
+	res.render('questionExam');
 }
 
 exports.checkAnswer = function(req,res) {
@@ -144,15 +123,14 @@ exports.postExamChoices = function (req, res) {
     Question.getIds(selection.domains,0,function(questions){
         req.session.questsIds = questions;
     });
-
 	var questionsExam =[];
-	for(var i = 0;i< selection.count;i++){
+	for(var i = 0;i< parseInt(selection.count);i++){
 		var randPick = Math.floor(Math.random()* req.session.questsIds.length);
       	questionsExam[i] = req.session.questsIds[randPick];
       	req.session.questsIds.splice(randPick,1);      
 	}
 	req.session.questsIds = questionsExam;
-    req.session.remainingExamQuestion = selection.count;
+    req.session.remainingExamQuestion = parseInt(selection.count);
     req.session.examDomains = selection.domains;
     res.json();
 }
@@ -168,7 +146,7 @@ exports.getQuestionExam = function(req,res) {
             remaining: req.session.remainingExamQuestion
         };
         req.session.questsIds.splice(randPick,1);
-        req.session.remainingExamQuestion--;
+        req.session.remainingExamQuestion -= 1;
         res.json(data);
     }
 }

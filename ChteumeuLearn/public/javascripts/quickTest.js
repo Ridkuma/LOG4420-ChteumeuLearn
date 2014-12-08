@@ -65,17 +65,15 @@ chteumeulearn.service('QuickTestModel',
              
             },
 
-            getCorrectAnswersFromServer : function(callback){
+            getCorrectAnswersFromServer : function(){
               $http.get('/api/getCorrectAnswersTest').success(function(data, status, headers, config){
-                $rootScope.countCorrectAnswer=parseInt(data);
-                callback(data);       
+                $rootScope.countCorrectAnswer=parseInt(data);  
               });
             },
 
-            getAnsweredQuestionTestFromServer : function(callback){
+            getAnsweredQuestionTestFromServer : function(){
               $http.get('/api/getAnsweredQuestionTest').success(function(data, status, headers, config){
                 $rootScope.answeredQuestionsTest=parseInt(data);
-                callback(data);       
               });
 
             },

@@ -33,7 +33,7 @@ chteumeulearn.controller('ExamenController',
               $rootScope.countCorrectAnswer = $scope.countCorrectAnswer;
             });
 
-            if ($scope.remaining == 0) {
+            if ($scope.remaining === 0) {
               $scope.button = 'Terminer';                
             } else {
               $scope.button = 'Suivant'; 
@@ -64,6 +64,7 @@ chteumeulearn.service('ExamenModel',
     function($rootScope, $http, $window) {
         return {
             getQuestionExam : function(callback) {
+              console.log('getQuestionExam');
                 $http.get('/api/getQuestionExam/').success(function(data, status, headers, config){
                     callback(data);
                 });
