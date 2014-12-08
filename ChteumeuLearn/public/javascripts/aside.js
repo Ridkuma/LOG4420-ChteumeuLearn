@@ -12,12 +12,7 @@ chteumeulearn.controller('AsideController',
       });
 
       AsideModel.getAverageExams(function(){
-        if(isNaN($rootScope.averageExams)){
-          $scope.averageExams = '0';
-        }
-        else{
           $scope.averageExams = $rootScope.averageExams;      
-        }
         
       });
 
@@ -50,6 +45,7 @@ chteumeulearn.service('AsideModel',
             $http.get('/api/getTotalCountExams').success(function(data, status, headers, config){
                 $rootScope.totalCountExams=parseInt(data);
 
+
                 callback;
                 
             });
@@ -59,6 +55,9 @@ chteumeulearn.service('AsideModel',
           getAverageExams : function(callback){
             $http.get('/api/getAverageExams').success(function(data, status, headers, config){
                 $rootScope.averageExams=parseInt(data);
+                if(isNaN($rootScope.averageExams)){
+                  $rootScope.averageExams = 0;
+                }
                 callback;
                 
             });
