@@ -1,17 +1,7 @@
-$(document).ready(loadSite);
-
-function loadSite() {
-    var url = window.location.pathname.split("/");
-    var location = url[url.length-1];
-
-    // On question add
-    if (location.indexOf('addQuestion') != -1) {
-        window.firstKeyPress = true;
-        $('.lastAnswer').keypress(onAnswerFieldKeyPress);
-        $('.lastAnswer').blur(onAnswerFieldFocusOut);
-        $('#addQuestionButton').click(onAddQuestionButtonClicked);
-    }
-};
+window.firstKeyPress = true;
+$('.lastAnswer').keypress(onAnswerFieldKeyPress);
+$('.lastAnswer').blur(onAnswerFieldFocusOut);
+$('#addQuestionButton').click(onAddQuestionButtonClicked);
 
 // Add Question
 

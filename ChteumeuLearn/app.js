@@ -45,21 +45,15 @@ app.get('/', routes.index);
 app.get('/howto', howto.howto);
 app.get('/dashboard',dashboard.dashboard);
 app.get('/addQuestion',addQuestion.addQuestion);
-app.post('/dashboard',dashboard.selectExam);
-app.post('/getNumQuestions',dashboard.getNumQuestions);
 app.get('/questionTest',dashboard.questionTest);
 app.get('/questionExam',dashboard.questionExam);
-app.post('/questionTest',dashboard.checkTestAnswer);
-app.post('/questionExam',dashboard.checkAnswer);
 app.get('/results',dashboard.results);
 app.get('/addQuestion',addQuestion.addQuestion);
 app.get('/addAllQuestions',addQuestion.addAllQuestions);
 app.post('/addQuestion',addQuestion.sendNewQuestion);
 
 app.get('/api/getRandomQuestion', dashboard.getRandomQuestion);
-// app.get('/api/getQuestionAnswer/:questionId', dashboard.getQuestionAnswer);
 app.get('/api/getQuestionExam', dashboard.getQuestionExam);
-
 app.get('/api/postDomains/:domains', dashboard.postDomains);
 app.get('/api/getAnswer/:id', dashboard.getAnswer);
 app.get('/api/getAnsweredQuestionTest', dashboard.getAnsweredQuestionTest);
@@ -69,7 +63,6 @@ app.get('/api/getAllExamsInfo', dashboard.getAllExamsInfo);
 app.post('/api/postExamChoices/:selection', dashboard.postExamChoices);
 app.post('/api/postStats/:stats', dashboard.saveStats);
 app.post('/api/postExamResults/:results', dashboard.postExamResults);
-//app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
