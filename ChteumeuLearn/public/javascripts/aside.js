@@ -12,6 +12,7 @@ chteumeulearn.controller('AsideController',
       });
 
       AsideModel.getAverageExams(function(){
+        console.log(typeof($rootScope.averageExams));
         $scope.averageExams = $rootScope.averageExams;    
       });
 
@@ -43,6 +44,7 @@ chteumeulearn.service('AsideModel',
           getTotalCountExams : function(callback){
             $http.get('/api/getTotalCountExams').success(function(data, status, headers, config){
                 $rootScope.totalCountExams=parseInt(data);
+
                 callback;
                 
             });
@@ -52,6 +54,7 @@ chteumeulearn.service('AsideModel',
           getAverageExams : function(callback){
             $http.get('/api/getAverageExams').success(function(data, status, headers, config){
                 $rootScope.averageExams=parseInt(data);
+                console.log(typeof($rootScope.averageExams));
                 callback;
                 
             });

@@ -155,18 +155,24 @@ exports.getTotalCountExams = function(req,res){
 
 exports.getAverageExams = function(req,res){
 	if(typeof(req.session.examResults) === 'undefined'){
-		res.json(0);
+		req.session.examResults=[];
+		var average = 0;
+
 	}
 	else{
-   var array = req.session.examResults;
-   var maxScore = 0;
-   var score  =0;
-   for(var i = 0; i < array.length;i++){
-    score += parseInt(array[i].score);
-    maxScore += parseInt(array[i].maxScore);
-   }
-   var average = (score/maxScore)*100;
-	 res.json(average);	
+		var array = req.session.examResults;
+	   var maxScore = 0;
+	   var score  =0;
+	   for(var i = 0; i < array.length;i++){
+	    score += parseInt(array[i].score);
+	    maxScore += parseInt(array[i].maxScore);
+	   }
+	   var average = (score/maxScore)*100;
+	   
+
 	}
+	res.json(average);
+	   	
+	
 	
 }
