@@ -128,7 +128,7 @@ exports.postExamResults = function(req,res) {
     var results = JSON.parse(req.params.results);
     var data = {
         score: results.score,
-        maxScore: results.maxScore + req.session.remainingExamQuestion,
+        maxScore: results.maxScore,
         domains: req.session.examDomains
     };
     req.session.examResults[req.session.examCount] = data;
