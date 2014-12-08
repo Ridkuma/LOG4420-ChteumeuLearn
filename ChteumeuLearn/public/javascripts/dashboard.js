@@ -27,14 +27,15 @@ chteumeulearn.controller('DashboardController',
 
         $scope.updateDetails = function() {
             var table = $("#details #detailsTable");
-            var results = JSON.parse(localStorage.results);
-            for (var i =0; i<results.length; i++) {
-                var $row = $("<tr/>").appendTo(table);
-                $row.append("<td>" + (i + 1) + "</td>");
-                $row.append("<td>" + results[i] + "</td>");
-                var domains = JSON.parse(localStorage.domains);
-                $row.append("<td>" + domains[i] + "</td>");
-            };
+            DashboardModel.getAllExamsInfo(function(info){
+                for (var i =0; i<info.length; i++) {
+                    var $row = $("<tr/>").appendTo(table);
+                    $row.append("<td>" + (i + 1) + "</td>");
+                    $row.append("<td>" + info[i].score + " / " + info[i].maxScore  + "</td>");
+                    $row.append("<td>" + info[i].domains + "</td>");
+                };
+            });
+            
         };
     });
 
@@ -50,9 +51,8 @@ chteumeulearn.service('DashboardModel',
             },
 
             getAllExamsInfo : function(callback) {
-                http.get('/api/getAllExamsInfo/' + JSON.stringify(selected)).success(function(data, status, headers, config){
-                    $rootScope.maxQuestionCount = data;
-                    callback;
+                $http.get('/api/getAllExamsInfo/').success(function(data, status, headers, config){
+                    callback(data);
                 });
             },
 

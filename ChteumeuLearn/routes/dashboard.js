@@ -196,9 +196,6 @@ exports.getLastExamResults = function(req,res) {
 }
 
 exports.getAllExamsInfo = function(req,res) {
-    var data = {
-        exams: req.session.examResults,
-        count: req.session.examCount
-    };
+    var data = req.session.examResults;
     res.json(data);
 }

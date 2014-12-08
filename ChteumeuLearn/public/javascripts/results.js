@@ -13,7 +13,6 @@ chteumeulearn.controller('ResultsController',
           else if(percent >= 75){
             $scope.resultText =  "Super ! Continue comme ça !";    
           }
-
           else{
             $scope.resultText =  'percent'
           }
