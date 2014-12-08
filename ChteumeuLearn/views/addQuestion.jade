@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  form(action="/addQuestion" method="post")
+  form(ng-controller="AddQuestionController" action="/addQuestion" method="post")
     div
       label Question:
       input(type="text" name="question" required)
