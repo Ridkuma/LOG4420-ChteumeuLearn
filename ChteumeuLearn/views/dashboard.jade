@@ -47,7 +47,7 @@ block content
         span#examAverage Moyenne des examens: 0% (0/0)
         br
         a(href="#details")
-          button(name="getDetails")
+          button(name="getDetails" ng-click="updateDetails()")
             | Details
             img(src="images/pin.png")
         button#resetStats
