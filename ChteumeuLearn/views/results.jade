@@ -1,9 +1,10 @@
 extends layout
 
 block content
-  h1 Examen termine !
-  p#finalResult {{getResultText()}}
-  a(href="dashboard")
-    button(name="startButton")
-      img(src="images/pin.png")
-      | Retour au tableau de bord
+  div(ng-controller='ResultsController')
+    h1 Examen termine !
+    p#finalResult {{resultText}}
+    a(href="dashboard")
+      button(name="startButton")
+        img(src="images/pin.png")
+        | Retour au tableau de bord

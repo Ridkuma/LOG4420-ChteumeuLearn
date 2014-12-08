@@ -188,6 +188,7 @@ exports.postExamResults = function(req,res) {
     };
     req.session.examResults[req.session.examCount] = data;
     req.session.examCount++;
+    res.json({redirect:'/results'});
 }
 
 exports.getLastExamResults = function(req,res) {

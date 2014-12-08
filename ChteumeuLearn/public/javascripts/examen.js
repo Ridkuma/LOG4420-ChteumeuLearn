@@ -12,8 +12,10 @@ chteumeulearn.controller('ExamenController',
 
         $scope.submit = function(){
           if ($scope.button === 'Terminer') {
-            ExamenModel.postExamResults($scope.countCorrectAnswer, $scope.answeredQuestions, function(){});
-            $window.location.href = '/results';
+            ExamenModel.postExamResults($scope.countCorrectAnswer, $scope.answeredQuestions, function(){
+              
+            });
+            
           }
 
           if($scope.button === 'Corriger'){
@@ -82,8 +84,10 @@ chteumeulearn.service('ExamenModel',
                 maxScore : maxScore
               };
               $http.post('/api/postExamResults/' + JSON.stringify(object)).success(function(data, status, headers, config){
-                    callback;
-              });
+                    $window.location.href = data.redirect;
+                });
+              
+              callback;
             }
         }
     }

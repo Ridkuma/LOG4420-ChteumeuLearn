@@ -1,22 +1,25 @@
 chteumeulearn.controller('ResultsController',
     function($scope, ResultsModel) {
-      $scope.getResultText = function () {
         ResultsModel.getLastExamPercentage(function(percent) {
           if(percent < 25){
-            return "Il faut étudier beaucoup plus !";    
+            $scope.resultText =  "Il faut étudier beaucoup plus !";    
           }
-          if(percent >= 25 && percent < 50){
-            return "Presque à la moyenne, un peu plus d'effort !";    
+          else if(percent >= 25 && percent < 50){
+            $scope.resultText =  "Presque à la moyenne, un peu plus d'effort !";    
           }
-          if(percent >= 50 && percent < 75){
-            return "Sur la moyenne, bon travail mais tu peux améliorer !";    
+          else if(percent >= 50 && percent < 75){
+            $scope.resultText = "Sur la moyenne, bon travail mais tu peux améliorer !";    
           }
-          if(percent >= 75){
-            return "Super ! Continue comme ça !";    
+          else if(percent >= 75){
+            $scope.resultText =  "Super ! Continue comme ça !";    
+          }
+
+          else{
+            $scope.resultText =  'percent'
           }
         });
-      });
-    });
+    }
+);
 
 chteumeulearn.service('ResultsModel',
     function($rootScope, $http, $window) {
