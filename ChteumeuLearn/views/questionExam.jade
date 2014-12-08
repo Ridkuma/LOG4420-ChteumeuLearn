@@ -31,13 +31,15 @@ block questionHeader
         button#buttonNext(type="submit")
           img(src="images/pin.png")
           | {{button}}
+
+      button#forfeitExam(ng-click="forfeit()")
+        img(src="images/pin.png")
+        | Abandonner
+      br
+      p#progress Progression : 
+        progress(id="examProgress", value="{{answeredQuestions}}", max="{{maxQuestionNumber}}")
+        span(id="progressDisplay")
+        br
      
 block questionFooter
-  button#forfeitExam
-    img(src="images/pin.png")
-    | Abandonner
-  br
-  p#progress Progression : 
-    progress(id="examProgress", value="{{progressValue}}", max="{{maxQuestionNumber}}")
-    span(id="progressDisplay")
-    br
+      

@@ -3,7 +3,7 @@ chteumeulearn.controller('ExamenController',
         if(typeof($scope.button) === 'undefined'){
           $scope.button = 'Corriger';
         }
-        $scope.remaining = 100;
+        $scope.remaining = -1;
         $scope.correct = -1;
         $scope.checkedAnswer = -1;
         $scope.selectedAnswer = "";
@@ -12,10 +12,7 @@ chteumeulearn.controller('ExamenController',
 
         $scope.submit = function(){
           if ($scope.button === 'Terminer') {
-            ExamenModel.postExamResults($scope.countCorrectAnswer, $scope.answeredQuestions, function(){
-              
-            });
-            
+            ExamenModel.postExamResults($scope.countCorrectAnswer, $scope.maxQuestionNumber, function(){});
           }
 
           if($scope.button === 'Corriger'){
@@ -31,8 +28,6 @@ chteumeulearn.controller('ExamenController',
                 $scope.countCorrectAnswer++;
               }
               $scope.answeredQuestions++;
-              $rootScope.answeredQuestions = $scope.answeredQuestions;
-              $rootScope.countCorrectAnswer = $scope.countCorrectAnswer;
             });
 
             if ($scope.remaining === 0) {
@@ -51,13 +46,17 @@ chteumeulearn.controller('ExamenController',
               $scope.remaining = data.remaining - 1;   
             });
           }
+        }
 
+        $scope.forfeit = function() {
+          ExamenModel.postExamResults(0, $scope.maxQuestionNumber, function(){});
         }
 
         if (typeof($scope.randomQuestion)==='undefined') {
             ExamenModel.getQuestionExam(function(data){
                 $scope.randomQuestion = data;
                 $scope.remaining = data.remaining - 1;
+                $scope.maxQuestionNumber = data.remaining;
              });
         }   
     });
@@ -66,7 +65,6 @@ chteumeulearn.service('ExamenModel',
     function($rootScope, $http, $window) {
         return {
             getQuestionExam : function(callback) {
-              console.log('getQuestionExam');
                 $http.get('/api/getQuestionExam/').success(function(data, status, headers, config){
                     callback(data);
                 });
